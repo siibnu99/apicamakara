@@ -12,8 +12,9 @@ class Filters extends BaseConfig
 		'csrf'     => \CodeIgniter\Filters\CSRF::class,
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
-		'noauth' => \App\Filters\Noauth::class,
-		'auth' => \App\Filters\Auth::class,
+		'login'      => \Myth\Auth\Filters\LoginFilter::class,
+		'role'       => \Myth\Auth\Filters\RoleFilter::class,
+		'permission' => \Myth\Auth\Filters\PermissionFilter::class,
 		'options' => \App\Filters\Options::class,
 	];
 

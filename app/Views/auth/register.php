@@ -14,11 +14,11 @@
                         <?= view('Myth\Auth\Views\_message_block') ?>
                     </div>
                     <hr>
-                    <p>atau sudah memiliki akun ? <a href="<?= route_to('login') ?>">Masuk sekarang</a> </p>
+                    <p>atau sudah memiliki akun ? <a href="<?= base_url('login') ?>">Masuk sekarang</a> </p>
                 </div>
 
                 <div class="card-body">
-                    <form action="<?= route_to('register') ?>" method="post">
+                    <form action="<?= base_url('register') ?>" method="post">
                         <?= csrf_field() ?>
 
                         <div class="form-group">

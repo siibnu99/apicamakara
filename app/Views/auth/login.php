@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="<?= route_to('login') ?>" method="post">
+                    <form action="<?= base_url('login') ?>" method="post">
                         <?= csrf_field() ?>
                         <div class="form-group">
                             <label for="">Email</label>
@@ -29,7 +29,7 @@
                             <input type="password" name="password" placeholder="Password">
                         </div>
 
-                        <a href="<?= route_to('forgot') ?>">Lupa Password ?</a>
+                        <a href="<?= base_url('forgot') ?>">Lupa Password ?</a>
 
                         <button type="submit" class="btn-login">Masuk</button>
                     </form>
