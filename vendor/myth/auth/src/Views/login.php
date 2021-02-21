@@ -1,74 +1,47 @@
-<?= $this->extend($config->viewLayout) ?>
-<?= $this->section('main') ?>
+<?= $this->extend('template/auth') ?>
 
-<div class="container">
-	<div class="row">
-		<div class="col-sm-6 offset-sm-3">
+<?= $this->section('content') ?>
 
+<body class="login-page">
+
+	<section class="main">
+		<div class="content">
 			<div class="card">
-				<h2 class="card-header"><?=lang('Auth.loginTitle')?></h2>
-				<div class="card-body">
-
-					<?= view('Myth\Auth\Views\_message_block') ?>
-
-					<form action="<?= route_to('login') ?>" method="post">
-						<?= csrf_field() ?>
-
-<?php if ($config->validFields === ['email']): ?>
-						<div class="form-group">
-							<label for="login"><?=lang('Auth.email')?></label>
-							<input type="email" class="form-control <?php if(session('errors.login')) : ?>is-invalid<?php endif ?>"
-								   name="login" placeholder="<?=lang('Auth.email')?>">
-							<div class="invalid-feedback">
-								<?= session('errors.login') ?>
-							</div>
-						</div>
-<?php else: ?>
-						<div class="form-group">
-							<label for="login"><?=lang('Auth.emailOrUsername')?></label>
-							<input type="text" class="form-control <?php if(session('errors.login')) : ?>is-invalid<?php endif ?>"
-								   name="login" placeholder="<?=lang('Auth.emailOrUsername')?>">
-							<div class="invalid-feedback">
-								<?= session('errors.login') ?>
-							</div>
-						</div>
-<?php endif; ?>
-
-						<div class="form-group">
-							<label for="password"><?=lang('Auth.password')?></label>
-							<input type="password" name="password" class="form-control  <?php if(session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?=lang('Auth.password')?>">
-							<div class="invalid-feedback">
-								<?= session('errors.password') ?>
-							</div>
-						</div>
-
-<?php if ($config->allowRemembering): ?>
-						<div class="form-check">
-							<label class="form-check-label">
-								<input type="checkbox" name="remember" class="form-check-input" <?php if(old('remember')) : ?> checked <?php endif ?>>
-								<?=lang('Auth.rememberMe')?>
-							</label>
-						</div>
-<?php endif; ?>
-
-						<br>
-
-						<button type="submit" class="btn btn-primary btn-block"><?=lang('Auth.loginAction')?></button>
-					</form>
-
+				<div class="card-heading">
+					<img src="<?= base_url() ?>/assets/images/logo-1.png" alt="">
+					<h1>Camakara</h1>
+					<div style="text-align: center; font-size:small;">
+						<?= view('Myth\Auth\Views\_message_block') ?>
+					</div>
 					<hr>
+				</div>
 
-<?php if ($config->allowRegistration) : ?>
-					<p><a href="<?= route_to('register') ?>"><?=lang('Auth.needAnAccount')?></a></p>
-<?php endif; ?>
-<?php if ($config->activeResetter): ?>
-					<p><a href="<?= route_to('forgot') ?>"><?=lang('Auth.forgotYourPassword')?></a></p>
-<?php endif; ?>
+				<div class="card-body">
+					<form action="<?= base_url('login') ?>" method="post">
+						<?= csrf_field() ?>
+						<div class="form-group">
+							<label for="">Email</label>
+							<input type="email" name="login" placeholder="Email">
+						</div>
+
+						<div class="form-group">
+							<label for="">Password</label>
+							<input type="password" name="password" placeholder="Password">
+						</div>
+
+						<a href="<?= base_url('forgot') ?>">Lupa Password ?</a>
+
+						<button type="submit" class="btn-login">Masuk</button>
+					</form>
 				</div>
 			</div>
-
 		</div>
-	</div>
-</div>
+	</section>
+
+
+	<script src="<?= base_url() ?>/assets/js/jquery-3.5.1.min.js"></script>
+	<script src="<?= base_url() ?>/assets/js/style.js"></script>
+
+</body>
 
 <?= $this->endSection() ?>
