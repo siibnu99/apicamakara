@@ -56,12 +56,27 @@ $routes->get('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::editbobot/$1/$2
 $routes->post('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::attempteditbobot/$1/$2', ['filter' => 'role:admin']);
 $routes->get('/tryout/detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'role:admin']);
 // ==========================================================================
-
-
 $routes->get('/api/user/islogin', 'Apiuser::islogin');
 $routes->post('/api/user/forgot', 'Apiuser::forgot');
 $routes->post('/api/user/login', 'Apiuser::index');
 $routes->resource('/api/user', ['controller' => 'Apiuser']);
+// ==========================================================================
+$routes->resource('/api/address/prov', ['controller' => 'Apiprov']);
+// ==========================================================================
+// ==========================================================================
+$routes->get('/api/address/reg/get/(:segment)', 'Apireg::get/$1');
+$routes->resource('/api/address/reg', ['controller' => 'Apireg']);
+// ==========================================================================
+// ==========================================================================
+$routes->resource('/api/graduet/univ', ['controller' => 'Apiuniv']);
+// ==========================================================================
+// ==========================================================================
+$routes->get('/api/graduet/prodi/get/(:segment)', 'Apiprodi::get/$1');
+$routes->resource('/api/graduet/prodi', ['controller' => 'Apiprodi']);
+// ==========================================================================
+// ==========================================================================
+$routes->resource('/api/tryout', ['controller' => 'Apitryout']);
+// ==========================================================================
 
 /**
  * --------------------------------------------------------------------

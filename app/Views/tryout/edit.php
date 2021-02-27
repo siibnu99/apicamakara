@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-lg-12 col-md-12">
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <?= csrf_field() ?>
             <div class="row">
                 <div class="col-lg-6 col-md-12">
@@ -23,6 +23,16 @@
                         <div class="invalid-feedback">
                             <?= $validation->getError('descript') ?>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Gambar Soal</label>
+                        <input type="file" id="sampul" class="form-control <?= ($validation->hasError('image')) ? 'is-invalid' : "" ?>" name="image" onchange="previewImg()">
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('image') ?>
+                        </div>
+                    </div>
+                    <div class="ml-2 col-sm-6">
+                        <img src="<?= base_url() . '/assets/image/tryout/' . $tryout['image']   ?>" id="preview" class="img-thumbnail">
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -360,6 +370,18 @@
         $('.syarat-pembayaran-gratis').hide();
     } else if ($('#metode_pembayaran option:selected').attr("value") == 3) {
         $('.syarat-pembayaran-gratis').hide();
+    }
+
+    function previewImg() {
+        const sampul = document.querySelector('#sampul');
+        const imgPreview = document.querySelector('#preview');
+
+        const fileSampul = new FileReader();
+        fileSampul.readAsDataURL(sampul.files[0]);
+
+        fileSampul.onload = function(e) {
+            imgPreview.src = e.target.result;
+        }
     }
 </script>
 

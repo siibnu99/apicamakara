@@ -124,19 +124,23 @@ class Apiuser extends ResourceController
     {
         $tokenjwt = new Tokenjwt;
         $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        $data = $this->model->find($id);
-        $upload = $this->request->getFile('userimage');
-        if ($upload->getError() == 4) {
-            $nameimage = $data['image'];
+        if ($data['status'] == 200) {
         } else {
-            if ($data['image'] != 'defaut.svg') {
-                unlink('assets/img/user/' . $data['image']);
-            }
-            $nameimage = $upload->getRandomName();
-            $upload->move('assets/img/user/', $nameimage);
+            return $this->respond($data, 401);
         }
+        // $data = $this->model->find($id);
+        // $upload = $this->request->getFile('userimage');
+        // if ($upload->getError() == 4) {
+        //     $nameimage = $data['image'];
+        // } else {
+        //     if ($data['image'] != 'defaut.svg') {
+        //         unlink('assets/img/user/' . $data['image']);
+        //     }
+        //     $nameimage = $upload->getRandomName();
+        //     $upload->move('assets/img/user/', $nameimage);
+        // }
         $json = $this->request->getJSON();
-        $post = $this->model->update([
+        $post = $this->model->update($id, [
             'firstname'     => $json->firstname,
             'lastname'     => $json->lastname,
             'fullname'     => $json->firstname . ' ' . $json->lastname,
@@ -149,7 +153,6 @@ class Apiuser extends ResourceController
             'univ2_id'   => $json->univ2_id,
             'prodi1_id'   => $json->prodi1_id,
             'prodi2_id'   => $json->prodi2_id,
-            'image_profile'   => $$nameimage,
         ]);
         $msg = ['message' => 'Update user successfully'];
         $response = [

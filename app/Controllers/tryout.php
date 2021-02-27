@@ -72,6 +72,14 @@ class Tryout extends BaseController
                     'required' => '{field} Harus di pilih',
                 ]
             ],
+            'image' => [
+                'label'  => 'Gambar',
+                'rules'  => 'uploaded[image]|max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
             // 'rule1' => [
             //     'label'  => 'Persyaratan 1',
             //     'rules'  => 'required',
@@ -277,9 +285,12 @@ class Tryout extends BaseController
             // ],
         ]))
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-
+        $uploadimage = $this->request->getFile('image');
+        $nameimage = $uploadimage->getRandomName();
+        $uploadimage->move('assets/image/tryout/', $nameimage);
         $data = $this->request->getVar();
         $data['id_tryout'] = $this->Uuid->v4();
+        $data['image'] = $nameimage;
         $cat = '';
         foreach ($data['cat_tryout'] as $item) {
             $cat = $cat .  $item;
@@ -350,6 +361,14 @@ class Tryout extends BaseController
                     'required' => '{field} Harus di pilih',
                 ]
             ],
+            'image' => [
+                'label'  => 'Gambar',
+                'rules'  => 'uploaded[image]|max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
             // 'rule1' => [
             //     'label'  => 'Persyaratan 1',
             //     'rules'  => 'required',
@@ -555,8 +574,17 @@ class Tryout extends BaseController
             // ],
         ]))
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-
+        $rData = $this->TryoutModel->find($id);
+        $uploadimage = $this->request->getFile('image');
+        if ($uploadimage->getError() === 4) {
+            $nameimage = $rData['image'];
+        } else {
+            $nameimage = $uploadimage->getRandomName();
+            $uploadimage->move('assets/image/tryout', $nameimage);
+            unlink('assets/image/tryout/' . $rData['image']);
+        }
         $data = $this->request->getVar();
+        $data['image'] = $nameimage;
         $cat = '';
         foreach ($data['cat_tryout'] as $item) {
             $cat = $cat .  $item;
@@ -568,6 +596,8 @@ class Tryout extends BaseController
     }
     public function delete($id)
     {
+        $rData = $this->TryoutModel->find($id);
+        unlink('assets/image/tryout/' . $rData['image']);
         $this->TryoutModel->delete($id);
         $this->session->setFlashdata('message', 'Tryout Berhasil dihapus');
         return redirect()->to(base_url('tryout'));
@@ -623,7 +653,7 @@ class Tryout extends BaseController
             ],
             'image' => [
                 'label'  => 'Gambar',
-                'rules'  => 'max_size[image,2048]|is_image]',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
                 'errors' => [
                     'max_size' => '{field} tidak boleh lebih dari 2 MB!',
                     'is_image' => '{field} tidak berbentuk gambar!',
