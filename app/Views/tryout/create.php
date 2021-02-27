@@ -64,8 +64,12 @@
                         <label for="">Jenis Tryout</label>
                         <select class="custom-select <?= ($validation->hasError('type_tryout')) ? 'is-invalid' : "" ?>" id="jenis_tryout" name="type_tryout">
                             <option selected disabled>Pilihan</option>
-                            <option value="1" <?= old('time_end') == 1 ? 'selected'  : ''  ?>>SAINTEK</option>
-                            <option value="2" <?= old('time_end') == 2 ? 'selected'  : ''  ?>>SOSHUM</option>
+                            <?php
+                            foreach (jenisTryout() as $item) : ?>
+                                <option value="<?= $item['1'] ?>" <?= old('time_end') ==  $item['1']  ? 'selected'  : ''  ?>><?= $item['0'] ?></option>
+
+                            <?php endforeach
+                            ?>
                         </select>
                         <div class="invalid-feedback">
                             <?= $validation->getError('type_tryout') ?>

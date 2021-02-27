@@ -47,6 +47,13 @@
                     <p class="pl-5 m-0 text-capitalize"><span class="badge badge-success">Bearer Token &emsp; : &emsp; Wajib </span> </p>
                     <p class=" m-0">Response yang akan di dapatkan ada dua : <span class="badge badge-danger">Error</span> dan <span class="badge badge-success">Success</span> yang mana jika response error artinya token tidak valid dengan kesimpulan belom login. Sedangkan response success artinya token valid dan user sudah login</p>
                 </li>
+                <hr>
+                <li>
+                    4. Api Get Profile
+                    <p class=" m-0">Untuk mendapatkan data profile dari user, membutuhkan beberapa syarat, pertama : <span class="badge badge-info">JWT Token</span> dan yang kedua: <span class="badge badge-info">ID User</span> , menggunakan link: <span class="badge badge-secondary">http://localhost:8080/api/user/{id_user}</span> dengan method <span class="badge badge-warning">GET</span></p>
+                    <p class="pl-5 m-0 text-capitalize"><span class="badge badge-success">Bearer Token &emsp; : &emsp; Wajib </span> </p>
+                    <p class=" m-0">Response yang akan di dapatkan ada dua : <span class="badge badge-danger">Error</span> dan <span class="badge badge-success">Success</span> yang mana jika response error artinya token tidak valid dengan kesimpulan belom login. Sedangkan response success artinya token valid dan user profile didapatkan.</p>
+                </li>
             </ul>
         </div>
     </div>

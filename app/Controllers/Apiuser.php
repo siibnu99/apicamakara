@@ -133,108 +133,10 @@ class Apiuser extends ResourceController
         ];
         return $this->respond($response, 200);
     }
-    public function edit($id = null)
+    public function update($id = null)
     {
         $tokenjwt = new Tokenjwt;
         $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if (!$this->validate([
-            'firstname' => [
-                'label'  => 'Nama depan',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'lastname' => [
-                'label'  => 'Nama belakang',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'school' => [
-                'label'  => 'Sekolah',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'graduate' => [
-                'label'  => 'Tahun lulus',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'graduate' => [
-                'label'  => 'Tahun lulus',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'province_id' => [
-                'label'  => 'Provinsi',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'regency_id' => [
-                'label'  => 'Kota/Kabupaten',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'address' => [
-                'label'  => 'Alamat',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'univ1_id' => [
-                'label'  => 'Universitas pertama',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'univ2_id' => [
-                'label'  => 'Universitas kedua',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'prodi1_id' => [
-                'label'  => 'Prodi pertama',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'prodi2_id' => [
-                'label'  => 'Prodi kedua',
-                'rules'  => 'required',
-                'errors' => [
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'image_profile' => [
-                'label'  => 'Image profile',
-                'rules'  => 'max_size[image_profile,2048]|mime_in[image_profile,image/png,image/jpg]',
-                'errors' => [
-                    'max_size' => '{field} tidak boleh lebih dari 2 MB',
-                    'mime_in' => '{field} tidak diperkenankan upload selain png dan jpg',
-                ]
-            ],
-
-        ])) return $this->respond([
-            'statusCode' => 201,
-            'errors'    => $this->validator->getErrors(),
-        ], 201);
         $data = $this->model->find($id);
         $upload = $this->request->getFile('userimage');
         if ($upload->getError() == 4) {
@@ -246,22 +148,22 @@ class Apiuser extends ResourceController
             $nameimage = $upload->getRandomName();
             $upload->move('assets/img/user/', $nameimage);
         }
+        $json = $this->request->getJSON();
         $post = $this->model->update([
-            'firstname'     => $this->request->getVar('firstname'),
-            'lastname'     => $this->request->getVar('lastname'),
-            'fullname'     => $this->request->getVar('firstname') . ' ' . $this->request->getVar('lastname'),
-            'school'   => $this->request->getVar('school'),
-            'graduate'   => $this->request->getVar('graduate'),
-            'province_id'   => $this->request->getVar('province_id'),
-            'regency_id'   => $this->request->getVar('regency_id'),
-            'address'   => $this->request->getVar('address'),
-            'univ1_id'   => $this->request->getVar('univ1_id'),
-            'univ2_id'   => $this->request->getVar('univ2_id'),
-            'prodi1_id'   => $this->request->getVar('prodi1_id'),
-            'prodi2_id'   => $this->request->getVar('prodi2_id'),
+            'firstname'     => $json('firstname'),
+            'lastname'     => $json('lastname'),
+            'fullname'     => $json('firstname') . ' ' . $json('lastname'),
+            'school'   => $json('school'),
+            'graduate'   => $json('graduate'),
+            'province_id'   => $json('province_id'),
+            'regency_id'   => $json('regency_id'),
+            'address'   => $json('address'),
+            'univ1_id'   => $json('univ1_id'),
+            'univ2_id'   => $json('univ2_id'),
+            'prodi1_id'   => $json('prodi1_id'),
+            'prodi2_id'   => $json('prodi2_id'),
             'image_profile'   => $$nameimage,
         ]);
-
         $msg = ['message' => 'Update user successfully'];
         $response = [
             'status' => 200,

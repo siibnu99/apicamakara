@@ -21,7 +21,7 @@ class Filters extends BaseConfig
 	// Always applied before every request
 	public $globals = [
 		'before' => [
-			'options' //register option CORS
+			'options', //register option CORS
 			//'honeypot'
 			// 'csrf',
 		],
