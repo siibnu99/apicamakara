@@ -58,12 +58,10 @@ $routes->get('/tryout/detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'rol
 // ==========================================================================
 
 
-
-
 $routes->get('/api/user/islogin', 'Apiuser::islogin');
 $routes->post('/api/user/forgot', 'Apiuser::forgot');
-$routes->post('/api/user/', 'Apiuser::index');
-// $routes->resource('/api/user', ['controller' => 'Apiuser']);
+$routes->post('/api/user/login', 'Apiuser::index');
+$routes->resource('/api/user', ['controller' => 'Apiuser']);
 
 /**
  * --------------------------------------------------------------------

@@ -77,61 +77,48 @@ class Apiuser extends ResourceController
     public function create()
     {
         $Uuid = new Uuid;
-        if (!$this->validate([
-            'fullname' => [
-                'label'  => 'Nama Lengkap',
-                'rules'  => 'required|min_length[4]',
-                'errors' => [
-                    'min_length' => '{field} kurang dari 4!',
-                    'required' => '{field} Harus di isi!',
-                ]
-            ],
-            'email' => [
-                'label'  => 'Email',
-                'rules'  => 'required|valid_email|is_unique[tbl_user.email]',
-                'errors' => [
-                    'valid_email' => '{field} tidak valid',
-                    'required' => '{field} Harus di isi!',
-                    'is_unique' => '{field} sudah terdaftar',
-                ]
-            ],
-            'password' => [
-                'label'  => 'Kata Sandi',
-                'rules'  => 'required|min_length[8]',
-                'errors' => [
-                    'min_length' => '{field} minimal 8',
-                    'required' => '{field} Harus di isi',
-                ]
-            ],
-            'telp' => [
-                'label'  => 'Nomor Telepon',
-                'rules'  => 'required|min_length[8]',
-                'errors' => [
-                    'min_length' => '{field} minimal 8',
-                    'required' => '{field} Harus di isi',
-                ]
-            ]
-
-        ])) return $this->respond([
-            'statusCode' => 201,
-            'errors'    => $this->validator->getErrors(),
-        ], 201);
-        $post = $this->model->insert([
-            'id_user'     => $Uuid->v4(),
-            'fullname'     => $this->request->getVar('fullname'),
-            'email'   => $this->request->getVar('email'),
-            'password'   => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-            'telp'   => $this->request->getVar('telp'),
-            'is_active'   => 1,
-        ]);
-
-        $msg = ['message' => 'Created user successfully'];
+        if ($this->request) {
+            if ($this->request->getJSON()) {
+                $json = $this->request->getJSON();
+                if ($this->model->where('email', $json->email)->first()) {
+                    $response = [
+                        'status' => 201,
+                        'error' => false,
+                        'data' => 'Email sudah terdaftar',
+                    ];
+                    return $this->respond($response, 201);
+                }
+                $dataR = $this->model->insert([
+                    'id_user'     => $Uuid->v4(),
+                    'fullname'     => $json->fullname,
+                    'email'   => $json->email,
+                    'password'   => password_hash($json->password, PASSWORD_DEFAULT),
+                    'telp'   => $json->telp,
+                    'is_active'   => 1,
+                ]);
+                if ($dataR) {
+                    $msg = ['message' => 'Created user successfully'];
+                    $response = [
+                        'status' => 200,
+                        'error' => false,
+                        'data' => $msg,
+                    ];
+                    return $this->respond($response, 200);
+                }
+                $response = [
+                    'status' => 404,
+                ];
+                return $this->respond($response, 201);
+            }
+            $response = [
+                'status' => 404,
+            ];
+            return $this->respond($response, 201);
+        }
         $response = [
-            'status' => 200,
-            'error' => false,
-            'data' => $msg,
+            'status' => 404,
         ];
-        return $this->respond($response, 200);
+        return $this->respond($response, 201);
     }
     public function update($id = null)
     {
@@ -150,18 +137,18 @@ class Apiuser extends ResourceController
         }
         $json = $this->request->getJSON();
         $post = $this->model->update([
-            'firstname'     => $json('firstname'),
-            'lastname'     => $json('lastname'),
-            'fullname'     => $json('firstname') . ' ' . $json('lastname'),
-            'school'   => $json('school'),
-            'graduate'   => $json('graduate'),
-            'province_id'   => $json('province_id'),
-            'regency_id'   => $json('regency_id'),
-            'address'   => $json('address'),
-            'univ1_id'   => $json('univ1_id'),
-            'univ2_id'   => $json('univ2_id'),
-            'prodi1_id'   => $json('prodi1_id'),
-            'prodi2_id'   => $json('prodi2_id'),
+            'firstname'     => $json->firstname,
+            'lastname'     => $json->lastname,
+            'fullname'     => $json->firstname . ' ' . $json->lastname,
+            'school'   => $json->school,
+            'graduate'   => $json->graduate,
+            'province_id'   => $json->province_id,
+            'regency_id'   => $json->regency_id,
+            'address'   => $json->address,
+            'univ1_id'   => $json->univ1_id,
+            'univ2_id'   => $json->univ2_id,
+            'prodi1_id'   => $json->prodi1_id,
+            'prodi2_id'   => $json->prodi2_id,
             'image_profile'   => $$nameimage,
         ]);
         $msg = ['message' => 'Update user successfully'];
