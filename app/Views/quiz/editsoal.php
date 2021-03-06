@@ -1,15 +1,10 @@
 <?= $this->extend('template/admin') ?>
 <?= $this->section('content') ?>
 <?php
-$no = 1;
-foreach (mapel($tryout['type_tryout'], $tryout) as $item) :
-    if ($item[3] == $idSoal) {
-        $dataMapel = $item;
-    }
-endforeach ?>
+$no = 1; ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Edit <?= $dataMapel[0] ?></h1>
+    <h1 class="h3 mb-0 text-gray-800">Edit <?= allMapel($quiz['mapel']) ?></h1>
 </div>
 <?php if (session()->getFlashdata('message')) : ?>
     <div class="alert alert-success" role="alert">
@@ -19,19 +14,19 @@ endforeach ?>
 <div class="row">
     <div class="col-lg-8 col-md-12">
         <form enctype="multipart/form-data" method="POST">
-            <input type="hidden" name="id_soalt" value="<?= $idSoalt ?>">
+            <input type="hidden" name="id_soalq" value="<?= $idSoalq ?>">
             <div class="form-group">
                 <?= $validation->listErrors() ?>
                 <label for="soal">Soal <?= $noSoal ?></label>
-                <textarea type="text" class="form-control <?= ($validation->hasError('soal')) ? 'is-invalid' : "" ?>" id="soal" name="soal" rows="5"><?= old('soal') ? old('soal') : $soalt['soal'] ?></textarea>
+                <textarea type="text" class="form-control <?= ($validation->hasError('soal')) ? 'is-invalid' : "" ?>" id="soal" name="soal" rows="5"><?= old('soal') ? old('soal') : $soalq['soal'] ?></textarea>
                 <div class="invalid-feedback">
                     <?= $validation->getError('pembahasan') ?>
                 </div>
             </div>
             <div class="ml-2 col-sm-6">
                 <?php
-                if ($soalt['image']) : ?>
-                    <img src="<?= base_url() . '/assets/image/soalTryout/' . $soalt['image']   ?>" id="preview" class="img-thumbnail">
+                if ($soalq['image']) : ?>
+                    <img src="<?= base_url() . '/assets/image/soalquiz/' . $soalq['image']   ?>" id="preview" class="img-thumbnail">
                 <?php else : ?>
                     <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail">
                 <?php endif
@@ -54,35 +49,35 @@ endforeach ?>
                 <label for="">Pilihan Jawaban</label>
                 <div class="form-group">
                     <label for="">Pilihan 1</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan1')) ? 'is-invalid' : "" ?>" name="pilihan1" value="<?= old('pilihan1') ? old('pilihan1') : $soalt['pilihan1'] ?>">
+                    <input type="text" class="form-control <?= ($validation->hasError('pilihan1')) ? 'is-invalid' : "" ?>" name="pilihan1" value="<?= old('pilihan1') ? old('pilihan1') : $soalq['pilihan1'] ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('pilihan1') ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="">Pilihan 2</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan2')) ? 'is-invalid' : "" ?>" name="pilihan2" value="<?= old('pilihan2') ? old('pilihan2') : $soalt['pilihan2'] ?>">
+                    <input type="text" class="form-control <?= ($validation->hasError('pilihan2')) ? 'is-invalid' : "" ?>" name="pilihan2" value="<?= old('pilihan2') ? old('pilihan2') : $soalq['pilihan2'] ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('pilihan2') ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="">Pilihan 3</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan3')) ? 'is-invalid' : "" ?>" name="pilihan3" value="<?= old('pilihan3') ? old('pilihan3') : $soalt['pilihan3'] ?>">
+                    <input type="text" class="form-control <?= ($validation->hasError('pilihan3')) ? 'is-invalid' : "" ?>" name="pilihan3" value="<?= old('pilihan3') ? old('pilihan3') : $soalq['pilihan3'] ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('pilihan3') ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="">Pilihan 4</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan4')) ? 'is-invalid' : "" ?>" name="pilihan4" value="<?= old('pilihan4') ? old('pilihan4') : $soalt['pilihan4'] ?>">
+                    <input type="text" class="form-control <?= ($validation->hasError('pilihan4')) ? 'is-invalid' : "" ?>" name="pilihan4" value="<?= old('pilihan4') ? old('pilihan4') : $soalq['pilihan4'] ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('pilihan4') ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="">Pilihan 5</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan5')) ? 'is-invalid' : "" ?>" name="pilihan5" value="<?= old('pilihan5') ? old('pilihan5') : $soalt['pilihan5'] ?>">
+                    <input type="text" class="form-control <?= ($validation->hasError('pilihan5')) ? 'is-invalid' : "" ?>" name="pilihan5" value="<?= old('pilihan5') ? old('pilihan5') : $soalq['pilihan5'] ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('pilihan5') ?>
                     </div>
@@ -92,7 +87,7 @@ endforeach ?>
             <div class="form-group">
                 <label>Jawaban Benar</label>
                 <?php
-                $jawaban = (int) old('jawaban') ? old('jawaban') : $soalt['jawaban'];
+                $jawaban = (int) old('jawaban') ? old('jawaban') : $soalq['jawaban'];
                 ?>
                 <select class="custom-select <?= ($validation->hasError('jawaban')) ? 'is-invalid' : "" ?>" id="jawaban_benar" name="jawaban">
                     <option disabled>Pilihan</option>
@@ -108,7 +103,7 @@ endforeach ?>
             </div>
             <div class="form-group">
                 <label for="soal">Pembahasan Soal <?= $noSoal ?></label>
-                <textarea type="text" class="form-control <?= ($validation->hasError('pembahasan')) ? 'is-invalid' : "" ?>" id="soal" name="pembahasan" rows="5"><?= old('pembahasan') ? old('pembahasan') : $soalt['pembahasan'] ?></textarea>
+                <textarea type="text" class="form-control <?= ($validation->hasError('pembahasan')) ? 'is-invalid' : "" ?>" id="soal" name="pembahasan" rows="5"><?= old('pembahasan') ? old('pembahasan') : $soalq['pembahasan'] ?></textarea>
                 <div class="invalid-feedback">
                     <?= $validation->getError('pembahasan') ?>
                 </div>
@@ -119,8 +114,8 @@ endforeach ?>
     <div class="col-lg-4 col-md-12">
         <div class="card" id="navigasi-soal">
             <div class="card-body">
-                <?php for ($i = 1; $i <= $tryout[$idSoal]; $i++) : ?>
-                    <a href="<?= base_url('tryout') . "/editsoal/" . $id . '/' . $idSoal . '/' . $i ?>" class="box <?= $i == $noSoal ? 'active' : '' ?>"><?= $i ?></a>
+                <?php for ($i = 1; $i <= $quiz['q_mapel']; $i++) : ?>
+                    <a href="<?= base_url('quiz') . "/editsoal/" . $id . '/'  . $i ?>" class="box <?= $i == $noSoal ? 'active' : '' ?>"><?= $i ?></a>
                 <?php endfor
                 ?>
             </div>

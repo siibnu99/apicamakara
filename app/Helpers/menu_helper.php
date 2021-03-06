@@ -76,3 +76,90 @@ function mapel($type, $arr)
         return $data;
     }
 }
+function allMapel($id = null)
+{
+    $data = [
+        ['Penalaran Umum', 'q_penalaran'],
+        ['Pemahamnan Bacaan dan Menulis', 'q_pemahaman'],
+        ['Pengetahuan dan Pemahaman Umum',  'q_pengetahuan'],
+        ['Pengetahuan Kuantitatif', 'q_pengetahuank'],
+        ['Kimia', 'q_kimia'],
+        ['Fisika', 'q_fisika'],
+        ['Biologi', 'q_biologi'],
+        ['Matematika',  'q_matematika'],
+        ['Sejarah', 'q_sejarah'],
+        ['Geografi', 'q_geografi'],
+        ['Sosiologi',  'q_sosiologi'],
+        ['Ekonomi', 'q_ekonomi'],
+    ];
+    if ($id) {
+        foreach ($data as $item) {
+            if ($item[1] == $id) {
+                return $item[0];
+            }
+        }
+    } else {
+        return $data;
+    }
+}
+function classQuiz($id = null)
+{
+    $data = [
+        ['SAINTEK', 1],
+        ['SOSHUM', 2,],
+        ['TPS', 3,]
+    ];
+    if ($id) {
+        return $data[$id - 1][0];
+    }
+    return $data;
+}
+function mediaQuiz($id = null)
+{
+    $data = [
+        ['Google Meet', 1],
+        ['Zoom', 2,],
+    ];
+    if ($id) {
+        return $data[$id - 1][0];
+    }
+    return $data;
+}
+function AllPayment($id = null)
+{
+    $data = [
+        ['Bank BCA', 1],
+        ['Bank Mandiri', 2],
+        ['Bank BNI', 3],
+        ['Bank BRI', 4],
+        ['Alfamart/Alfamidi', 5],
+        ['Ovo', 6],
+        ['Shopee Pay', 6],
+    ];
+    if ($id) {
+        foreach ($data as $item) {
+            if ($item[1] == $id) {
+                return $item[0];
+            }
+        }
+    } else {
+        return $data;
+    }
+}
+function statusTopup($id = null)
+{
+    $data = [
+        ['Menunggu Konfirmasi', 1],
+        ['Berhasil', 2],
+        ['Gagal', 3],
+    ];
+    if ($id) {
+        foreach ($data as $item) {
+            if ($item[1] == $id) {
+                return $item[0];
+            }
+        }
+    } else {
+        return $data;
+    }
+}

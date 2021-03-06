@@ -56,7 +56,7 @@
                 </li>
                 <li>
                     5. Api Update Profile
-                    <p class=" m-0">Untuk update data profile user, membutuhkan beberapa syarat, pertama : <span class="badge badge-info">JWT Token</span> dan yang kedua: <span class="badge badge-info">ID User</span> , menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/user/{id}</span> dengan method <span class="badge badge-warning">PUT</span></p>
+                    <p class=" m-0">Untuk update data profile user, membutuhkan beberapa syarat, pertama : <span class="badge badge-info">JWT Token</span> dan yang kedua: <span class="badge badge-info">ID User</span> , menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/user/{id}</span> dengan method <span class="badge badge-warning">PUT</span>. Type data yang dikirimkan diwajibkan <span class="badge badge-info">multipart/form-data</span></p>
                     <p class="pl-5 m-0 "><span class="badge badge-success">Bearer Token &emsp; : &emsp; Wajib </span> </p>
                     <p class="pl-5 m-0 "><span class="badge badge-success">firstname &emsp; : &emsp; Wajib </span> </p>
                     <p class="pl-5 m-0 "><span class="badge badge-success">lastname &emsp; : &emsp; Wajib </span> </p>
@@ -69,6 +69,7 @@
                     <p class="pl-5 m-0 "><span class="badge badge-success">univ2_id &emsp; : &emsp; Wajib </span> </p>
                     <p class="pl-5 m-0 "><span class="badge badge-success">prodi1_id &emsp; : &emsp; Wajib </span> </p>
                     <p class="pl-5 m-0 "><span class="badge badge-success">prodi2_id &emsp; : &emsp; Wajib </span> </p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">image &emsp; : &emsp; Wajib, File </span> </p>
                     <p class=" m-0">Response yang akan di dapatkan ada dua : <span class="badge badge-danger">Error</span> dan <span class="badge badge-success">Success</span> yang mana jika response error artinya token tidak valid dengan kesimpulan belom login. Sedangkan response success artinya token valid dan user profile bisa diupdate.</p>
                 </li>
             </ul>
@@ -192,14 +193,154 @@
         <div class="card-body">
             <ul class="list-unstyled">
                 <li>
+                    0. Info Tryout
+                    <p class=" m-0">
+                        A. Penjelasan mengenai <span class=" badge badge-warning"> type_tryout</span> <br>
+                        <?php foreach (jenisTryout() as $item) : ?>
+                            &emsp; <span class=" badge badge-info"> <?= $item[1] ?> &emsp; : &emsp; <?= $item[0] ?></span><br>
+                        <?php endforeach ?>
+                    </p>
+                    <p class=" m-0">
+                        B. Penjelasan mengenai <span class=" badge badge-warning"> cat_tryout</span> <br>
+                        <?php foreach (catTryout() as $item) : ?>
+                            &emsp; <span class=" badge badge-info"> <?= $item[1] ?> &emsp; : &emsp; <?= $item[0] ?></span><br>
+                        <?php endforeach ?>
+                    </p>
+                    <p class=" m-0">
+                        C. Penjelasan mengenai <span class=" badge badge-warning"> payment_method</span> <br>
+                        <?php foreach (paymentMethod() as $item) : ?>
+                            &emsp; <span class=" badge badge-info"> <?= $item[1] ?> &emsp; : &emsp; <?= $item[0] ?></span><br>
+                        <?php endforeach ?>
+                    </p>
+                    <p class=" m-0">
+                        D. Penjelasan mengenai <span class=" badge badge-warning"> Mapel</span> <br>
+                        <?php foreach (allMapel() as $item) : ?>
+                            &emsp; <span class=" badge badge-info"> <?= $item[1] ?> &emsp; : &emsp; <?= $item[0] ?></span><br>
+                        <?php endforeach ?>
+                    </p>
+                </li>
+                <hr>
+                <li>
                     1. Get ALl Tryout
-                    <p class=" m-0">untuk mendapatkan semua data Tryout, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/tryout</span> dengan method <span class="badge badge-warning">GET</span>
+                    <p class=" m-0">untuk mendapatkan semua data Tryout, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/tryout</span> dengan method <span class="badge badge-warning">GET</span></p>
                 </li>
                 <hr>
                 <li>
                     2. Get Id Tryout
                     <p class=" m-0">Untuk mendapatkan satu data dengan id, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/tryout/{id}</span> dengan method <span class="badge badge-warning">GET</span> contoh penggunaan </p>
                     <p><span class="badge badge-primary">http://admin.petikdua.store/api/reg/22</span></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Collapsable Card Example -->
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#myTryApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="myTryApi">
+        <h6 class="m-0 font-weight-bold text-white">My Tryout APi</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="myTryApi">
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li>
+                    1. Get ALl My Tryout
+                    <p class=" m-0">untuk mendapatkan semua data My Tryout, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/mytryout/{page}</span> dengan method <span class="badge badge-warning">GET</span> contoh penggunaan <span class="badge badge-primary">http://admin.petikdua.store/api/mytryout/22</span> Dengan mengirimkan beberapa data dengan keterangan berikut :</p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">id &emsp; : &emsp; Wajib, Ket: id dari user </span> </p>
+                    </p>
+                </li>
+                <hr>
+                <li>
+                    2. Check My Tryout
+                    <p class=" m-0">Untuk mengecek data My Tryout, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/mytryout/check</span> dengan method <span class="badge badge-warning">GET</span> . Dengan mengirimkan beberapa data dengan keterangan berikut :</p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">iduser &emsp; : &emsp; Wajib, Ket: id dari user </span> </p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">idtryout &emsp; : &emsp; Wajib, Ket: id dari tryout </span> </p>
+                    </p>
+                </li>
+                <hr>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Collapsable Card Example -->
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#topApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="topApi">
+        <h6 class="m-0 font-weight-bold text-white">Top Up APi</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="topApi">
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li>
+                    0. Info TopUp
+                    <p class=" m-0">
+                        A. Penjelasan mengenai <span class=" badge badge-warning"> bank_id</span> <br>
+                        <?php foreach (AllPayment() as $item) : ?>
+                            &emsp; <span class=" badge badge-info"> <?= $item[1] ?> &emsp; : &emsp; <?= $item[0] ?></span><br>
+                        <?php endforeach ?>
+                    </p>
+                    <p class=" m-0">
+                        B. Penjelasan mengenai <span class=" badge badge-warning"> status</span> <br>
+                        <?php foreach (statusTopup() as $item) : ?>
+                            &emsp; <span class=" badge badge-info"> <?= $item[1] ?> &emsp; : &emsp; <?= $item[0] ?></span><br>
+                        <?php endforeach ?>
+                    </p>
+                </li>
+                <hr>
+                <li>
+                    1. Get ALl Topup
+                    <p class=" m-0">Untuk mendapatkan semua data Top Up, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/topup</span> dengan method <span class="badge badge-warning">GET</span>
+                        dengan mengirimkan beberapa data dengan keterangan berikut :</p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">id &emsp; : &emsp; Wajib, Ket: id dari user </span> </p>
+                </li>
+                <hr>
+                <li>
+                    2. Get Single Topup
+                    <p class=" m-0">Untuk mendapatkan satu data dengan id topup, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/topup/{id}</span> dengan method <span class="badge badge-warning">GET</span> contoh penggunaan </p>
+                    <p><span class="badge badge-primary">http://admin.petikdua.store/api/topup/22</span></p>
+                </li>
+                <li>
+                    3. Create Topup
+                    <p class=" m-0">Untuk melakukan pembuatan topup, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/topup/</span> dengan method <span class="badge badge-warning">POST</span> . Type data yang dikirimkan diwajibkan <span class="badge badge-info">multipart/form-data</span>. Dengan mengirimkan beberapa data dengan keterangan berikut :</p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">id &emsp; : &emsp; Wajib, Ket: id dari user </span> </p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">bankid &emsp; : &emsp; Wajib, Ket: id dari bank yang dipilih </span> </p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">nominal &emsp; : &emsp; Wajib</span> </p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">image &emsp; : &emsp; Wajib, File</span> </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Collapsable Card Example -->
+<div class="card shadow mb-4">
+    <!-- Card Header - Accordion -->
+    <a href="#transfapi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="transfapi">
+        <h6 class="m-0 font-weight-bold text-white">Transfer APi</h6>
+    </a>
+    <!-- Card Content - Collapse -->
+    <div class="collapse show" id="transfapi">
+        <div class="card-body">
+            <ul class="list-unstyled">
+                <li>
+                    1. Get ALl Transfer
+                    <p class=" m-0">Untuk mendapatkan data Transfer semua pada satu user, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/transfer</span> dengan method <span class="badge badge-warning">GET</span>
+                        dengan mengirimkan beberapa data dengan keterangan berikut :</p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">id &emsp; : &emsp; Wajib, Ket: id dari user </span> </p>
+                </li>
+                <hr>
+                <li>
+                    2. Get Single Data
+                    <p class=" m-0">Untuk mendapatkan satu data dengan id transfer, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/transfer/{id}</span> dengan method <span class="badge badge-warning">GET</span> contoh penggunaan </p>
+                    <p><span class="badge badge-primary">http://admin.petikdua.store/api/transfer/22</span></p>
+                </li>
+                <li>
+                    3. Create Transfer
+                    <p class=" m-0">Untuk melakukan pembuatan transfer, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/transfer/</span> dengan method <span class="badge badge-warning">POST</span> . Dengan mengirimkan beberapa data dengan keterangan berikut :</p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">fromid &emsp; : &emsp; Wajib, Ket: id dari user pengirim </span> </p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">telp &emsp; : &emsp; Wajib, Ket: id dari nomer hp penerima </span> </p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">nominal &emsp; : &emsp; Wajib</span> </p>
                 </li>
             </ul>
         </div>

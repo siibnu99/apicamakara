@@ -363,7 +363,7 @@ class Tryout extends BaseController
             ],
             'image' => [
                 'label'  => 'Gambar',
-                'rules'  => 'uploaded[image]|max_size[image,2048]|is_image[image]',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
                 'errors' => [
                     'max_size' => '{field} tidak boleh lebih dari 2 MB!',
                     'is_image' => '{field} tidak berbentuk gambar!',

@@ -68,6 +68,30 @@
                     <i class="fas fa-fw fa-book-open"></i>
                     <span>Tryout</span></a>
             </li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item <?= $title == 'quiz' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('quiz') ?>">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>Quiz</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Keuangan
+            </div>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item <?= $title == 'confirmfinance' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('confirmfinance') ?>">
+                    <i class="fas fa-fw fa-archive"></i>
+                    <span>Tabel Konfirmasi</span></a>
+            </li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item <?= $title == 'tabledata' ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('tabledata') ?>">
+                    <i class="fas fa-fw fa-book-open"></i>
+                    <span>Tabel Data</span></a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

@@ -47,7 +47,9 @@ class BaseController extends Controller
 		// E.g.: $this->session = \Config\Services::session();
 		$this->session = \Config\Services::session();
 		$this->TryoutModel = new \App\Models\TryoutModel;
+		$this->QuizModel = new \App\Models\QuizModel;
 		$this->SoaltModel = new \App\Models\SoaltModel;
+		$this->SoalqModel = new \App\Models\SoalqModel;
 		$this->Uuid = new \App\Libraries\Uuid;
 	}
 }

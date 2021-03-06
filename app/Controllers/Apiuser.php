@@ -29,7 +29,7 @@ class Apiuser extends ResourceController
                             'status' => 200,
                             'message' => 'Berhasil login',
                             "token" => $token,
-                            "email" => $data['email'],
+                            "data" => $data,
                         ];
                         return $this->respond($output, 200);
                     } else {
@@ -128,17 +128,17 @@ class Apiuser extends ResourceController
         } else {
             return $this->respond($data, 401);
         }
-        // $data = $this->model->find($id);
-        // $upload = $this->request->getFile('userimage');
-        // if ($upload->getError() == 4) {
-        //     $nameimage = $data['image'];
-        // } else {
-        //     if ($data['image'] != 'defaut.svg') {
-        //         unlink('assets/img/user/' . $data['image']);
-        //     }
-        //     $nameimage = $upload->getRandomName();
-        //     $upload->move('assets/img/user/', $nameimage);
-        // }
+        $data = $this->model->find($id);
+        $upload = $this->request->getFile('image');
+        if ($upload->getError() == 4) {
+            $nameimage = $data['image'];
+        } else {
+            if ($data['image'] != 'defaut.jpg') {
+                unlink('assets/img/user/' . $data['image']);
+            }
+            $nameimage = $upload->getRandomName();
+            $upload->move('assets/img/user/', $nameimage);
+        }
         $json = $this->request->getJSON();
         $post = $this->model->update($id, [
             'firstname'     => $json->firstname,
