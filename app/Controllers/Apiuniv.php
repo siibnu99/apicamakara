@@ -12,12 +12,12 @@ class Apiuniv extends ResourceController
     protected $modelName    = 'App\Models\UnivModel';
     public function index()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        // $tokenjwt = new Tokenjwt;
+        // $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        // if ($data['status'] == 200) {
+        // } else {
+        //     return $this->respond($data, 401);
+        // }
         $data = $this->model->findAll();
         $response = [
             'status' => 200,
@@ -27,12 +27,12 @@ class Apiuniv extends ResourceController
     }
     public function show($id = null)
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        // $tokenjwt = new Tokenjwt;
+        // $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        // if ($data['status'] == 200) {
+        // } else {
+        //     return $this->respond($data, 401);
+        // }
         if ($id) {
             $data = $this->model->find($id);
         } else {
