@@ -14,11 +14,11 @@ class Apitransfer extends ResourceController
     private $UserapiModel;
     public function __construct()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if (!$data['status'] == 200) {
-            return $this->respond($data, 401);
-        }
+        // $tokenjwt = new Tokenjwt;
+        // $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        // if (!$data['status'] == 200) {
+        //     return $this->respond($data, 401);
+        // }
         $this->UserapiModel = new UserApiModel;
     }
     public function index()
