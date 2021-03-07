@@ -10,7 +10,7 @@ use \App\Models\UserApiModel;
 class Apitransfer extends ResourceController
 {
     protected $format       = 'json';
-    protected $modelName    = 'App\Models\MytryoutModel';
+    protected $modelName    = 'App\Models\TransferModel';
     private $UserapiModel;
     public function __construct()
     {
