@@ -81,15 +81,13 @@ class Apitransfer extends ResourceController
     }
     public function getByTelp($telp = null)
     {
-        if ($this->request) {
-            if ($telp) {
-                $data = $this->UserapiModel->where('telp', $telp)->first();
-                $response = [
-                    'status' => 200,
-                    'data' => $data,
-                ];
-                return $this->respond($response, 200);
-            }
+        if ($telp) {
+            $data = $this->UserapiModel->where('telp', $telp)->first();
+            $response = [
+                'status' => 200,
+                'data' => $data,
+            ];
+            return $this->respond($response, 200);
         }
     }
 }
