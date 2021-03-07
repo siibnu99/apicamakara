@@ -84,12 +84,12 @@ $routes->resource('/api/address/reg', ['controller' => 'Apireg']);
 // ==========================================================================
 
 // ==========================================================================
-$routes->resource('/api/graduet/univ', ['controller' => 'Apiuniv']);
+$routes->resource('/api/univ', ['controller' => 'Apiuniv']);
 // ==========================================================================
 
 // ==========================================================================
-$routes->get('/api/graduet/prodi/get/(:segment)', 'Apiprodi::get/$1');
-$routes->resource('/api/graduet/prodi', ['controller' => 'Apiprodi']);
+$routes->get('/api/prodi/get/(:segment)', 'Apiprodi::get/$1');
+$routes->resource('/api/prodi', ['controller' => 'Apiprodi']);
 // ==========================================================================
 
 // ==========================================================================

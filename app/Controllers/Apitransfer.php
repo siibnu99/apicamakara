@@ -7,7 +7,7 @@ use \App\Libraries\Uuid;
 use \App\Libraries\Tokenjwt;
 use \App\Models\UserApiModel;
 
-class Apimytryout extends ResourceController
+class Apitransfer extends ResourceController
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\MytryoutModel';
