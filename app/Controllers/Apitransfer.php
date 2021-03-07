@@ -83,7 +83,7 @@ class Apimytryout extends ResourceController
     {
         if ($this->request) {
             if ($telp) {
-                $data = $this->model->where('telp', $telp)->first();
+                $data = $this->UserapiModel->where('telp', $telp)->first();
                 $response = [
                     'status' => 200,
                     'data' => $data,
