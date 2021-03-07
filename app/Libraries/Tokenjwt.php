@@ -50,7 +50,7 @@ class Tokenjwt
         $audience_claim = "Kediri_Cerdas";
         $issuedat_claim = time(); // issued at
         $notbefore_claim = $issuedat_claim; //not before in seconds
-        $expire_claim = $issuedat_claim + 36000000000; // expire time in seconds
+        $expire_claim = $issuedat_claim + (360 * 60 * 60); // expire time in seconds
         $token = array(
             "iss" => $issuer_claim,
             "aud" => $audience_claim,
