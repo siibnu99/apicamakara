@@ -14,11 +14,7 @@ class Apitransfer extends ResourceController
     private $UserapiModel;
     public function __construct()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if (!$data['status'] == 200) {
-            return $this->respond($data, 401);
-        }
+
         $this->UserapiModel = new UserApiModel;
     }
     public function index()
@@ -81,6 +77,12 @@ class Apitransfer extends ResourceController
     }
     public function getByTelp($telp = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($telp) {
             $data = $this->UserapiModel->where('telp', $telp)->first();
             $response = [
