@@ -79,4 +79,17 @@ class Apimytryout extends ResourceController
             }
         }
     }
+    public function getByTelp($telp = null)
+    {
+        if ($this->request) {
+            if ($telp) {
+                $data = $this->model->where('telp', $telp)->first();
+                $response = [
+                    'status' => 200,
+                    'data' => $data,
+                ];
+                return $this->respond($response, 200);
+            }
+        }
+    }
 }

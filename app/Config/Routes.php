@@ -103,6 +103,7 @@ $routes->resource('/api/topup', ['controller' => 'Apitopup']);
 // ==========================================================================
 
 // ==========================================================================
+$routes->get('/api/transfer/notelp/(:segment)', 'Apitransfer::getByTelp/$1');
 $routes->resource('/api/transfer', ['controller' => 'Apitransfer']);
 // ==========================================================================
 

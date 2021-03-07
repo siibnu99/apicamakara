@@ -342,6 +342,11 @@
                     <p class="pl-5 m-0 "><span class="badge badge-success">telp &emsp; : &emsp; Wajib, Ket: id dari nomer hp penerima </span> </p>
                     <p class="pl-5 m-0 "><span class="badge badge-success">nominal &emsp; : &emsp; Wajib</span> </p>
                 </li>
+                <li>
+                    4. Get Telp Transfer
+                    <p class=" m-0">Untuk melakukan mengecek nomer hp transfer, menggunakan link: <span class="badge badge-secondary">http://admin.petikdua.store/api/transfer/notelp/{nohp}</span> dengan method <span class="badge badge-warning">get</span> . Dengan mengirimkan beberapa data dengan keterangan berikut :</p>
+                    <p class="pl-5 m-0 "><span class="badge badge-success">Token &emsp; : &emsp; Wajib,Bearear Token</span> </p>
+                </li>
             </ul>
         </div>
     </div>
