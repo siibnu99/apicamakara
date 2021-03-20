@@ -50,6 +50,7 @@ class BaseController extends Controller
 		$this->QuizModel = new \App\Models\QuizModel;
 		$this->SoaltModel = new \App\Models\SoaltModel;
 		$this->SoalqModel = new \App\Models\SoalqModel;
+		$this->MytryoutModel = new \App\Models\MytryoutModel;
 		$this->Uuid = new \App\Libraries\Uuid;
 	}
 }

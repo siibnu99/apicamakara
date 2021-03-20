@@ -11,16 +11,13 @@ class Apitopup extends ResourceController
     protected $format       = 'json';
     protected $modelName    = 'App\Models\TopupModel';
 
-    public function __construct()
+    public function index()
     {
         $tokenjwt = new Tokenjwt;
         $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
         if (!$data['status'] == 200) {
             return $this->respond($data, 401);
         }
-    }
-    public function index()
-    {
         if ($this->request) {
             if ($json = $this->request->getJSON()) {
                 $data = $this->model->where('user_id', $json->id)->findAll();
@@ -34,6 +31,12 @@ class Apitopup extends ResourceController
     }
     public function show($id = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($this->request) {
             if ($id) {
                 if ($json = $this->request->getJSON()) {
@@ -47,34 +50,46 @@ class Apitopup extends ResourceController
             }
         }
     }
-    public function created()
+    public function create()
     {
+
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        // if ($data['status'] == 200) {
+        // } else {
+        //     return $this->respond($data, 401);
+        // }
         $Uuid = new Uuid;
-        if ($this->request) {
-            if ($this->request->getJSON()) {
-                $upload = $this->request->getFile('image');
-                if ($upload->getError() == 4) {
-                    $nameimage = NULL;
-                } else {
-                    $nameimage = $upload->getRandomName();
-                    $upload->move('assets/img/topup/', $nameimage);
-                }
-                $json = $this->request->getJSON();
-                $data = [
-                    'id_topup' => $Uuid->v4(),
-                    'user_id' => $json->id,
-                    'bank_id' => $json->bankid,
-                    'nominal' => $json->nominal,
-                    'image' => $nameimage,
-                    'status' => 1,
-                ];
-                $this->model->insert($data);
-                $response = [
-                    'status' => 200,
-                    'message' => 'Success Top Up',
-                ];
-                return $this->respond($response, 200);
-            }
-        }
+        // if ($this->request) {
+        //     if ($this->request->getJSON()) {
+        $namaFile = $_FILES['image']['name'];
+        $ektensiGambar = explode('.', $namaFile);
+        $ektensiGambar = strtolower(end($ektensiGambar));
+        $namaFile = $Uuid->v4() . '.' . $ektensiGambar;
+
+        $namaSementara = $_FILES['image']['tmp_name'];
+
+        // tentukan lokasi file akan dipindahkan
+        $dirUpload = "assets/image/topup/";
+
+        // pindahkan file
+        $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
+        $json = $this->request->getJSON();
+        $data = [
+            'id_topup' => $Uuid->v4(),
+            'user_id' => $this->request->getVar('id'),
+            'bank_id' => $this->request->getVar('bankid'),
+            'nominal' => $this->request->getVar('nominal'),
+            'image' => $namaFile,
+            'status' => 1,
+        ];
+        $this->model->insert($data);
+        $response = [
+            'status' => 200,
+            'message' => 'Success Top Up',
+        ];
+        return $this->respond($response, 200);
     }
+    //     }
+    // }
 }

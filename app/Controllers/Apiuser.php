@@ -56,6 +56,7 @@ class Apiuser extends ResourceController
             return $this->respond($data, 401);
         }
         $get = $this->model->find($id);
+        unset($get['password']);
         if ($get) {
             $code = 200;
             $response = [
@@ -129,21 +130,22 @@ class Apiuser extends ResourceController
             return $this->respond($data, 401);
         }
         $data = $this->model->find($id);
-        $upload = $this->request->getFile('image');
-        if ($upload->getError() == 4) {
-            $nameimage = $data['image'];
-        } else {
-            if ($data['image'] != 'defaut.jpg') {
-                unlink('assets/img/user/' . $data['image']);
-            }
-            $nameimage = $upload->getRandomName();
-            $upload->move('assets/img/user/', $nameimage);
-        }
+        // $upload = $this->request->getFile('image');
+        // if ($upload->getError() == 4) {
+        //     $nameimage = $data['image'];
+        // } else {
+        //     if ($data['image'] != 'defaut.jpg') {
+        //         unlink('assets/img/user/' . $data['image']);
+        //     }
+        //     $nameimage = $upload->getRandomName();
+        //     $upload->move('assets/img/user/', $nameimage);
+        // }
         $json = $this->request->getJSON();
         $post = $this->model->update($id, [
             'firstname'     => $json->firstname,
             'lastname'     => $json->lastname,
             'fullname'     => $json->firstname . ' ' . $json->lastname,
+            'telp'   => $json->telp,
             'school'   => $json->school,
             'graduate'   => $json->graduate,
             'province_id'   => $json->province_id,
@@ -153,6 +155,7 @@ class Apiuser extends ResourceController
             'univ2_id'   => $json->univ2_id,
             'prodi1_id'   => $json->prodi1_id,
             'prodi2_id'   => $json->prodi2_id,
+            'image' => "default.jpg",
         ]);
         $msg = ['message' => 'Update user successfully'];
         $response = [

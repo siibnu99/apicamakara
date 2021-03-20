@@ -12,7 +12,7 @@ class UserApiModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['id_user', 'fullname', 'email', 'password', 'telp', 'is_active', 'created_at', 'updated_at'];
+    protected $allowedFields = ['id_user', 'image', 'fullname', 'email', 'password', 'firstname', 'lastname', 'school', 'graduate', 'saldo', 'telp', 'province_id', 'regency_id', 'address', 'univ1_id', 'prodi1_id', 'univ2_id', 'prodi2_id', 'is_active', 'created_at', 'updated_at'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

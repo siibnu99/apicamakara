@@ -71,6 +71,7 @@ $routes->post('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::attemptEditSoal/$1/
 $routes->get('/api/user/islogin', 'Apiuser::islogin');
 $routes->post('/api/user/forgot', 'Apiuser::forgot');
 $routes->post('/api/user/login', 'Apiuser::index');
+$routes->post('/api/user/update/(:segment)', 'Apiuser::update/$1');
 $routes->resource('/api/user', ['controller' => 'Apiuser']);
 // ==========================================================================
 
@@ -108,8 +109,13 @@ $routes->resource('/api/transfer', ['controller' => 'Apitransfer']);
 // ==========================================================================
 
 // ==========================================================================
-$routes->get('/api/mytryout/(:segment)', 'Apimytryout::index/$1');
+$routes->get('/api/mytryout/(:segment)/(:segment)', 'Apimytryout::index/$1/$2');
 $routes->get('/api/mytryout/check', 'Apimytryout::check');
+$routes->resource('/api/mytryout', ['controller' => 'Apimytryout']);
+// ==========================================================================
+
+// ==========================================================================
+$routes->resource('/api/bank', ['controller' => 'Apibank']);
 // ==========================================================================
 
 /**

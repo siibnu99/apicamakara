@@ -48,46 +48,56 @@ class Apitransfer extends ResourceController
             if ($id) {
                 if ($json = $this->request->getJSON()) {
                     $data = $this->model->find($id);
+                    $get['fullname'] = $data['fullname'];
+
                     $response = [
                         'status' => 200,
-                        'data' => $data,
+                        'data' => $get,
                     ];
                     return $this->respond($response, 200);
                 }
             }
         }
     }
-    public function created()
+    public function create()
     {
         $Uuid = new Uuid;
         $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        // $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        // if ($data['status'] == 200) {
+        // } else {
+        //     return $this->respond($data, 401);
+        // }
         if ($this->request) {
             if ($this->request->getJSON()) {
                 $json = $this->request->getJSON();
                 $dataFrom = $this->UserapiModel->find($json->fromid);
                 $dataTo = $this->UserapiModel->where('telp', $json->telp)->first();
-                if ($dataFrom['saldo'] >= $json->nominal) {
-                    $data = [
-                        'id_transfer' => $Uuid->v4(),
-                        'from_id' => $json->fromid,
-                        'to_id' => $dataTo['id_user'],
-                        'nominal' => $json->nominal,
-                    ];
-                    $this->model->insert($data);
+                if ((int)$json->nominal > 0) {
+
+                    if ($dataFrom['saldo'] >= $json->nominal) {
+                        $data = [
+                            'id_transfer' => $Uuid->v4(),
+                            'from_id' => $json->fromid,
+                            'to_id' => $dataTo['id_user'],
+                            'nominal' => $json->nominal,
+                        ];
+                        $this->model->insert($data);
+                        $response = [
+                            'status' => 200,
+                            'message' => 'Success Transfer',
+                        ];
+                        return $this->respond($response, 200);
+                    }
                     $response = [
-                        'status' => 200,
-                        'message' => 'Success Transfer',
+                        'status' => 201,
+                        'message' => 'Saldo tidak cukup',
                     ];
-                    return $this->respond($response, 200);
+                    return $this->respond($response, 201);
                 }
                 $response = [
                     'status' => 201,
-                    'message' => 'Saldo tidak cukup',
+                    'message' => 'Minus',
                 ];
                 return $this->respond($response, 201);
             }

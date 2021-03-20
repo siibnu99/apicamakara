@@ -32,19 +32,23 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Tryout UTBK V3</td>
-                        <td>Yopiangga</td>
-                        <td>
-                            <a href="event-detail-berkas.html" class="badge badge-primary">Lihat Detail</a>
-                        </td>
-                        <td>18-Februari-2021</td>
-                        <td>
-                            <button class="btn btn-success">Terima</button>
-                            <button class="btn btn-danger">Tolak</button>
-                        </td>
-                    </tr>
+                    <?php $no = 1;
+                    foreach ($reports as $item) : ?>
+                        <tr>
+                            <td><?= $no ?></td>
+                            <td><?= $item['name'] ?></td>
+                            <td><?= $item['fullname'] ?></td>
+                            <td>
+                                <a href="<?= base_url() . "/assets/image/topup/" . $item['image'] ?>" class="badge badge-primary">Lihat Detail</a>
+                            </td>
+                            <td><?= $item['created_at'] ?></td>
+                            <td>
+                                <button class="btn btn-success">Terima</button>
+                                <button class="btn btn-danger">Tolak</button>
+                            </td>
+                        </tr>
+                    <?php endforeach;
+                    $no++ ?>
                     <tr>
                         <td>1</td>
                         <td>Tryout UTBK V3</td>
