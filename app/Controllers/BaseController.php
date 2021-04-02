@@ -27,7 +27,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = ['auth', 'menu'];
+	protected $helpers = ['auth', 'menu', 'filesystem'];
 
 	/**
 	 * Constructor.
@@ -51,6 +51,8 @@ class BaseController extends Controller
 		$this->SoaltModel = new \App\Models\SoaltModel;
 		$this->SoalqModel = new \App\Models\SoalqModel;
 		$this->MytryoutModel = new \App\Models\MytryoutModel;
+		$this->AnswertModel = new \App\Models\AnswertModel;
+		$this->TopupModel = new \App\Models\TopupModel;
 		$this->Uuid = new \App\Libraries\Uuid;
 	}
 }

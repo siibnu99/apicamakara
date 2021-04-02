@@ -118,6 +118,11 @@ $routes->resource('/api/mytryout', ['controller' => 'Apimytryout']);
 $routes->resource('/api/bank', ['controller' => 'Apibank']);
 // ==========================================================================
 
+// ==========================================================================
+$routes->get('/api/exam/(:segment)/(:segment)', 'Apisoalt::index/$1/$2');
+$routes->post('/api/exam/(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$1/$2/$3');
+// ==========================================================================
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

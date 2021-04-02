@@ -1,9 +1,6 @@
 <?= $this->extend('template/admin') ?>
 <?= $this->section('content') ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Data Quiz</h1>
-</div>
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Tabel Data Keuangan</h1>
 </div>
 
@@ -35,39 +32,19 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>yopigambyok@gmail.com</td>
-                        <td>18-Februari-2021</td>
-                        <td>Rp 25.000</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>yopigambyok@gmail.com</td>
-                        <td>18-Februari-2021</td>
-                        <td>Rp 25.000</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>yopigambyok@gmail.com</td>
-                        <td>18-Februari-2021</td>
-                        <td>Rp 25.000</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>yopigambyok@gmail.com</td>
-                        <td>18-Februari-2021</td>
-                        <td>Rp 25.000</td>
-                    </tr>
-
+                    <?php $no = 1;
+                    foreach ($topup as $item) : ?>
+                        <tr>
+                            <td><?= $no ?></td>
+                            <td><?= $item['fullname'] ?></td>
+                            <td><?= AllPayment($item['bank_id']) ?></td>
+                            <td><?= $item['email'] ?></td>
+                            <td><?= $item['createdTop'] ?></td>
+                            <td><?= $item['nominal'] ?></td>
+                        </tr>
+                    <?php $no++;
+                    endforeach
+                    ?>
                 </tbody>
             </table>
         </div>

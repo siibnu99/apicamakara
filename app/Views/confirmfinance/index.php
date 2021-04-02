@@ -34,58 +34,25 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><img src="img/undraw_profile.svg" alt=""></td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>25.000</td>
-                        <td>18-Februari-2021</td>
-                        <td>
-                            <a class="btn btn-danger">Tidak Diterima</a>
-                            <a class="btn btn-success">Diterima</a>
-                        </td>
-                    </tr>
+                    <?php
+                    $no = 1;
+                    foreach ($topup as $item) : ?>
 
-                    <tr>
-                        <td>2</td>
-                        <td><img src="img/undraw_profile.svg" alt=""></td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>25.000</td>
-                        <td>18-Februari-2021</td>
-                        <td>
-                            <a class="btn btn-danger">Tidak Diterima</a>
-                            <a class="btn btn-success">Diterima</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td><img src="img/undraw_profile.svg" alt=""></td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>25.000</td>
-                        <td>18-Februari-2021</td>
-                        <td>
-                            <a class="btn btn-danger">Tidak Diterima</a>
-                            <a class="btn btn-success">Diterima</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>4</td>
-                        <td><img src="img/undraw_profile.svg" alt=""></td>
-                        <td>Yopiangga</td>
-                        <td>OVO</td>
-                        <td>25.000</td>
-                        <td>18-Februari-2021</td>
-                        <td>
-                            <a class="btn btn-danger">Tidak Diterima</a>
-                            <a class="btn btn-success">Diterima</a>
-                        </td>
-                    </tr>
-
+                        <tr>
+                            <td><?= $no ?></td>
+                            <td><img width="50px" height="50px" src="<?= base_url('assets/image/topup/') . '/' . $item['imageTop'] ?>" alt=""></td>
+                            <td><?= $item['fullname'] ?></td>
+                            <td><?= AllPayment($item['bank_id']) ?></td>
+                            <td><?= $item['nominal'] ?></td>
+                            <td><?= $item['createdTop'] ?></td>
+                            <td>
+                                <a class="btn btn-danger" href="<?= base_url('confirmfinance/notconfirm') . '/' . $item['id_topup'] ?>">Tidak Diterima</a>
+                                <a class="btn btn-success" href="<?= base_url('confirmfinance/confirm') . '/'  . $item['id_topup'] ?>">Diterima</a>
+                            </td>
+                        </tr>
+                    <?php $no++;
+                    endforeach
+                    ?>
                 </tbody>
             </table>
         </div>

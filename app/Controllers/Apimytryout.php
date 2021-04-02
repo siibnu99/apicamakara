@@ -7,6 +7,9 @@ use \App\Libraries\Uuid;
 use \App\Libraries\Tokenjwt;
 use App\Models\UserApiModel;
 use App\Models\TryoutModel;
+use App\Models\TransferModel;
+use App\Models\TopupModel;
+use App\Models\MytryoutModel;
 
 class Apimytryout extends ResourceController
 {
@@ -15,6 +18,17 @@ class Apimytryout extends ResourceController
     private $limit = 10;
     private $UserapiModel;
     private $TryoutModel;
+    public function _getSaldo($idUser = NULL)
+    {
+        $TopupModel = new TopupModel();
+        $TransferModel = new TransferModel();
+        $MytryoutModel = new MytryoutModel();
+        $topup = $TopupModel->selectSum('nominal', 'totalNominal')->where('user_id', $idUser)->first()['totalNominal'];
+        $transferFrom = $TransferModel->selectSum('nominal', 'totalNominal')->where('from_id', $idUser)->first()['totalNominal'];
+        $transferTo = $TransferModel->selectSum('nominal', 'totalNominal')->where('to_id', $idUser)->first()['totalNominal'];
+        $dataMyTryout = $MytryoutModel->selectSum('tbl_tryout.price', 'totalNominal')->where(['user_id' => $idUser, 'tbl_tryout.payment_method' => '2'])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->first()['totalNominal'];
+        return $topup + $transferTo - $transferFrom - $dataMyTryout;
+    }
     public function __construct()
     {
 
@@ -91,7 +105,7 @@ class Apimytryout extends ResourceController
                     if ($dataTryout['payment_method'] == 1) {
                     } else if ($dataTryout['payment_method'] == 2) {
 
-                        if ($dataFrom['saldo'] >= $dataTryout['price']) {
+                        if ($this->_getSaldo() >= $dataTryout['price']) {
                             $data = [
                                 'id_mytryout' => $Uuid->v4(),
                                 'user_id' => $json->iduser,

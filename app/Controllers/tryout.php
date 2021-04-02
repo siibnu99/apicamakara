@@ -763,6 +763,7 @@ class Tryout extends BaseController
             'validation' => \Config\Services::validation(),
             'tryout' => $this->TryoutModel->find($id),
             'soalt' => $this->SoaltModel->where(['tryout_id' => $id, 'kind_tryout' => $idSoal])->orderBy('no_soal', 'ASC')->findAll(),
+            'dataAnswer' => $this->AnswertModel->where(['tryout_id' => $id, 'kind_tryout' => $idSoal])->findAll(),
             'SoaltModel' => $this->SoaltModel,
             'id' => $id,
             'idSoal' => $idSoal,

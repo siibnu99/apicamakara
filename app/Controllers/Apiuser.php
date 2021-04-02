@@ -5,11 +5,25 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Uuid;
 use \App\Libraries\Tokenjwt;
+use App\Models\TopupModel;
+use App\Models\TransferModel;
+use App\Models\MytryoutModel;
 
 class Apiuser extends ResourceController
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\UserApiModel';
+    public function _getSaldo($idUser = NULL)
+    {
+        $TopupModel = new TopupModel();
+        $TransferModel = new TransferModel();
+        $MytryoutModel = new MytryoutModel();
+        $topup = $TopupModel->selectSum('nominal', 'totalNominal')->where('user_id', $idUser)->first()['totalNominal'];
+        $transferFrom = $TransferModel->selectSum('nominal', 'totalNominal')->where('from_id', $idUser)->first()['totalNominal'];
+        $transferTo = $TransferModel->selectSum('nominal', 'totalNominal')->where('to_id', $idUser)->first()['totalNominal'];
+        $dataMyTryout = $MytryoutModel->selectSum('tbl_tryout.price', 'totalNominal')->where(['user_id' => $idUser, 'tbl_tryout.payment_method' => '2'])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->first()['totalNominal'];
+        return $topup + $transferTo - $transferFrom - $dataMyTryout;
+    }
     public function index()
     {
         $tokenjwt = new Tokenjwt;
@@ -56,8 +70,9 @@ class Apiuser extends ResourceController
             return $this->respond($data, 401);
         }
         $get = $this->model->find($id);
-        unset($get['password']);
         if ($get) {
+            unset($get['password']);
+            $get['saldo'] = $this->_getSaldo($id);
             $code = 200;
             $response = [
                 'status' => $code,

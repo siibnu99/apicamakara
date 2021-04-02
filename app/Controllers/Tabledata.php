@@ -4,12 +4,13 @@ namespace App\Controllers;
 
 class Tabledata extends BaseController
 {
-	public function index()
-	{
+    public function index()
+    {
+        $topup = $this->TopupModel->select("*,tbl_topup.image AS imageTop,tbl_topup.created_at AS createdTop",)->where('status', 2)->join("tbl_user", "tbl_user.id_user = tbl_topup.user_id")->findAll();
         $data = [
             'title' => 'tabledata',
-            'Tryout' => $this->TryoutModel->findALL(),
+            'topup' => $topup
         ];
-		return view('tabledata/index',$data);
-	}
+        return view('tabledata/index', $data);
+    }
 }
