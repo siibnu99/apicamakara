@@ -39,42 +39,26 @@
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['fullname'] ?></td>
                             <td>
-                                <a href="<?= base_url() . "/assets/image/topup/" . $item['image'] ?>" class="badge badge-primary">Lihat Detail</a>
+                                <?php
+                                $images =  explode(',', $item['imageto']);
+                                foreach ($images as $image) :
+                                    if ($image) :
+                                ?>
+                                        <a href="<?= base_url() . "/assets/image/ruleto/" . $image ?>" target="_blank" class="badge badge-primary">Lihat Detail</a>
+                                        <br>
+                                <?php
+                                    endif;
+                                endforeach
+                                ?>
                             </td>
                             <td><?= $item['created_at'] ?></td>
                             <td>
-                                <button class="btn btn-success">Terima</button>
-                                <button class="btn btn-danger">Tolak</button>
+                                <a class="btn btn-danger" href="<?= base_url('confirm/notconfirm') . '/' . $item['id_mytryout'] ?>">Tidak Diterima</a>
+                                <a class="btn btn-success" href="<?= base_url('confirm/confirm') . '/'  . $item['id_mytryout'] ?>">Diterima</a>
                             </td>
                         </tr>
                     <?php endforeach;
                     $no++ ?>
-                    <tr>
-                        <td>1</td>
-                        <td>Tryout UTBK V3</td>
-                        <td>Yopiangga</td>
-                        <td>
-                            <a href="event-detail-berkas.html" class="badge badge-primary">Lihat Detail</a>
-                        </td>
-                        <td>18-Februari-2021</td>
-                        <td>
-                            <button class="btn btn-success">Terima</button>
-                            <button class="btn btn-danger">Tolak</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Tryout UTBK V3</td>
-                        <td>Yopiangga</td>
-                        <td>
-                            <a href="event-detail-berkas.html" class="badge badge-primary">Lihat Detail</a>
-                        </td>
-                        <td>18-Februari-2021</td>
-                        <td>
-                            <button class="btn btn-success">Terima</button>
-                            <button class="btn btn-danger">Tolak</button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>

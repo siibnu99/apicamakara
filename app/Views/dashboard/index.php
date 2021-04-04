@@ -165,3 +165,5 @@
     <?php endif ?>
 </div>
 <?= $this->endsection() ?>
+<?= $this->section('script') ?>
+<?= $this->endsection() ?>

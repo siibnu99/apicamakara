@@ -90,6 +90,4 @@ class Apitopup extends ResourceController
         ];
         return $this->respond($response, 200);
     }
-    //     }
-    // }
 }

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Uuid;
 use \App\Libraries\Tokenjwt;
+use \App\Models\MytryoutModel;
 
 class Apitryout extends ResourceController
 {
@@ -62,6 +63,9 @@ class Apitryout extends ResourceController
                 }
                 $data['totalSaint'] = $totalSaint + 30;
                 $data['totalSoshum'] = $totalSoshum + 30;
+                $mytryout = new MytryoutModel();
+                $countPersonBuy = $mytryout->where('tryout_id', $id)->countAllResults();
+                $data['personBuy'] = $countPersonBuy;
             } else {
                 $data = $this->model->findAll();
             }
