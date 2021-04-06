@@ -27,6 +27,8 @@
                         <th>Kategori</th>
                         <th>Metode Pembayaran</th>
                         <th>Harga</th>
+                        <th>Dibuat oleh</th>
+                        <th>Diedit oleh</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -42,6 +44,8 @@
                         <th>Kategori</th>
                         <th>Metode Pembayaran</th>
                         <th>Harga</th>
+                        <th>Dibuat oleh</th>
+                        <th>Diedit oleh</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -77,6 +81,9 @@
                             <?php else : ?>
                                 <td><?= $item['price'] ?></td>
                             <?php endif ?>
+
+                            <td><?= $usermodel->find($item['created_by'])->email ?></td>
+                            <td><?= $usermodel->find($item['updated_by'])->email ?></td>
                             <td>
                                 <a href="<?= base_url('tryout/detail/' . $item['id_tryout']) ?>" class="badge badge-primary">Detail</a>
                                 <a href="<?= base_url('tryout/edit/' . $item['id_tryout']) ?>" class="badge badge-warning">Edit</a>

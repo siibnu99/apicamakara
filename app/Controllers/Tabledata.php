@@ -9,7 +9,8 @@ class Tabledata extends BaseController
         $topup = $this->TopupModel->select("*,tbl_topup.image AS imageTop,tbl_topup.created_at AS createdTop",)->where('status', 2)->join("tbl_user", "tbl_user.id_user = tbl_topup.user_id")->findAll();
         $data = [
             'title' => 'tabledata',
-            'topup' => $topup
+            'topup' => $topup,
+            'usermodel' => $this->UserModel
         ];
         return view('tabledata/index', $data);
     }

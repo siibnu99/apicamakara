@@ -48,65 +48,85 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+            <?php
+            if (in_groups(1) || in_groups(3)) :
+            ?>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Event
-            </div>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= $title == 'confirm' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('confirm') ?>">
-                    <i class="fas fa-fw fa-archive"></i>
-                    <span>Tabel Konfirmasi</span></a>
-            </li>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= $title == 'tryout' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('tryout') ?>">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Tryout</span></a>
-            </li>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= $title == 'quiz' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('quiz') ?>">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Quiz</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Keuangan
-            </div>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= $title == 'confirmfinance' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('confirmfinance') ?>">
-                    <i class="fas fa-fw fa-archive"></i>
-                    <span>Tabel Konfirmasi</span></a>
-            </li>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= $title == 'tabledata' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('tabledata') ?>">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Tabel Data</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Documentation
-            </div>
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= $title == 'documentation' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('documentation') ?>">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>APi dokumentation</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Event
+                </div>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?= $title == 'confirm' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('confirm') ?>">
+                        <i class="fas fa-fw fa-archive"></i>
+                        <span>Tabel Konfirmasi</span></a>
+                </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?= $title == 'tryout' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('tryout') ?>">
+                        <i class="fas fa-fw fa-book-open"></i>
+                        <span>Tryout</span></a>
+                </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?= $title == 'quiz' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('quiz') ?>">
+                        <i class="fas fa-fw fa-book-open"></i>
+                        <span>Quiz</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+            <?php endif;
+            if (in_groups(1) || in_groups(2)) : ?>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Keuangan
+                </div>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?= $title == 'confirmfinance' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('confirmfinance') ?>">
+                        <i class="fas fa-fw fa-archive"></i>
+                        <span>Tabel Konfirmasi</span></a>
+                </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?= $title == 'tabledata' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('tabledata') ?>">
+                        <i class="fas fa-fw fa-book-open"></i>
+                        <span>Tabel Data</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+            <?php endif;
+            if (in_groups(1)) :
+            ?>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    User Management
+                </div>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?= $title == 'listuser' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('listuser') ?>">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>List User</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Documentation
+                </div>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?= $title == 'documentation' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('documentation') ?>">
+                        <i class="fas fa-fw fa-book"></i>
+                        <span>APi dokumentation</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+            <?php endif
+            ?>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item <?= $title == 'logout' ? 'active' : '' ?>">
                 <a data-toggle="modal" data-target="#logoutModal" class="nav-link">
@@ -144,10 +164,12 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                                <img class="img-profile rounded-circle" src="<?= base_url('assets') ?>/img/undraw_profile.svg">
-                            </a>
+                            <div class="d-inline">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= user()->email ?></span>
+                                    <img class="img-profile rounded-circle" src="<?= base_url('assets') ?>/img/undraw_profile.svg">
+                                </a>
+                            </div>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <!-- <a class="dropdown-item" href="#">

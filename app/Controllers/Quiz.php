@@ -9,6 +9,7 @@ class Quiz extends BaseController
         $data = [
             'title' => 'quiz',
             'Quiz' => $this->QuizModel->findALL(),
+            'usermodel' => $this->UserModel,
         ];
         return view('quiz/index', $data);
     }
@@ -132,6 +133,8 @@ class Quiz extends BaseController
         $data = $this->request->getVar();
         $data['id_quiz'] = $this->Uuid->v4();
         $data['image'] = $nameimage;
+        $data['created_by'] = user_id();
+        $data['updated_by'] = user_id();
         $this->QuizModel->insert($data);
         $this->session->setFlashdata('message', 'Quiz ' . $data['name'] . ' Berhasil dibuat');
         return redirect()->to(base_url('quiz'));
@@ -261,6 +264,7 @@ class Quiz extends BaseController
         }
         $data = $this->request->getVar();
         $data['image'] = $nameimage;
+        $data['updated_by'] = user_id();
         $this->QuizModel->update($id, $data);
         $this->session->setFlashdata('message', 'Quiz ' . $data['name'] . ' Berhasil diedit');
         return redirect()->to(base_url('quiz'));
@@ -415,6 +419,7 @@ class Quiz extends BaseController
             'jawaban' => $this->request->getVar('jawaban'),
             'pembahasan' => $this->request->getVar('pembahasan'),
         ];
+        $data['updated_by'] = user_id();
         $this->SoalqModel->save($data);
         $this->session->setFlashdata('message', 'Soal ' . $noSoal . ' Berhasil di update');
         return  redirect()->back();
@@ -450,6 +455,8 @@ class Quiz extends BaseController
             $this->SoaltModel->save($data);
             d($data);
         }
+        $datas['updated_by'] = user_id();
+        $this->QuizModel->update($id, $datas);
         $this->session->setFlashdata('message', 'Soal  Berhasil di update');
         return  redirect()->to(base_url('tryout/detail/' . $id));
     }

@@ -17,6 +17,7 @@
                         <th>Nama Akun</th>
                         <th>Jenis Pembayaran</th>
                         <th>Email Akun</th>
+                        <th>Dikonfirmasi Oleh</th>
                         <th>Tanggal</th>
                         <th>Uang masuk</th>
                     </tr>
@@ -27,6 +28,7 @@
                         <th>Nama Akun</th>
                         <th>Jenis Pembayaran</th>
                         <th>Email Akun</th>
+                        <th>Dikonfirmasi Oleh</th>
                         <th>Tanggal</th>
                         <th>Uang masuk</th>
                     </tr>
@@ -39,6 +41,7 @@
                             <td><?= $item['fullname'] ?></td>
                             <td><?= AllPayment($item['bank_id']) ?></td>
                             <td><?= $item['email'] ?></td>
+                            <td><?= $usermodel->find($item['confirm_by'])->email ?></td>
                             <td><?= $item['createdTop'] ?></td>
                             <td><?= $item['nominal'] ?></td>
                         </tr>

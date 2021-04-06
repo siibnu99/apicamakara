@@ -169,3 +169,15 @@ function rupiah($angka)
     $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
     return $hasil_rupiah;
 }
+function groupUser($id = null)
+{
+    $data = [
+        ['Administrator/Founder', 1],
+        ['Bendahara', 2,],
+        ['Pembuatan Soal', 3,]
+    ];
+    if ($id) {
+        return $data[$id - 1][0];
+    }
+    return $data;
+}

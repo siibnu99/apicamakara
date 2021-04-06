@@ -52,6 +52,8 @@ class BaseController extends Controller
 		$this->SoalqModel = new \App\Models\SoalqModel;
 		$this->MytryoutModel = new \App\Models\MytryoutModel;
 		$this->AnswertModel = new \App\Models\AnswertModel;
+		$this->UserapiModel = new \App\Models\UserapiModel;
+		$this->UserModel = new \Myth\Auth\Models\UserModel;
 		$this->TopupModel = new \App\Models\TopupModel;
 		$this->Uuid = new \App\Libraries\Uuid;
 	}

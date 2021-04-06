@@ -11,7 +11,7 @@ class TopupModel extends Model
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
-    protected $allowedFields = ['id_topup', 'user_id', 'bank_id', 'nominal', 'image', 'status', 'created_at', 'updated_at'];
+    protected $allowedFields = ['id_topup', 'user_id', 'bank_id', 'nominal', 'image', 'status', 'confirm_by', 'created_at', 'updated_at'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

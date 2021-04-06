@@ -17,17 +17,20 @@ class Confirmfinance extends BaseController
     {
         $result = $this->TopupModel->find($id);
         $data = [
-            'status' => 2
+            'status' => 2,
+            'confirm_by' => user_id()
         ];
         delete_files('/assets/image/topup/' . $result['image']);
         $this->TopupModel->update($id, $data);
+
         return redirect()->to(base_url('confirmfinance'));
     }
     public function notconfirm($id = NULL)
     {
         $result = $this->TopupModel->find($id);
         $data = [
-            'status' => 0
+            'status' => 0,
+            'confirm_by' => user_id()
         ];
         delete_files('/assets/image/topup/' . $result['image']);
         $this->TopupModel->update($id, $data);

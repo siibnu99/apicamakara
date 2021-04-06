@@ -26,6 +26,10 @@
                         <th>Mata Pelajaran</th>
                         <th>Waktu Pengerjaan (Menit)</th>
                         <th>Kuota (Siswa)</th>
+                        <th>Dibuat Oleh</th>
+                        <th>Diubah Oleh</th>
+                        <th>Dibuat Tanggal</th>
+                        <th>Diubah Tanggal</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -41,6 +45,10 @@
                         <th>Mata Pelajaran</th>
                         <th>Waktu Pengerjaan (Menit)</th>
                         <th>Kuota (Siswa)</th>
+                        <th>Dibuat Oleh</th>
+                        <th>Diubah Oleh</th>
+                        <th>Dibuat Tanggal</th>
+                        <th>Diubah Tanggal</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -60,6 +68,10 @@
                             <td><?= allMapel($item['mapel']) ?></td>
                             <td><?= $item['t_mapel'] ?></td>
                             <td><?= $item['kuota'] ?></td>
+                            <td><?= $usermodel->find($item['created_by'])->email ?></td>
+                            <td><?= $usermodel->find($item['updated_by'])->email ?></td>
+                            <td><?= $item['created_at'] ?></td>
+                            <td><?= $item['updated_at'] ?></td>
                             <td>
                                 <a href="<?= base_url('quiz/detail') . '/' . $item['id_quiz'] ?>" class="badge badge-primary">Detail</a>
                                 <a href="<?= base_url('quiz/edit') . '/' . $item['id_quiz'] ?>" class="badge badge-warning">Edit</a>

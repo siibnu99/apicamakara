@@ -12,7 +12,7 @@ class QuizModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ["id_quiz", "name", "descript", "image", "date_start", "time_start", "date_end", "time_end", "class", "mapel", "t_mapel", "q_mapel", "kuota", "media", "link", "password", "date_start_m", "time_start_m", "update_at", "created_at"];
+    protected $allowedFields = ["id_quiz", "name", "descript", "image", "date_start", "time_start", "date_end", "time_end", "class", "mapel", "t_mapel", "q_mapel", "kuota", "media", "link", "password", "date_start_m", "time_start_m", "updated_by", "created_by", "update_at", "created_at"];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

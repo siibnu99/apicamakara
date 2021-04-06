@@ -37,36 +37,39 @@ $routes->setAutoRoute(true);
 // $routes->post('/aauth/login', 'Aauth::login');
 
 $routes->get('/', 'Home::index');
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:admin']);
-$routes->get('/documentation', 'Documentation::index', ['filter' => 'role:admin']);
-$routes->get('/confirm', 'Confirm::index', ['filter' => 'role:admin']);
-
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:admin,finance,task']);
+$routes->get('/documentation', 'Documentation::index', ['filter' => 'role:admin,finance,task']);
+$routes->get('/confirm', 'Confirm::index', ['filter' => 'role:admin,task']);
 // ==========================================================================
-$routes->get('/tryout', 'Tryout::index', ['filter' => 'role:admin']);
-$routes->get('/tryout/create', 'Tryout::create', ['filter' => 'role:admin']);
-$routes->post('/tryout/create', 'Tryout::attemptcreate', ['filter' => 'role:admin']);
-$routes->get('/tryout/edit/(:segment)', 'Tryout::edit/$1', ['filter' => 'role:admin']);
-$routes->post('/tryout/edit/(:segment)', 'Tryout::attemptedit/$1', ['filter' => 'role:admin']);
-$routes->post('/tryout/delete/(:segment)', 'Tryout::delete/$1', ['filter' => 'role:admin']);
-$routes->get('/tryout/editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::editsoal/$1/$2/$3', ['filter' => 'role:admin']);
-$routes->post('/tryout/editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::attemptEditSoal/$1/$2/$3', ['filter' => 'role:admin']);
-$routes->get('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::editbobot/$1/$2', ['filter' => 'role:admin']);
-$routes->post('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::attempteditbobot/$1/$2', ['filter' => 'role:admin']);
-$routes->get('/tryout/detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'role:admin']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->get('/quiz', 'Quiz::index', ['filter' => 'role:admin']);
-$routes->get('/quiz/create', 'Quiz::create', ['filter' => 'role:admin']);
-$routes->post('/quiz/create', 'Quiz::attemptcreate', ['filter' => 'role:admin']);
-$routes->get('/quiz/edit/(:segment)', 'Quiz::edit/$1', ['filter' => 'role:admin']);
-$routes->post('/quiz/edit/(:segment)', 'Quiz::attemptedit/$1', ['filter' => 'role:admin']);
-$routes->post('/quiz/delete/(:segment)', 'Quiz::delete/$1', ['filter' => 'role:admin']);
-$routes->get('/quiz/detail/(:segment)', 'quiz::detail/$1', ['filter' => 'role:admin']);
-$routes->get('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::editsoal/$1/$2', ['filter' => 'role:admin']);
-$routes->post('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::attemptEditSoal/$1/$2', ['filter' => 'role:admin']);
+$routes->get('/tryout', 'Tryout::index', ['filter' => 'role:admin,task']);
+$routes->get('/tryout/create', 'Tryout::create', ['filter' => 'role:admin,task']);
+$routes->post('/tryout/create', 'Tryout::attemptcreate', ['filter' => 'role:admin,task']);
+$routes->get('/tryout/edit/(:segment)', 'Tryout::edit/$1', ['filter' => 'role:admin,task']);
+$routes->post('/tryout/edit/(:segment)', 'Tryout::attemptedit/$1', ['filter' => 'role:admin,task']);
+$routes->post('/tryout/delete/(:segment)', 'Tryout::delete/$1', ['filter' => 'role:admin,task']);
+$routes->get('/tryout/editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::editsoal/$1/$2/$3', ['filter' => 'role:admin,task']);
+$routes->post('/tryout/editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::attemptEditSoal/$1/$2/$3', ['filter' => 'role:admin,task']);
+$routes->get('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::editbobot/$1/$2', ['filter' => 'role:admin,task']);
+$routes->post('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::attempteditbobot/$1/$2', ['filter' => 'role:admin,task']);
+$routes->get('/tryout/detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'role:admin,task']);
 // ==========================================================================
 
+// ==========================================================================
+$routes->get('/quiz', 'Quiz::index', ['filter' => 'role:admin,task']);
+$routes->get('/quiz/create', 'Quiz::create', ['filter' => 'role:admin,task']);
+$routes->post('/quiz/create', 'Quiz::attemptcreate', ['filter' => 'role:admin,task']);
+$routes->get('/quiz/edit/(:segment)', 'Quiz::edit/$1', ['filter' => 'role:admin,task']);
+$routes->post('/quiz/edit/(:segment)', 'Quiz::attemptedit/$1', ['filter' => 'role:admin,task']);
+$routes->post('/quiz/delete/(:segment)', 'Quiz::delete/$1', ['filter' => 'role:admin,task']);
+$routes->get('/quiz/detail/(:segment)', 'quiz::detail/$1', ['filter' => 'role:admin,task']);
+$routes->get('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::editsoal/$1/$2', ['filter' => 'role:admin,task']);
+$routes->post('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::attemptEditSoal/$1/$2', ['filter' => 'role:admin,task']);
+// ==========================================================================
+
+// ==========================================================================
+$routes->get('/confirmfinance', 'confirmfinance::index', ['filter' => 'role:admin,finance']);
+$routes->get('/tabledata', 'tabledata::index', ['filter' => 'role:admin,finance']);
+// ==========================================================================
 // ==========================================================================
 $routes->get('/api/user/islogin', 'Apiuser::islogin');
 $routes->post('/api/user/forgot', 'Apiuser::forgot');

@@ -9,6 +9,7 @@ class Tryout extends BaseController
         $data = [
             'title' => 'tryout',
             'Tryout' => $this->TryoutModel->findALL(),
+            'usermodel' => $this->UserModel,
         ];
         return view('tryout/index', $data);
     }
@@ -296,6 +297,8 @@ class Tryout extends BaseController
             $cat = $cat .  $item;
         }
         $data['cat_tryout'] = $cat;
+        $data['created_by'] = user_id();
+        $data['updated_by'] = user_id();
         $this->TryoutModel->insert($data);
         $this->session->setFlashdata('message', 'Tryout ' . $data['name'] . ' Berhasil dibuat');
         return redirect()->to(base_url('tryout'));
@@ -590,6 +593,7 @@ class Tryout extends BaseController
             $cat = $cat .  $item;
         }
         $data['cat_tryout'] = $cat;
+        $data['updated_by'] = user_id();
         $this->TryoutModel->update($id, $data);
         $this->session->setFlashdata('message', 'Tryout ' . $data['name'] . ' Berhasil diedit');
         return redirect()->to(base_url('tryout'));
@@ -747,6 +751,8 @@ class Tryout extends BaseController
             'pembahasan' => $this->request->getVar('pembahasan'),
         ];
         $this->SoaltModel->save($data);
+        $datas['updated_by'] = user_id();
+        $this->TryoutModel->update($id, $datas);
         $this->session->setFlashdata('message', 'Soal ' . $noSoal . ' Berhasil di update');
         return  redirect()->back();
     }
@@ -780,8 +786,9 @@ class Tryout extends BaseController
                 'bobot' => $this->request->getVar($item['no_soal'])
             ];
             $this->SoaltModel->save($data);
-            d($data);
         }
+        $datas['updated_by'] = user_id();
+        $this->TryoutModel->update($id, $datas);
         $this->session->setFlashdata('message', 'Soal  Berhasil di update');
         return  redirect()->to(base_url('tryout/detail/' . $id));
     }
