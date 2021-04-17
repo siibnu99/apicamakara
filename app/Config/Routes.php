@@ -129,6 +129,10 @@ $routes->get('/api/riwayat/(:segment)', 'Apiriwayat::index/$1');
 $routes->get('/api/exam/(:segment)/(:segment)', 'Apisoalt::index/$1/$2');
 $routes->post('/api/exam/(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$1/$2/$3');
 // ==========================================================================
+// ==========================================================================
+$routes->get('/api/score/boardtryoutall/(:segment)', 'Apiscore::boardTryoutAll/$1');
+$routes->get('/api/score/(:segment)/(:segment)', 'Apiscore::index/$1/$2');
+// ==========================================================================
 
 /**
  * --------------------------------------------------------------------

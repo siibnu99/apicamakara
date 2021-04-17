@@ -76,6 +76,34 @@ function mapel($type, $arr)
         return $data;
     }
 }
+function getTypeMapel($type)
+{
+    if ($type == 1) {
+        $data = [
+            ['Penalaran Umum', 'q_penalaran', 't_penalaran', 'q_penalaran'],
+            ['Pemahamnan Bacaan dan Menulis', 'q_pemahaman', 't_pemahaman', 'q_pemahaman'],
+            ['Pengetahuan dan Pemahaman Umum', 'q_pengetahuan', 't_pengetahuan', 'q_pengetahuan'],
+            ['Pengetahuan Kuantitatif', 'q_pengetahuank', 't_pengetahuank', 'q_pengetahuank'],
+            ['Kimia', 'q_kimia', 't_kimia', 'q_kimia'],
+            ['Fisika', 'q_fisika', 't_fisika', 'q_fisika'],
+            ['Biologi', 'q_biologi', 't_biologi', 'q_biologi'],
+            ['Matematika', 'q_matematika', 't_matematika', 'q_matematika'],
+        ];
+        return $data;
+    } else if ($type == 2) {
+        $data = [
+            ['Penalaran Umum', 'q_penalaran', 't_penalaran', 'q_penalaran'],
+            ['Pemahamnan Bacaan dan Menulis', 'q_pemahaman', 't_pemahaman', 'q_pemahaman'],
+            ['Pengetahuan dan Pemahaman Umum', 'q_pengetahuan', 't_pengetahuan', 'q_pengetahuan'],
+            ['Pengetahuan Kuantitatif', 'q_pengetahuank', 't_pengetahuank', 'q_pengetahuank'],
+            ['Sejarah', 'q_sejarah', 't_sejarah', 'q_sejarah'],
+            ['Geografi', 'q_geografi', 't_geografi', 'q_geografi'],
+            ['Sosiologi', 'q_sosiologi', 't_sosiologi', 'q_sosiologi'],
+            ['Ekonomi', 'q_ekonomi', 't_ekonomi', 'q_ekonomi'],
+        ];
+        return $data;
+    }
+}
 function allMapel($id = null)
 {
     $data = [
