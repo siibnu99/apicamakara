@@ -61,7 +61,7 @@ $routes->post('/quiz/create', 'Quiz::attemptcreate', ['filter' => 'role:admin,ta
 $routes->get('/quiz/edit/(:segment)', 'Quiz::edit/$1', ['filter' => 'role:admin,task']);
 $routes->post('/quiz/edit/(:segment)', 'Quiz::attemptedit/$1', ['filter' => 'role:admin,task']);
 $routes->post('/quiz/delete/(:segment)', 'Quiz::delete/$1', ['filter' => 'role:admin,task']);
-$routes->get('/quiz/detail/(:segment)', 'quiz::detail/$1', ['filter' => 'role:admin,task']);
+$routes->get('/quiz/detail/(:segment)', 'Quiz::detail/$1', ['filter' => 'role:admin,task']);
 $routes->get('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::editsoal/$1/$2', ['filter' => 'role:admin,task']);
 $routes->post('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::attemptEditSoal/$1/$2', ['filter' => 'role:admin,task']);
 // ==========================================================================
