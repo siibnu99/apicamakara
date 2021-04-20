@@ -601,7 +601,10 @@ class Tryout extends BaseController
     public function delete($id)
     {
         $rData = $this->TryoutModel->find($id);
-        unlink('assets/image/tryout/' . $rData['image']);
+        try {
+            unlink('assets/image/tryout/' . $rData['image']);
+        } catch (\Throwable $th) {
+        }
         $this->TryoutModel->delete($id);
         $this->session->setFlashdata('message', 'Tryout Berhasil dihapus');
         return redirect()->to(base_url('tryout'));

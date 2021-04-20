@@ -7,13 +7,16 @@ function getAnswer($noSoal, $dataAnswer, $soalt)
     $amountAnswerCorrect = 0;
     foreach ($dataAnswer as $item) {
         $arr = explode(',', $item['answer']);
-        if ($arr[$noSoal - 1] != 0) {
-            $amountAnswer++;
-            foreach ($soalt as $item1) {
-                if ($arr[$noSoal - 1] == $item1['jawaban']  && $item1['no_soal'] == $noSoal) {
-                    $amountAnswerCorrect++;
+        try {
+            if ($arr[$noSoal - 1] != 0) {
+                $amountAnswer++;
+                foreach ($soalt as $item1) {
+                    if ($arr[$noSoal - 1] == $item1['jawaban']  && $item1['no_soal'] == $noSoal) {
+                        $amountAnswerCorrect++;
+                    }
                 }
             }
+        } catch (\Throwable $th) {
         }
     }
     $result = [$amountAnswer, $amountAnswerCorrect];
