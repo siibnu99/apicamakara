@@ -75,19 +75,26 @@ class Apitopup extends ResourceController
         // pindahkan file
         $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
         $json = $this->request->getJSON();
-        $data = [
-            'id_topup' => $Uuid->v4(),
-            'user_id' => $this->request->getVar('id'),
-            'bank_id' => $this->request->getVar('bankid'),
-            'nominal' => $this->request->getVar('nominal'),
-            'image' => $namaFile,
-            'status' => 1,
-        ];
-        $this->model->insert($data);
-        $response = [
-            'status' => 200,
-            'message' => 'Success Top Up',
-        ];
+        if ($this->request->getVar('bankid')) {
+            $data = [
+                'id_topup' => $Uuid->v4(),
+                'user_id' => $this->request->getVar('id'),
+                'bank_id' => $this->request->getVar('bankid'),
+                'nominal' => $this->request->getVar('nominal'),
+                'image' => $namaFile,
+                'status' => 1,
+            ];
+            $this->model->insert($data);
+            $response = [
+                'status' => 200,
+                'message' => 'Success Top Up',
+            ];
+        } else {
+            $response = [
+                'status' => 201,
+                'message' => 'Mohon Pilih Bank',
+            ];
+        }
         return $this->respond($response, 200);
     }
 }
