@@ -67,8 +67,8 @@ $routes->post('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::attemptEditSoal/$1/
 // ==========================================================================
 
 // ==========================================================================
-$routes->get('/confirmfinance', 'confirmfinance::index', ['filter' => 'role:admin,finance']);
-$routes->get('/tabledata', 'tabledata::index', ['filter' => 'role:admin,finance']);
+$routes->get('/confirmfinance', 'Confirmfinance::index', ['filter' => 'role:admin,finance']);
+$routes->get('/tabledata', 'Tabledata::index', ['filter' => 'role:admin,finance']);
 // ==========================================================================
 // ==========================================================================
 $routes->get('/api/user/islogin', 'Apiuser::islogin');
