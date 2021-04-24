@@ -178,7 +178,10 @@ class Tryout extends BaseController
         } else {
             $nameimage = $uploadimage->getRandomName();
             $uploadimage->move('assets/image/tryout', $nameimage);
-            unlink('assets/image/tryout/' . $rData['image']);
+            try {
+                unlink('assets/image/tryout/' . $rData['image']);
+            } catch (\Throwable $th) {
+            }
         }
         $data = $this->request->getVar();
         $data['image'] = $nameimage;
