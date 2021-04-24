@@ -339,7 +339,7 @@ class Tryout extends BaseController
             $nameimagepembahasan = '';
         } else {
             if ($uploadimage->getError() === 4) {
-                if ($dataSoalt['c']) {
+                if ($dataSoalt['imagepembahasan']) {
                     $nameimagepembahasan = $dataSoalt['imagepembahasan'];
                 } else {
                     $nameimagepembahasan = '';
