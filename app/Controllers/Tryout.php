@@ -312,7 +312,11 @@ class Tryout extends BaseController
         $uploadimage = $this->request->getFile('image');
         if ($this->request->getVar('deleteImage')) {
             if ($dataSoalt['image']) {
-                unlink('assets/image/soalTryout/' . $dataSoalt['image']);
+                try {
+                    unlink('assets/image/soalTryout/' . $dataSoalt['image']);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
             }
             $nameimage = '';
         } else {
@@ -327,14 +331,21 @@ class Tryout extends BaseController
                 $nameimage = $uploadimage->getRandomName();
                 $uploadimage->move('assets/image/soalTryout', $nameimage);
                 if ($dataSoalt['image']) {
-                    unlink('assets/image/soalTryout/' . $dataSoalt['image']);
+                    try {
+                        unlink('assets/image/soalTryout/' . $dataSoalt['image']);
+                    } catch (\Throwable $th) {
+                    }
                 }
             }
         }
         $uploadimage = $this->request->getFile('imagepembahasan');
         if ($this->request->getVar('deleteImagePembahasan')) {
             if ($dataSoalt['imagepembahasan']) {
-                unlink('assets/image/soalTryout/' . $dataSoalt['imagepembahasan']);
+                try {
+
+                    unlink('assets/image/soalTryout/' . $dataSoalt['imagepembahasan']);
+                } catch (\Throwable $th) {
+                }
             }
             $nameimagepembahasan = '';
         } else {
@@ -349,7 +360,10 @@ class Tryout extends BaseController
                 $nameimagepembahasan = $uploadimage->getRandomName();
                 $uploadimage->move('assets/image/soalTryout', $nameimagepembahasan);
                 if ($dataSoalt['imagepembahasan']) {
-                    unlink('assets/image/soalTryout/' . $dataSoalt['imagepembahasan']);
+                    try {
+                        unlink('assets/image/soalTryout/' . $dataSoalt['imagepembahasan']);
+                    } catch (\Throwable $th) {
+                    }
                 }
             }
         }

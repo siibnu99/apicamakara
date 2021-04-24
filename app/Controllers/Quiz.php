@@ -260,7 +260,10 @@ class Quiz extends BaseController
         } else {
             $nameimage = $uploadimage->getRandomName();
             $uploadimage->move('assets/image/quiz', $nameimage);
-            unlink('assets/image/quiz/' . $rData['image']);
+            try {
+                unlink('assets/image/quiz/' . $rData['image']);
+            } catch (\Throwable $th) {
+            }
         }
         $data = $this->request->getVar();
         $data['image'] = $nameimage;
@@ -272,7 +275,10 @@ class Quiz extends BaseController
     public function delete($id)
     {
         $rData = $this->QuizModel->find($id);
-        unlink('assets/image/quiz/' . $rData['image']);
+        try {
+            unlink('assets/image/quiz/' . $rData['image']);
+        } catch (\Throwable $th) {
+        }
         $this->QuizModel->delete($id);
         $this->session->setFlashdata('message', 'Quiz ' . $rData['name'] . '  Berhasil dihapus');
         return redirect()->to(base_url('quiz'));
@@ -387,7 +393,10 @@ class Quiz extends BaseController
         $uploadimage = $this->request->getFile('image');
         if ($this->request->getVar('deleteImage')) {
             if ($dataSoalq['image']) {
-                unlink('assets/image/soalquiz/' . $dataSoalq['image']);
+                try {
+                    unlink('assets/image/soalquiz/' . $dataSoalq['image']);
+                } catch (\Throwable $th) {
+                }
             }
             $nameimage = '';
         } else {
@@ -402,7 +411,10 @@ class Quiz extends BaseController
                 $nameimage = $uploadimage->getRandomName();
                 $uploadimage->move('assets/image/soalquiz', $nameimage);
                 if ($dataSoalq['image']) {
-                    unlink('assets/image/soalquiz/' . $dataSoalq['image']);
+                    try {
+                        unlink('assets/image/soalquiz/' . $dataSoalq['image']);
+                    } catch (\Throwable $th) {
+                    }
                 }
             }
         }
