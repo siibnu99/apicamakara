@@ -10,6 +10,8 @@ use App\Models\TryoutModel;
 use App\Models\TransferModel;
 use App\Models\TopupModel;
 use App\Models\MytryoutModel;
+use App\Models\AnswertModel;
+use App\Models\SoaltModel;
 
 class Apimytryout extends ResourceController
 {
@@ -18,11 +20,13 @@ class Apimytryout extends ResourceController
     private $limit = 10;
     private $UserapiModel;
     private $TryoutModel;
+    private $SoaltModel;
     public function _getSaldo($idUser = NULL)
     {
         $TopupModel = new TopupModel();
         $TransferModel = new TransferModel();
         $MytryoutModel = new MytryoutModel();
+        $SoaltModel = new SoaltModel();
         $topup = $TopupModel->selectSum('nominal', 'totalNominal')->where(['user_id' => $idUser, 'status' => '2'])->first()['totalNominal'];
         $transferFrom = $TransferModel->selectSum('nominal', 'totalNominal')->where('from_id', $idUser)->first()['totalNominal'];
         $transferTo = $TransferModel->selectSum('nominal', 'totalNominal')->where('to_id', $idUser)->first()['totalNominal'];
@@ -35,6 +39,8 @@ class Apimytryout extends ResourceController
 
         $this->UserapiModel = new UserApiModel;
         $this->TryoutModel = new TryoutModel;
+        $this->AnswertModel = new AnswertModel;
+        $this->SoaltModel = new SoaltModel();
     }
     private function getOffset($page)
     {
@@ -48,10 +54,24 @@ class Apimytryout extends ResourceController
     }
     public function index($iduser = null)
     {
-
+        helper('menu');
         $tryout = $this->model->where('user_id', $iduser)->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->findAll();
+        $result = [];
+        $i = 0;
+        foreach ($tryout as $item) {
+            $result[] = $item;
+            $allMapel = getTypeMapel($item['type_tryout']);
+            $result[$i]['statusAnswert'] = true;
+            foreach ($allMapel as $Mapel) {
+                if (!$this->AnswertModel->where(['user_id' => $iduser, 'tryout_id' => $item['id_tryout'], 'kind_tryout' => $Mapel[1]])->findAll()) {
+                    $result[$i]['statusAnswert'] = false;
+                    break;
+                }
+            }
+            $i++;
+        }
         $data = [
-            "tryouts" => $tryout,
+            "tryouts" => $result,
         ];
         $response = [
             'status' => 200,
@@ -184,6 +204,77 @@ class Apimytryout extends ResourceController
                 ];
                 return $this->respond($response, 201);
             }
+        }
+    }
+    public function get($idUser = null, $id = null)
+    {
+        helper('menu');
+        $mytryout = new MytryoutModel();
+        $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $id])->first();
+        if ($result) {
+            $data = $this->TryoutModel->find($id);
+            $totalSaint = 0;
+            $totalSoshum = 0;
+            $dataMapel = mapel(1, $data);
+            foreach ($dataMapel as $item) {
+                $totalSaint +=  $item[2];
+            }
+            $dataMapel = mapel(2, $data);
+            foreach ($dataMapel as $item) {
+                $totalSoshum += $item[2];
+            }
+            $data['totalSaint'] = $totalSaint + 30;
+            $data['totalSoshum'] = $totalSoshum + 30;
+            $countPersonBuy = $mytryout->where('tryout_id', $id)->countAllResults();
+            $data['personBuy'] = $countPersonBuy;
+            $dataDikerjakan = $this->AnswertModel->where(['user_id' => $idUser, 'tryout_id' => $id])->findAll();
+            $dataAnswert = [];
+            foreach (getTypeMapel($data['type_tryout']) as $mapel) {
+                $inData = [$mapel[1], 0];
+                foreach ($dataDikerjakan as $answertData) {
+                    if ($mapel[1] == $answertData['kind_tryout']) {
+                        $inData[1] = 1;
+                    }
+                }
+                $dataAnswert[] = $inData;
+            }
+            $data['tryoutanswert'] = $dataAnswert;
+            $response = [
+                'status' => 200,
+                'data' => $data,
+            ];
+            return $this->respond($response, 200);
+        } else {
+            $response = [
+                'status' => 201,
+                'message' => "Tidak memiliki Tryout ini"
+            ];
+            return $this->respond($response, 200);
+        }
+    }
+    public function getAnswert($idUser = null, $id = null, $kindTryout = NULL, $nomerSoalt = NULL)
+    {
+        helper('menu');
+        $mytryout = new MytryoutModel();
+        $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $id])->first();
+        if ($result) {
+            if ($this->AnswertModel->where(['user_id' => $idUser, 'tryout_id' => $id, 'kind_tryout' => $kindTryout])->findAll()) {
+                $dataAnswertResult = $this->SoaltModel->select('pembahasan,imagepembahasan,jawaban')->where(['tryout_id' => $id, 'kind_tryout' => $kindTryout, 'no_soal' => $nomerSoalt])->first();
+                $data = $dataAnswertResult;
+            } else {
+                $data = "Belum dikerjakan";
+            }
+            $response = [
+                'status' => 200,
+                'data' => $data,
+            ];
+            return $this->respond($response, 200);
+        } else {
+            $response = [
+                'status' => 201,
+                'message' => "Tidak memiliki Tryout ini"
+            ];
+            return $this->respond($response, 200);
         }
     }
 }

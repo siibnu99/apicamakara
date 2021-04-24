@@ -12,7 +12,7 @@ class SoaltModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['id_soalt', 'tryout_id', 'kind_tryout', 'no_soal', 'soal', 'image', 'pilihan1', 'pilihan2', 'pilihan3', 'pilihan4', 'pilihan5', 'jawaban', 'pembahasan', 'bobot', 'created_at', 'updated_at'];
+    protected $allowedFields = ['id_soalt', 'tryout_id', 'kind_tryout', 'no_soal', 'soal', 'image', 'pilihan1', 'pilihan2', 'pilihan3', 'pilihan4', 'pilihan5', 'jawaban', 'pembahasan', 'imagepembahasan', 'bobot', 'created_at', 'updated_at'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

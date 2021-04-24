@@ -112,6 +112,8 @@ $routes->resource('/api/transfer', ['controller' => 'Apitransfer']);
 // ==========================================================================
 
 // ==========================================================================
+$routes->get('/api/mytryout/get/(:segment)/(:segment)', 'Apimytryout::get/$1/$2');
+$routes->get('/api/mytryout/getanswert/(:segment)/(:segment)/(:segment)/(:segment)', 'Apimytryout::getAnswert/$1/$2/$3/$4');
 $routes->get('/api/mytryout/(:segment)', 'Apimytryout::index/$1');
 $routes->get('/api/mytryout/check', 'Apimytryout::check');
 $routes->resource('/api/mytryout', ['controller' => 'Apimytryout']);

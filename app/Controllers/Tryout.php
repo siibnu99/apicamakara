@@ -81,209 +81,6 @@ class Tryout extends BaseController
                     'is_image' => '{field} tidak berbentuk gambar!',
                 ]
             ],
-            // 'rule1' => [
-            //     'label'  => 'Persyaratan 1',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule2' => [
-            //     'label'  => 'Persyaratan 2',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule3' => [
-            //     'label'  => 'Persyaratan 3',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule4' => [
-            //     'label'  => 'Persyaratan 4',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule5' => [
-            //     'label'  => 'Persyaratan 5',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_penalaran' => [
-            //     'label'  => 'Pertanyaan penalaran',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_penalaran' => [
-            //     'label'  => 'Waktu pengerjaan penalaran',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_pemahaman' => [
-            //     'label'  => 'Pertanyaan pemahaman',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_pemahaman' => [
-            //     'label'  => 'Waktu pengerjaan pemahaman',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_pengetahuan' => [
-            //     'label'  => 'Pertanyaan pengetahuan',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_pengetahuan' => [
-            //     'label'  => 'Waktu pengerjaan pengetahuan',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_pengetahuank' => [
-            //     'label'  => 'Pertanyaan pengetahuan kuantitatif',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_pengetahuank' => [
-            //     'label'  => 'Waktu pengerjaan pengetahuan kuantitatif',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_kimia' => [
-            //     'label'  => 'Pertanyaan kimia',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_kimia' => [
-            //     'label'  => 'Waktu pengerjaan kimia',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_fisika' => [
-            //     'label'  => 'Pertanyaan fisika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_fisika' => [
-            //     'label'  => 'Waktu pengerjaan fisika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_biologi' => [
-            //     'label'  => 'Pertanyaan biologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_biologi' => [
-            //     'label'  => 'Waktu pengerjaan biologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_matematika' => [
-            //     'label'  => 'Pertanyaan matematika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_matematika' => [
-            //     'label'  => 'Waktu pengerjaan matematika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_sejarah' => [
-            //     'label'  => 'Pertanyaan sejarah',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_sejarah' => [
-            //     'label'  => 'Waktu pengerjaan sejarah',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_geografi' => [
-            //     'label'  => 'Pertanyaan geografi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_geografi' => [
-            //     'label'  => 'Waktu pengerjaan geografi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_sosiologi' => [
-            //     'label'  => 'Pertanyaan sosiologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_sosiologi' => [
-            //     'label'  => 'Waktu pengerjaan sosiologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_ekonomi' => [
-            //     'label'  => 'Pertanyaan ekonomi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_ekonomi' => [
-            //     'label'  => 'Waktu pengerjaan ekonomi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
         ]))
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         $uploadimage = $this->request->getFile('image');
@@ -372,209 +169,6 @@ class Tryout extends BaseController
                     'is_image' => '{field} tidak berbentuk gambar!',
                 ]
             ],
-            // 'rule1' => [
-            //     'label'  => 'Persyaratan 1',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule2' => [
-            //     'label'  => 'Persyaratan 2',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule3' => [
-            //     'label'  => 'Persyaratan 3',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule4' => [
-            //     'label'  => 'Persyaratan 4',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'rule5' => [
-            //     'label'  => 'Persyaratan 5',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_penalaran' => [
-            //     'label'  => 'Pertanyaan penalaran',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_penalaran' => [
-            //     'label'  => 'Waktu pengerjaan penalaran',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_pemahaman' => [
-            //     'label'  => 'Pertanyaan pemahaman',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_pemahaman' => [
-            //     'label'  => 'Waktu pengerjaan pemahaman',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_pengetahuan' => [
-            //     'label'  => 'Pertanyaan pengetahuan',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_pengetahuan' => [
-            //     'label'  => 'Waktu pengerjaan pengetahuan',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_pengetahuank' => [
-            //     'label'  => 'Pertanyaan pengetahuan kuantitatif',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_pengetahuank' => [
-            //     'label'  => 'Waktu pengerjaan pengetahuan kuantitatif',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_kimia' => [
-            //     'label'  => 'Pertanyaan kimia',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_kimia' => [
-            //     'label'  => 'Waktu pengerjaan kimia',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_fisika' => [
-            //     'label'  => 'Pertanyaan fisika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_fisika' => [
-            //     'label'  => 'Waktu pengerjaan fisika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_biologi' => [
-            //     'label'  => 'Pertanyaan biologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_biologi' => [
-            //     'label'  => 'Waktu pengerjaan biologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_matematika' => [
-            //     'label'  => 'Pertanyaan matematika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_matematika' => [
-            //     'label'  => 'Waktu pengerjaan matematika',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_sejarah' => [
-            //     'label'  => 'Pertanyaan sejarah',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_sejarah' => [
-            //     'label'  => 'Waktu pengerjaan sejarah',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_geografi' => [
-            //     'label'  => 'Pertanyaan geografi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_geografi' => [
-            //     'label'  => 'Waktu pengerjaan geografi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_sosiologi' => [
-            //     'label'  => 'Pertanyaan sosiologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_sosiologi' => [
-            //     'label'  => 'Waktu pengerjaan sosiologi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 'q_ekonomi' => [
-            //     'label'  => 'Pertanyaan ekonomi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
-            // 't_ekonomi' => [
-            //     'label'  => 'Waktu pengerjaan ekonomi',
-            //     'rules'  => 'required',
-            //     'errors' => [
-            //         'required' => '{field} Harus di isi',
-            //     ]
-            // ],
         ]))
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         $rData = $this->TryoutModel->find($id);
@@ -588,10 +182,7 @@ class Tryout extends BaseController
         }
         $data = $this->request->getVar();
         $data['image'] = $nameimage;
-        $cat = '';
-        foreach ($data['cat_tryout'] as $item) {
-            $cat = $cat .  $item;
-        }
+        $cat = $data['cat_tryout'];
         $data['cat_tryout'] = $cat;
         $data['updated_by'] = user_id();
         $this->TryoutModel->update($id, $data);
@@ -740,6 +331,28 @@ class Tryout extends BaseController
                 }
             }
         }
+        $uploadimage = $this->request->getFile('imagepembahasan');
+        if ($this->request->getVar('deleteImagePembahasan')) {
+            if ($dataSoalt['imagepembahasan']) {
+                unlink('assets/image/soalTryout/' . $dataSoalt['imagepembahasan']);
+            }
+            $nameimagepembahasan = '';
+        } else {
+            if ($uploadimage->getError() === 4) {
+                if ($dataSoalt['c']) {
+                    $nameimagepembahasan = $dataSoalt['imagepembahasan'];
+                } else {
+                    $nameimagepembahasan = '';
+                }
+            } else {
+
+                $nameimagepembahasan = $uploadimage->getRandomName();
+                $uploadimage->move('assets/image/soalTryout', $nameimagepembahasan);
+                if ($dataSoalt['imagepembahasan']) {
+                    unlink('assets/image/soalTryout/' . $dataSoalt['imagepembahasan']);
+                }
+            }
+        }
         $data = [
             'id_soalt' => $this->request->getVar('id_soalt'),
             'no_soal' => $noSoal,
@@ -752,6 +365,7 @@ class Tryout extends BaseController
             'pilihan5' => $this->request->getVar('pilihan5'),
             'jawaban' => $this->request->getVar('jawaban'),
             'pembahasan' => $this->request->getVar('pembahasan'),
+            'imagepembahasan' => $nameimagepembahasan,
         ];
         $this->SoaltModel->save($data);
         $datas['updated_by'] = user_id();

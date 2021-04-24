@@ -12,30 +12,26 @@ class Apitryout extends ResourceController
     protected $format       = 'json';
     protected $modelName    = 'App\Models\TryoutModel';
     private $limit = 10;
-
-    private function getOffset($page)
+    public function __construct()
     {
-        $offset = ($page - 1) * $this->limit;
-        return $offset;
+        $this->MytryoutModel = new \App\Models\MytryoutModel;
     }
-    private function getPageCount($countData)
-    {
-        $pageCount = ceil($countData / $this->limit);
-        return $pageCount;
-    }
-    public function index($page = 1)
+    public function index($iduser = null)
     {
         if ($this->request) {
-            $tryout = $this->model->findAll($this->limit, $this->getOffset($page));
-            $countData = $this->model->countAll();
-            $page = (int) $page;
-            $pageCount = $this->getPageCount($countData);
+            $tryout = $this->model->findAll();
+            $result = [];
+            if ($iduser) {
+                foreach ($tryout as $item) {
+                    if (!$this->MytryoutModel->where(['user_id' => $iduser, 'tryout_id' => $item['id_tryout']])->first()) {
+                        $result[] = $item;
+                    }
+                }
+            } else {
+                $result = $tryout;
+            }
             $data = [
-                "page" => $page,
-                "perpage" => $this->limit,
-                "pageCount" => $pageCount,
-                "count" => $countData,
-                "tryouts" => $tryout,
+                "tryouts" => $result,
             ];
             $response = [
                 'status' => 200,
