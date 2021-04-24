@@ -7,8 +7,8 @@ class Dashboard extends BaseController
     public function index()
     {
         $countSoalMonth = 0;
-        $countSoalMonth += $this->SoaltModel->like("created_at", date("Y"))->countAllResults();
-        $countSoalMonth += $this->SoalqModel->like("created_at", date("Y"))->countAllResults();
+        $countSoalMonth += $this->SoaltModel->like("created_at", date("Y-m"))->countAllResults();
+        $countSoalMonth += $this->SoalqModel->like("created_at", date("Y-m"))->countAllResults();
         $countSoal = 0;
         $countSoal += $this->SoaltModel->like("created_at", date("Y"))->countAllResults();
         $countSoal += $this->SoalqModel->like("created_at", date("Y"))->countAllResults();
@@ -32,10 +32,10 @@ class Dashboard extends BaseController
         $dataBulananSoalCart .= '[';
         for ($i = 1; $i <= 12; $i++) {
             $i < 10 ? $date = "0" . $i : $date = $i;
-            $countSoalMonth = 0;
-            $countSoalMonth += $this->SoaltModel->like("created_at", date("Y") . '-' . $date)->countAllResults();
-            $countSoalMonth += $this->SoalqModel->like("created_at", date("Y") . '-' . $date)->countAllResults();
-            $dataBulananSoalCart .= $countSoalMonth;
+            $countSoalMonths = 0;
+            $countSoalMonths += $this->SoaltModel->like("created_at", date("Y") . '-' . $date)->countAllResults();
+            $countSoalMonths += $this->SoalqModel->like("created_at", date("Y") . '-' . $date)->countAllResults();
+            $dataBulananSoalCart .= $countSoalMonths;
             $i == 12 ? '' : $dataBulananSoalCart .= ',';
         }
         $dataBulananSoalCart .= '],';
