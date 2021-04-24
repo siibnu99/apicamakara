@@ -59,23 +59,23 @@ class Apitopup extends ResourceController
         // } else {
         //     return $this->respond($data, 401);
         // }
-        $Uuid = new Uuid;
-        // if ($this->request) {
-        //     if ($this->request->getJSON()) {
-        $namaFile = $_FILES['image']['name'];
-        $ektensiGambar = explode('.', $namaFile);
-        $ektensiGambar = strtolower(end($ektensiGambar));
-        $namaFile = $Uuid->v4() . '.' . $ektensiGambar;
+        if ($this->request->getVar('bankid') != 0) {
+            $Uuid = new Uuid;
+            // if ($this->request) {
+            //     if ($this->request->getJSON()) {
+            $namaFile = $_FILES['image']['name'];
+            $ektensiGambar = explode('.', $namaFile);
+            $ektensiGambar = strtolower(end($ektensiGambar));
+            $namaFile = $Uuid->v4() . '.' . $ektensiGambar;
 
-        $namaSementara = $_FILES['image']['tmp_name'];
+            $namaSementara = $_FILES['image']['tmp_name'];
 
-        // tentukan lokasi file akan dipindahkan
-        $dirUpload = "assets/image/topup/";
+            // tentukan lokasi file akan dipindahkan
+            $dirUpload = "assets/image/topup/";
 
-        // pindahkan file
-        $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
-        $json = $this->request->getJSON();
-        if ($this->request->getVar('bankid')) {
+            // pindahkan file
+            $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
+            $json = $this->request->getJSON();
             $data = [
                 'id_topup' => $Uuid->v4(),
                 'user_id' => $this->request->getVar('id'),
