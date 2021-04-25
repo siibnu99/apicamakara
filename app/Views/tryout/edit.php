@@ -92,10 +92,6 @@
                             <?php $j = 1;
                             foreach (catTryout() as $item) : ?>
                                 <div class="form-check">
-                                    <!-- <input class="form-check-input" type="checkbox" value="<?= $item['1'] ?>" name="cat_tryout[]" id="defaultCheck<?= $j ?>" <?= catTryoutChecked(str_split($tryout['cat_tryout']), $item['1']) ?>>
-                                    <label class="form-check-label" for="defaultCheck1">
-                                        <?= $item['0'] ?>
-                                    </label> -->
                                     <input class="form-check-input" type="radio" name="cat_tryout" id="exampleRadios<?= $j ?>" value="<?= $item['1'] ?>" <?= catTryoutChecked(str_split($tryout['cat_tryout']), $item['1']) ?>>
                                     <label class="form-check-label" for="exampleRadios<?= $j ?>">
                                         <?= $item['0'] ?>

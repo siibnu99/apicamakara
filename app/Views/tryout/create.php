@@ -88,22 +88,17 @@
                     <div class="form-group">
                         <label for="">Kategori Tryout</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="1" name="cat_tryout[]" id="defaultCheck1">
-                            <label class="form-check-label" for="defaultCheck1">
-                                Tryout UTBK
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="2" name="cat_tryout[]" id="defaultCheck2">
-                            <label class="form-check-label" for="defaultCheck2">
-                                Tryout Bebas
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="3" name="cat_tryout[]" id="defaultCheck3">
-                            <label class="form-check-label" for="defaultCheck3">
-                                Tryout Lama
-                            </label>
+                            <?php $j = 1;
+                            foreach (catTryout() as $item) : ?>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="cat_tryout" id="exampleRadios<?= $j ?>" value="<?= $item['1'] ?>" <?= old('cat_tryout') ==  $item['1']  ? 'checked'  : ''  ?>>
+                                    <label class="form-check-label" for="exampleRadios<?= $j ?>">
+                                        <?= $item['0'] ?>
+                                    </label>
+                                </div>
+                            <?php $j++;
+                            endforeach
+                            ?>
                         </div>
                     </div>
                     <div class="form-group">

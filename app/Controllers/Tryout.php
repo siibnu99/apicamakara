@@ -89,11 +89,6 @@ class Tryout extends BaseController
         $data = $this->request->getVar();
         $data['id_tryout'] = $this->Uuid->v4();
         $data['image'] = $nameimage;
-        $cat = '';
-        foreach ($data['cat_tryout'] as $item) {
-            $cat = $cat .  $item;
-        }
-        $data['cat_tryout'] = $cat;
         $data['created_by'] = user_id();
         $data['updated_by'] = user_id();
         $this->TryoutModel->insert($data);
