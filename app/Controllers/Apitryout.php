@@ -19,7 +19,7 @@ class Apitryout extends ResourceController
     public function index($iduser = null)
     {
         if ($this->request) {
-            $tryout = $this->model->findAll();
+            $tryout = $this->model->where('active', 1)->findAll();
             $result = [];
             if ($iduser) {
                 foreach ($tryout as $item) {
@@ -46,7 +46,7 @@ class Apitryout extends ResourceController
         if ($this->request) {
             helper('menu');
             if ($id) {
-                $data = $this->model->find($id);
+                $data = $this->model->where('active', 1)->find($id);
                 $totalSaint = 0;
                 $totalSoshum = 0;
                 $dataMapel = mapel(1, $data);
@@ -63,7 +63,7 @@ class Apitryout extends ResourceController
                 $countPersonBuy = $mytryout->where('tryout_id', $id)->countAllResults();
                 $data['personBuy'] = $countPersonBuy;
             } else {
-                $data = $this->model->findAll();
+                $data = $this->model->where('active', 1)->findAll();
             }
             $response = [
                 'status' => 200,

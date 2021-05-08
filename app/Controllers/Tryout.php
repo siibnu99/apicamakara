@@ -2,13 +2,16 @@
 
 namespace App\Controllers;
 
+use Exception;
+use JsonException;
+
 class Tryout extends BaseController
 {
     public function index()
     {
         $data = [
             'title' => 'tryout',
-            'Tryout' => $this->TryoutModel->findALL(),
+            'Tryout' => $this->TryoutModel->orderBy('created_at', 'DESC')->findALL(),
             'usermodel' => $this->UserModel,
         ];
         return view('tryout/index', $data);
@@ -420,5 +423,21 @@ class Tryout extends BaseController
         $this->TryoutModel->update($id, $datas);
         $this->session->setFlashdata('message', 'Soal  Berhasil di update');
         return  redirect()->to(base_url('tryout/detail/' . $id));
+    }
+    public function toogleActive($id)
+    {
+        $item = $this->TryoutModel->find($id);
+        $data = [
+            'active' => $item['active'] ? 0 : 1
+        ];
+        $message = $item['active'] ? "Dinonaktifkan" : "Diaktifkan";
+        try {
+            $this->TryoutModel->update($id, $data);
+            $data = [
+                'message' => "Tryout : " . $item['name'] . " Berhasil " . $message,
+            ];
+        } catch (Exception $e) {
+        }
+        echo "Tryout : " . $item['name'] . " Berhasil " . $message;
     }
 }

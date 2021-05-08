@@ -8,6 +8,8 @@
         <strong> <?= session()->getFlashdata('message') ?> </strong>
     </div>
 <?php endif ?>
+<div class="alert alert-success messageSuccess d-none" role="alert">
+</div>
 <a href="<?= base_url('tryout/create') ?>" class="btn btn-primary mb-4">Buat Tryout</a>
 
 <div class="card shadow mb-4">
@@ -27,6 +29,7 @@
                         <th>Kategori</th>
                         <th>Metode Pembayaran</th>
                         <th>Harga</th>
+                        <th>Active</th>
                         <th>Dibuat oleh</th>
                         <th>Diedit oleh</th>
                         <th>Aksi</th>
@@ -44,6 +47,7 @@
                         <th>Kategori</th>
                         <th>Metode Pembayaran</th>
                         <th>Harga</th>
+                        <th>Active</th>
                         <th>Dibuat oleh</th>
                         <th>Diedit oleh</th>
                         <th>Aksi</th>
@@ -82,6 +86,12 @@
                                 <td><?= $item['price'] ?></td>
                             <?php endif ?>
 
+                            <td>
+                                <label class="switch ">
+                                    <input type="checkbox" class="primary" <?= $item['active'] ? 'checked' : '' ?> onclick="toogleActive('<?= $item['id_tryout'] ?>','<?= $item['name'] ?>',<?= $item['active'] ?>)">
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
                             <td><?= $usermodel->find($item['created_by'])->email ?></td>
                             <td><?= $usermodel->find($item['updated_by'])->email ?></td>
                             <td>
@@ -98,4 +108,14 @@
         </div>
     </div>
 </div>
+<?= $this->endsection() ?>
+<?= $this->section('script') ?>
+<script>
+    function toogleActive(id, nama, checked) {
+        $.post("<?= base_url('tryout/toogleactive') ?>" + "/" + id).done(function(data) {
+            $('.messageSuccess').removeClass('d-none');
+            $('.messageSuccess').html("<strong>" + data + "</strong>");
+        });
+    }
+</script>
 <?= $this->endsection() ?>
