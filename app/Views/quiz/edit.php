@@ -2,6 +2,7 @@
 <?= $this->section('content') ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Edit Quiz</h1>
+    <a type="button" class="btn btn-primary" href="<?= base_url("quiz") ?>">Kembali</a>
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12">
@@ -159,7 +160,9 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="ml-3">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </form>
     </div>

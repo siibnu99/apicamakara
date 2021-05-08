@@ -36,7 +36,6 @@ class Apisoalt extends ResourceController
             $temp[$id] = $item;
             $id++;
         }
-
         $response = [
             'status' => 200,
             'data' => $temp,
@@ -64,15 +63,6 @@ class Apisoalt extends ResourceController
             }
             $kindTryout = 't_' . explode('_', $kindTryout)[1];
             $timestart = explode(' ', $result['created_at'])[1];
-            $response = [
-                'status' => 200,
-                'message' => "Berhasil Submit",
-                'data' => $answer,
-                'time' => $tryout[$kindTryout],
-                'timestart' => $timestart,
-
-            ];
-            return $this->respond($response, 200);
         } else {
             $Uuid = new Uuid;
             $json = $this->request->getJSON();
@@ -100,14 +90,18 @@ class Apisoalt extends ResourceController
             $result = $this->AnswertModel->find($data['id_answer']);
             $kindTryout = 't_' . explode('_', $kindTryout)[1];
             $timestart = explode(' ', $result['created_at'])[1];
-            $response = [
-                'status' => 200,
-                'message' => "Berhasil Submit",
-                'data' => $answer,
-                'time' => $tryout[$kindTryout],
-                'timestart' => $timestart,
-            ];
-            return $this->respond($response, 200);
         }
+        $response = [
+            'status' => 200,
+            'message' => "Berhasil Submit",
+            'data' => $answer,
+            'time' => $tryout[$kindTryout],
+            'timestart' => $timestart,
+            'timestartsecond' => strtotime($timestart),
+            'timeend' => date("H:i:s", strtotime($timestart) + ($tryout[$kindTryout] * 60)),
+            'timeendsecond' => strtotime($timestart) + ($tryout[$kindTryout] * 60)
+
+        ];
+        return $this->respond($response, 200);
     }
 }

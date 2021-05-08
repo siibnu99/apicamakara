@@ -2,6 +2,7 @@
 <?= $this->section('content') ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Edit Tryout</h1>
+    <a type="button" class="btn btn-primary" href="<?= base_url("tryout") ?>">Kembali</a>
 </div>
 
 <div class="row">

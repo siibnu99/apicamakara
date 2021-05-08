@@ -18,7 +18,7 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets') ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link href="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets') ?>/vendor/datatables/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url() ?>/css/style.css">
 
 </head>
@@ -29,12 +29,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-warning sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard') ?>">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-chalkboard-teacher "></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Camakara</div>
             </a>
@@ -212,7 +212,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Camakara <?= date('Y') ?></span>
                     </div>
                 </div>
             </footer>
@@ -258,8 +258,7 @@
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets') ?>/js/sb-admin-2.min.js"></script>
     <!-- Page level plugins -->
-    <script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= base_url('assets') ?>/vendor/datatables/datatables.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets') ?>/js/demo/datatables-demo.js"></script>

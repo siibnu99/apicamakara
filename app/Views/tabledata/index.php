@@ -38,7 +38,7 @@
                     foreach ($topup as $item) : ?>
                         <tr>
                             <td><?= $no ?></td>
-                            <td><?= $item['fullname'] ?></td>
+                            <td><?= $item['fullname']  ?></td>
                             <td><?= AllPayment($item['bank_id']) ?></td>
                             <td><?= $item['email'] ?></td>
                             <td><?= $usermodel->find($item['confirm_by'])->email ?></td>

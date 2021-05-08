@@ -5,6 +5,7 @@ $no = 1; ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Edit <?= allMapel($quiz['mapel']) ?></h1>
+    <a type="button" class="btn btn-primary" href="<?= base_url("quiz/detail") . '/' . $id ?>">Kembali</a>
 </div>
 <?php if (session()->getFlashdata('message')) : ?>
     <div class="alert alert-success" role="alert">

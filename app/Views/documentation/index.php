@@ -3,7 +3,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#collapseCardExample" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+    <a href="#collapseCardExample" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
         <h6 class="m-0 font-weight-bold text-white">Dokumentasi APi Camakara</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -16,7 +16,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#userApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="userApi">
+    <a href="#userApi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="userApi">
         <h6 class="m-0 font-weight-bold text-white">User APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -79,7 +79,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#univAPi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="univAPi">
+    <a href="#univAPi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="univAPi">
         <h6 class="m-0 font-weight-bold text-white">Universitas APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -103,7 +103,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#prodiApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="prodiApi">
+    <a href="#prodiApi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="prodiApi">
         <h6 class="m-0 font-weight-bold text-white">Prodi APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -132,7 +132,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#provApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="provApi">
+    <a href="#provApi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="provApi">
         <h6 class="m-0 font-weight-bold text-white">Provinsi APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -156,7 +156,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#regApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="regApi">
+    <a href="#regApi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="regApi">
         <h6 class="m-0 font-weight-bold text-white">Regencie APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -185,7 +185,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#TryApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="TryApi">
+    <a href="#TryApi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="TryApi">
         <h6 class="m-0 font-weight-bold text-white">Tryout APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -237,7 +237,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#myTryApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="myTryApi">
+    <a href="#myTryApi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="myTryApi">
         <h6 class="m-0 font-weight-bold text-white">My Tryout APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -266,7 +266,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#topApi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="topApi">
+    <a href="#topApi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="topApi">
         <h6 class="m-0 font-weight-bold text-white">Top Up APi</h6>
     </a>
     <!-- Card Content - Collapse -->
@@ -316,7 +316,7 @@
 <!-- Collapsable Card Example -->
 <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
-    <a href="#transfapi" class="d-block card-header py-3 bg-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="transfapi">
+    <a href="#transfapi" class="d-block card-header py-3 bg-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="transfapi">
         <h6 class="m-0 font-weight-bold text-white">Transfer APi</h6>
     </a>
     <!-- Card Content - Collapse -->

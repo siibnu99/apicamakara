@@ -2,29 +2,26 @@
 <?= $this->section('content') ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Edit Password User</h1>
+    <a type="button" class="btn btn-primary" href="<?= base_url("listuser") ?>">Kembali</a>
 </div>
 <hr>
 <table>
     <tr>
         <td>
-            <h4 class=" mb-0 text-primary">Email</h4>
-        </td>
-        <td>
-            <h4 class=" mb-0 text-primary">:</h4>
-        </td>
-        <td>
-            <h4 class=" mb-0 text-primary"><?= $user->email ?></h4>
+            <h3>
+                <span class="badge badge-primary">
+                    Email : <?= $user->email ?>
+                </span>
+            </h3>
         </td>
     </tr>
     <tr>
         <td>
-            <h4 class=" mb-0 text-primary">Username</h4>
-        </td>
-        <td>
-            <h4 class=" mb-0 text-primary">:</h4>
-        </td>
-        <td>
-            <h4 class=" mb-0 text-primary"><?= $user->username ?></h4>
+            <h3>
+                <span class="badge badge-primary">
+                    Username : <?= $user->username ?>
+                </span>
+            </h3>
         </td>
     </tr>
 </table>
