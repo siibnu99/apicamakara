@@ -30,8 +30,15 @@ class Apitryout extends ResourceController
             } else {
                 $result = $tryout;
             }
+            $temp = array();
+            $id = 0;
+            foreach ($result as $item) {
+                $temp[] = $item;
+                $temp[$id]['image'] = base_url('assets/image/tryout') . '/' . $temp[$id]['image'];
+                $id++;
+            }
             $data = [
-                "tryouts" => $result,
+                "tryouts" => $temp,
             ];
             $response = [
                 'status' => 200,

@@ -19,7 +19,8 @@
     <link href="<?= base_url('assets') ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
     <link href="<?= base_url('assets') ?>/vendor/datatables/datatables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url() ?>/css/style.css">
+    <link rel="stylesheet" href="<?= base_url('assets') ?>/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets') ?>/css/style.css">
     <style>
         /* The switch - the box around the slider */
         .switch {
@@ -107,7 +108,11 @@
 </head>
 
 <body id="page-top">
-
+    <?php if (session()->getFlashdata('message')) : ?>
+        <div class="alert alert-success" role="alert">
+            <strong> <?= session()->getFlashdata('message') ?> </strong>
+        </div>
+    <?php endif ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -347,7 +352,15 @@
     <script src="<?= base_url('assets') ?>/js/demo/datatables-demo.js"></script>
     <!-- Page level plugins -->
     <script src="<?= base_url('assets') ?>/vendor/chart.js/Chart.min.js"></script>
+    <script src="<?= base_url('assets') ?>/js/sweetalert2.min.js"></script>
     <?= $this->renderSection('script') ?>
+    <script>
+        Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+        )
+    </script>
 </body>
 
 </html>
