@@ -503,7 +503,7 @@ class Quiz extends BaseController
             $row[] = $this->UserModel->find($lists->updated_by)->email;
             $row[] = $lists->created_at;
             $row[] = $lists->updated_at;
-            $row[] = '<a href="' . base_url('quiz/edit/' . $lists->id_quiz) . '" class="badge badge-primary">Detail</a>
+            $row[] = '<a href="' . base_url('quiz/detail/' . $lists->id_quiz) . '" class="badge badge-primary">Detail</a>
             <a href="' . base_url('quiz/edit/' . $lists->id_quiz) . '" class="badge badge-warning">Edit</a>
             <a href="' . base_url('quiz/delete/' . $lists->id_quiz) . '" class="badge badge-danger">Hapus</a>';
             $data[] = $row;

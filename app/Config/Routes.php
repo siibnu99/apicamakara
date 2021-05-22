@@ -101,6 +101,9 @@ $routes->get('/api/tryout/(:segment)', 'Apitryout::index/$1');
 $routes->get('/api/tryout/get/(:segment)', 'Apitryout::show/$1');
 $routes->resource('/api/tryout', ['controller' => 'Apitryout']);
 // ==========================================================================
+// ==========================================================================
+$routes->resource('/api/quiz', ['controller' => 'Apiquiz']);
+// ==========================================================================
 
 // ==========================================================================
 $routes->resource('/api/topup', ['controller' => 'Apitopup']);
