@@ -4,11 +4,6 @@
     <h1 class="h3 mb-0 text-gray-800">Tabel User</h1>
 </div>
 <a href="<?= base_url('listuser/create') ?>" class="btn btn-primary mb-4">Buat User</a>
-<?php if (session()->getFlashdata('message')) : ?>
-    <div class="alert alert-success" role="alert">
-        <strong> <?= session()->getFlashdata('message') ?> </strong>
-    </div>
-<?php endif ?>
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">

@@ -4,11 +4,6 @@
     <h1 class="h3 mb-0 text-gray-800">Detail Quiz</h1>
     <a type="button" class="btn btn-primary" href="<?= base_url("quiz") ?>">Kembali</a>
 </div>
-<?php if (session()->getFlashdata('message')) : ?>
-    <div class="alert alert-success" role="alert">
-        <strong> <?= session()->getFlashdata('message') ?> </strong>
-    </div>
-<?php endif ?>
 <div class="card shadow mb-4">
 
     <div class="card-body">

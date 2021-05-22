@@ -12,11 +12,6 @@ endforeach ?>
     <h1 class="h3 mb-0 text-gray-800">Edit <?= $dataMapel[0] ?></h1>
     <a type="button" class="btn btn-primary" href="<?= base_url('tryout/detail/' . $id) ?>">Kembali</a>
 </div>
-<?php if (session()->getFlashdata('message')) : ?>
-    <div class="alert alert-success" role="alert">
-        <strong> <?= session()->getFlashdata('message') ?> </strong>
-    </div>
-<?php endif ?>
 <div class="row">
     <div class="col-lg-8 col-md-12">
         <form enctype="multipart/form-data" method="POST">

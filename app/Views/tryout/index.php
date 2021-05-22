@@ -3,11 +3,6 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Data Tryout</h1>
 </div>
-<?php if (session()->getFlashdata('message')) : ?>
-    <div class="alert alert-success" role="alert">
-        <strong> <?= session()->getFlashdata('message') ?> </strong>
-    </div>
-<?php endif ?>
 <div class="alert alert-success messageSuccess d-none" role="alert">
 </div>
 <a href="<?= base_url('tryout/create') ?>" class="btn btn-primary mb-4">Buat Tryout</a>
@@ -65,8 +60,11 @@
 <script>
     function toogleActive(id, nama, checked) {
         $.post("<?= base_url('tryout/toogleactive') ?>" + "/" + id).done(function(data) {
-            $('.messageSuccess').removeClass('d-none');
-            $('.messageSuccess').html("<strong>" + data + "</strong>");
+            Swal.fire(
+                'Berhasil',
+                data,
+                'success'
+            )
         });
     }
     $(document).on('click', '.toogleActive', function() {

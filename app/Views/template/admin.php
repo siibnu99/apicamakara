@@ -108,11 +108,7 @@
 </head>
 
 <body id="page-top">
-    <?php if (session()->getFlashdata('message')) : ?>
-        <div class="alert alert-success" role="alert">
-            <strong> <?= session()->getFlashdata('message') ?> </strong>
-        </div>
-    <?php endif ?>
+    <div class="flash-data" data-flashdata="<?= session()->getFlashdata('message') ?>"></div>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -217,7 +213,7 @@
             ?>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item <?= $title == 'logout' ? 'active' : '' ?>">
-                <a data-toggle="modal" data-target="#logoutModal" class="nav-link">
+                <a data-toggle="modal" data-target="#logoutModal" href="#javascript" class="nav-link">
                     <i class="fas fa-fw fa-door-open"></i>
                     <span>Log Out</span></a>
             </li>
@@ -330,7 +326,7 @@
                 <div class="modal-body">Yakin logout?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-warning" href="<?= base_url('logout') ?>">Logout</a>
+                    <a class="btn btn-primary" href="<?= base_url('logout') ?>">Logout</a>
                 </div>
             </div>
         </div>
@@ -355,11 +351,14 @@
     <script src="<?= base_url('assets') ?>/js/sweetalert2.min.js"></script>
     <?= $this->renderSection('script') ?>
     <script>
-        Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-        )
+        const flashdata = $('.flash-data').data('flashdata');
+        if (flashdata) {
+            Swal.fire(
+                'Berhasil',
+                flashdata,
+                'success'
+            )
+        }
     </script>
 </body>
 
