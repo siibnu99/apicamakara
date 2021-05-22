@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 class Quiz extends BaseController
 {
+    public function __construct()
+    {
+        $this->serverside_model = new \App\Models\Serverside_model();
+    }
     public function index()
     {
         $data = [
             'title' => 'quiz',
-            'Quiz' => $this->QuizModel->findALL(),
-            'usermodel' => $this->UserModel,
         ];
         return view('quiz/index', $data);
     }
@@ -471,5 +473,47 @@ class Quiz extends BaseController
         $this->QuizModel->update($id, $datas);
         $this->session->setFlashdata('message', 'Soal  Berhasil di update');
         return  redirect()->to(base_url('tryout/detail/' . $id));
+    }
+    public function listdata()
+    {
+
+        $request = \Config\Services::request();
+        $list_data = $this->serverside_model;
+        $where = NULL;
+        $column_order = array(NULL, 'tbl_quiz.name', 'tbl_quiz.date_start', 'tbl_quiz.time_start', 'tbl_quiz.date_end', 'tbl_quiz.time_end', 'tbl_quiz.class', 'tbl_quiz.mapel', 'tbl_quiz.t_mapel', 'tbl_quiz.kuota', 'tbl_quiz.created_by', 'tbl_quiz.updated_by', 'tbl_quiz.created_at', 'tbl_quiz.updated_at', NULL);
+        $column_search = array('tbl_quiz.name', 'tbl_quiz.date_start', 'tbl_quiz.time_start', 'tbl_quiz.date_end', 'tbl_quiz.time_end', 'tbl_quiz.class', 'tbl_quiz.mapel', 'tbl_quiz.t_mapel', 'tbl_quiz.kuota', 'tbl_quiz.created_by', 'tbl_quiz.updated_by', 'tbl_quiz.created_at', 'tbl_quiz.updated_at');
+        $order = array('tbl_quiz.created_at' => 'asc');
+        $list = $list_data->get_datatables('tbl_quiz', $column_order, $column_search, $order, $where);
+        $data = array();
+        $no = $request->getPost("start");
+        foreach ($list as $lists) {
+            $no++;
+            $row   = array();
+            $row[] = $no;
+            $row[] = $lists->name;
+            $row[] = $lists->date_start;
+            $row[] = $lists->time_start;
+            $row[] = $lists->date_end;
+            $row[] = $lists->time_end;
+            $row[] = classQuiz($lists->class);
+            $row[] = allMapel($lists->mapel);
+            $row[] = $lists->t_mapel;
+            $row[] = $lists->kuota;
+            $row[] = $this->UserModel->find($lists->created_by)->email;
+            $row[] = $this->UserModel->find($lists->updated_by)->email;
+            $row[] = $lists->created_at;
+            $row[] = $lists->updated_at;
+            $row[] = '<a href="' . base_url('quiz/edit/' . $lists->id_quiz) . '" class="badge badge-primary">Detail</a>
+            <a href="' . base_url('quiz/edit/' . $lists->id_quiz) . '" class="badge badge-warning">Edit</a>
+            <a href="' . base_url('quiz/delete/' . $lists->id_quiz) . '" class="badge badge-danger">Hapus</a>';
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => $request->getPost("draw"),
+            "recordsTotal" => $list_data->count_all('tbl_quiz', $where),
+            "recordsFiltered" => $list_data->count_filtered('tbl_quiz', $column_order, $column_search, $order, $where),
+            "data" => $data,
+        );
+        return json_encode($output);
     }
 }

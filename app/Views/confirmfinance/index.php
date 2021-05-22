@@ -10,7 +10,7 @@
                         </div> -->
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="tableex1" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -34,28 +34,54 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php
-                    $no = 1;
-                    foreach ($topup as $item) : ?>
 
-                        <tr>
-                            <td><?= $no ?></td>
-                            <td><img width="50px" height="50px" src="<?= base_url('assets/image/topup/') . '/' . $item['imageTop'] ?>" alt=""></td>
-                            <td><?= $item['fullname'] ?></td>
-                            <td><?= AllPayment($item['bank_id']) ?></td>
-                            <td><?= $item['nominal'] ?></td>
-                            <td><?= $item['createdTop'] ?></td>
-                            <td>
-                                <a class="btn btn-danger" href="<?= base_url('confirmfinance/notconfirm') . '/' . $item['id_topup'] ?>">Tidak Diterima</a>
-                                <a class="btn btn-success" href="<?= base_url('confirmfinance/confirm') . '/'  . $item['id_topup'] ?>">Diterima</a>
-                            </td>
-                        </tr>
-                    <?php $no++;
-                    endforeach
-                    ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<?= $this->endsection() ?>
+<?= $this->section('script') ?>
+<script>
+    $(document).ready(function() {
+
+        var dataTable = $('#tableex1').DataTable({
+            "processing": true,
+            responsive: true,
+            "oLanguage": {
+                "sLengthMenu": "Tampilkan _MENU_ data per halaman",
+                "sSearch": "Pencarian: ",
+                "sZeroRecords": "Maaf, tidak ada data yang ditemukan",
+                "sInfo": "Menampilkan _START_ s/d _END_ dari _TOTAL_ data",
+                "sInfoEmpty": "Menampilkan 0 s/d 0 dari 0 data",
+                "sInfoFiltered": "(di filter dari _MAX_ total data)",
+                "oPaginate": {
+                    "sFirst": "<<",
+                    "sLast": ">>",
+                    "sPrevious": "<",
+                    "sNext": ">"
+                }
+            },
+            columnDefs: [{
+                targets: [0],
+                orderable: false
+            }],
+            "ordering": true,
+            "info": true,
+            "serverSide": true,
+            "stateSave": true,
+            "scrollX": true,
+            "ajax": {
+                url: "<?= base_url('confirmfinance/listdata') ?>", // json datasource
+                type: "post", // method  , by default get
+                error: function() { // error handling
+                    $(".tabel_serverside-error").html("");
+                    $("#tabel_serverside").append('<tbody class="tabel_serverside-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+                    $("#tabel_serverside_processing").css("display", "none");
+
+                }
+            }
+        });
+    });
+</script>
 <?= $this->endsection() ?>

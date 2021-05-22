@@ -10,7 +10,7 @@
                         </div> -->
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="tableex1" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -32,36 +32,54 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php $no = 1;
-                    foreach ($reports as $item) : ?>
-                        <tr>
-                            <td><?= $no ?></td>
-                            <td><?= $item['name'] ?></td>
-                            <td><?= $item['fullname'] ?></td>
-                            <td>
-                                <?php
-                                $images =  explode(',', $item['imageto']);
-                                foreach ($images as $image) :
-                                    if ($image) :
-                                ?>
-                                        <a href="<?= base_url() . "/assets/image/ruleto/" . $image ?>" target="_blank" class="badge badge-primary">Lihat Detail</a>
-                                        <br>
-                                <?php
-                                    endif;
-                                endforeach
-                                ?>
-                            </td>
-                            <td><?= $item['created_at'] ?></td>
-                            <td>
-                                <a class="btn btn-danger" href="<?= base_url('confirm/notconfirm') . '/' . $item['id_mytryout'] ?>">Tidak Diterima</a>
-                                <a class="btn btn-success" href="<?= base_url('confirm/confirm') . '/'  . $item['id_mytryout'] ?>">Diterima</a>
-                            </td>
-                        </tr>
-                    <?php endforeach;
-                    $no++ ?>
+
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<?= $this->endsection() ?>
+<?= $this->section('script') ?>
+<script>
+    $(document).ready(function() {
+
+        var dataTable = $('#tableex1').DataTable({
+            "processing": true,
+            responsive: true,
+            "oLanguage": {
+                "sLengthMenu": "Tampilkan _MENU_ data per halaman",
+                "sSearch": "Pencarian: ",
+                "sZeroRecords": "Maaf, tidak ada data yang ditemukan",
+                "sInfo": "Menampilkan _START_ s/d _END_ dari _TOTAL_ data",
+                "sInfoEmpty": "Menampilkan 0 s/d 0 dari 0 data",
+                "sInfoFiltered": "(di filter dari _MAX_ total data)",
+                "oPaginate": {
+                    "sFirst": "<<",
+                    "sLast": ">>",
+                    "sPrevious": "<",
+                    "sNext": ">"
+                }
+            },
+            columnDefs: [{
+                targets: [0],
+                orderable: false
+            }],
+            "ordering": true,
+            "info": true,
+            "serverSide": true,
+            "stateSave": true,
+            "scrollX": true,
+            "ajax": {
+                url: "<?= base_url('confirm/listdata') ?>", // json datasource
+                type: "post", // method  , by default get
+                error: function() { // error handling
+                    $(".tabel_serverside-error").html("");
+                    $("#tabel_serverside").append('<tbody class="tabel_serverside-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+                    $("#tabel_serverside_processing").css("display", "none");
+
+                }
+            }
+        });
+    });
+</script>
 <?= $this->endsection() ?>

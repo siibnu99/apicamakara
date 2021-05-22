@@ -16,7 +16,7 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="tableex1" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -54,55 +54,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php
-                    $no = 1;
-                    foreach ($Tryout as $item) : ?>
-                        <tr>
-                            <td><?= $no ?></td>
-                            <td><?= $item['name'] ?></td>
-                            <td><?= $item['date_start'] ?></td>
-                            <td><?= $item['time_start'] ?></td>
-                            <td><?= $item['date_end'] ?></td>
-                            <td><?= $item['time_end'] ?></td>
-                            <td><?= jenisTryout($item['type_tryout']) ?></td>
-                            <td>
-                                <?php
-                                $arr1 = str_split($item['cat_tryout']);
-                                foreach ($arr1 as $item1) : ?>
-                                    <li><?= catTryout($item1) ?></li>
-                                <?php endforeach
-                                ?>
-                            </td>
-                            <td><?= paymentMethod($item['payment_method']) ?></td>
-                            <?php if ($item['payment_method'] == 1) : ?>
-                                <td>
-                                    <?php if ($item['rule1']) : ?> <li><?= $item['rule1'] ?></li> <?php endif ?>
-                                    <?php if ($item['rule2']) : ?> <li><?= $item['rule2'] ?></li> <?php endif ?>
-                                    <?php if ($item['rule3']) : ?> <li><?= $item['rule3'] ?></li> <?php endif ?>
-                                    <?php if ($item['rule4']) : ?> <li><?= $item['rule4'] ?></li> <?php endif ?>
-                                    <?php if ($item['rule5']) : ?> <li><?= $item['rule5'] ?></li> <?php endif ?>
-                                </td>
-                            <?php else : ?>
-                                <td><?= $item['price'] ?></td>
-                            <?php endif ?>
 
-                            <td>
-                                <label class="switch ">
-                                    <input type="checkbox" class="primary" <?= $item['active'] ? 'checked' : '' ?> onclick="toogleActive('<?= $item['id_tryout'] ?>','<?= $item['name'] ?>',<?= $item['active'] ?>)">
-                                    <span class="slider round"></span>
-                                </label>
-                            </td>
-                            <td><?= $usermodel->find($item['created_by'])->email ?></td>
-                            <td><?= $usermodel->find($item['updated_by'])->email ?></td>
-                            <td>
-                                <a href="<?= base_url('tryout/detail/' . $item['id_tryout']) ?>" class="badge badge-primary">Detail</a>
-                                <a href="<?= base_url('tryout/edit/' . $item['id_tryout']) ?>" class="badge badge-warning">Edit</a>
-                                <a href="<?= base_url('tryout/delete/' . $item['id_tryout']) ?>" class="badge badge-danger">Hapus</a>
-                            </td>
-                        </tr>
-                    <?php $no++;
-                    endforeach
-                    ?>
                 </tbody>
             </table>
         </div>
@@ -117,5 +69,51 @@
             $('.messageSuccess').html("<strong>" + data + "</strong>");
         });
     }
+    $(document).on('click', '.toogleActive', function() {
+        let id = $(this).attr('idto');
+        let nameto = $(this).attr('nameto');
+        let active = $(this).attr('active');
+        toogleActive(id, nameto, active)
+    })
+    $(document).ready(function() {
+
+        var dataTable = $('#tableex1').DataTable({
+            "processing": true,
+            responsive: true,
+            "oLanguage": {
+                "sLengthMenu": "Tampilkan _MENU_ data per halaman",
+                "sSearch": "Pencarian: ",
+                "sZeroRecords": "Maaf, tidak ada data yang ditemukan",
+                "sInfo": "Menampilkan _START_ s/d _END_ dari _TOTAL_ data",
+                "sInfoEmpty": "Menampilkan 0 s/d 0 dari 0 data",
+                "sInfoFiltered": "(di filter dari _MAX_ total data)",
+                "oPaginate": {
+                    "sFirst": "<<",
+                    "sLast": ">>",
+                    "sPrevious": "<",
+                    "sNext": ">"
+                }
+            },
+            columnDefs: [{
+                targets: [0],
+                orderable: false
+            }],
+            "ordering": true,
+            "info": true,
+            "serverSide": true,
+            "stateSave": true,
+            "scrollX": true,
+            "ajax": {
+                url: "<?= base_url('tryout/listdata') ?>", // json datasource
+                type: "post", // method  , by default get
+                error: function() { // error handling
+                    $(".tabel_serverside-error").html("");
+                    $("#tabel_serverside").append('<tbody class="tabel_serverside-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+                    $("#tabel_serverside_processing").css("display", "none");
+
+                }
+            }
+        });
+    });
 </script>
 <?= $this->endsection() ?>

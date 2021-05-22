@@ -13,7 +13,7 @@
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="tableex1" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -53,37 +53,54 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    <?php
-                    $no = 1;
-                    foreach ($Quiz as $item) : ?>
 
-                        <tr>
-                            <td><?= $no ?></td>
-                            <td><?= $item['name'] ?></td>
-                            <td><?= $item['date_start'] ?></td>
-                            <td><?= $item['time_start'] ?></td>
-                            <td><?= $item['date_end'] ?></td>
-                            <td><?= $item['time_end'] ?></td>
-                            <td><?= classQuiz($item['class']) ?></td>
-                            <td><?= allMapel($item['mapel']) ?></td>
-                            <td><?= $item['t_mapel'] ?></td>
-                            <td><?= $item['kuota'] ?></td>
-                            <td><?= $usermodel->find($item['created_by'])->email ?></td>
-                            <td><?= $usermodel->find($item['updated_by'])->email ?></td>
-                            <td><?= $item['created_at'] ?></td>
-                            <td><?= $item['updated_at'] ?></td>
-                            <td>
-                                <a href="<?= base_url('quiz/detail') . '/' . $item['id_quiz'] ?>" class="badge badge-primary">Detail</a>
-                                <a href="<?= base_url('quiz/edit') . '/' . $item['id_quiz'] ?>" class="badge badge-warning">Edit</a>
-                                <a href="<?= base_url('quiz/delete') . '/' . $item['id_quiz'] ?>" class="badge badge-danger">Hapus</a>
-                            </td>
-                        </tr>
-                    <?php $no++;
-                    endforeach
-                    ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<?= $this->endsection() ?>
+<?= $this->section('script') ?>
+<script>
+    $(document).ready(function() {
+
+        var dataTable = $('#tableex1').DataTable({
+            "processing": true,
+            responsive: true,
+            "oLanguage": {
+                "sLengthMenu": "Tampilkan _MENU_ data per halaman",
+                "sSearch": "Pencarian: ",
+                "sZeroRecords": "Maaf, tidak ada data yang ditemukan",
+                "sInfo": "Menampilkan _START_ s/d _END_ dari _TOTAL_ data",
+                "sInfoEmpty": "Menampilkan 0 s/d 0 dari 0 data",
+                "sInfoFiltered": "(di filter dari _MAX_ total data)",
+                "oPaginate": {
+                    "sFirst": "<<",
+                    "sLast": ">>",
+                    "sPrevious": "<",
+                    "sNext": ">"
+                }
+            },
+            columnDefs: [{
+                targets: [0],
+                orderable: false
+            }],
+            "ordering": true,
+            "info": true,
+            "serverSide": true,
+            "stateSave": true,
+            "scrollX": true,
+            "ajax": {
+                url: "<?= base_url('quiz/listdata') ?>", // json datasource
+                type: "post", // method  , by default get
+                error: function() { // error handling
+                    $(".tabel_serverside-error").html("");
+                    $("#tabel_serverside").append('<tbody class="tabel_serverside-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
+                    $("#tabel_serverside_processing").css("display", "none");
+
+                }
+            }
+        });
+    });
+</script>
 <?= $this->endsection() ?>

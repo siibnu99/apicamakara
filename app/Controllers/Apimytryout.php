@@ -213,6 +213,12 @@ class Apimytryout extends ResourceController
         $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $id])->first();
         if ($result) {
             $data = $this->TryoutModel->find($id);
+            if (!$result['time_start_answer']) {
+                $mytryout->update($result['id_mytryout'], ['time_start_answer' => time()]);
+                $data['time_start_answer'] = (int) time();
+            } else {
+                $data['time_start_answer'] = (int) $result['time_start_answer'];
+            }
             $totalSaint = 0;
             $totalSoshum = 0;
             $dataMapel = mapel(1, $data);
@@ -242,6 +248,26 @@ class Apimytryout extends ResourceController
             $response = [
                 'status' => 200,
                 'data' => $data,
+            ];
+            return $this->respond($response, 200);
+        } else {
+            $response = [
+                'status' => 201,
+                'message' => "Tidak memiliki Tryout ini"
+            ];
+            return $this->respond($response, 200);
+        }
+    }
+    public function finish($idUser = null, $id = null)
+    {
+        helper('menu');
+        $mytryout = new MytryoutModel();
+        $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $id])->first();
+        if ($result) {
+            $mytryout->update($result['id_mytryout'], ['finish' => 1]);
+            $response = [
+                'status' => 200,
+                'message' => "Selesai Mengerjakan!",
             ];
             return $this->respond($response, 200);
         } else {

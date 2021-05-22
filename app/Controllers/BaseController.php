@@ -56,5 +56,6 @@ class BaseController extends Controller
 		$this->UserModel = new \Myth\Auth\Models\UserModel;
 		$this->TopupModel = new \App\Models\TopupModel;
 		$this->Uuid = new \App\Libraries\Uuid;
+		$this->serverside_model = new \App\Models\Serverside_model();
 	}
 }

@@ -7,12 +7,14 @@ use JsonException;
 
 class Tryout extends BaseController
 {
+    public function __construct()
+    {
+        $this->serverside_model = new \App\Models\Serverside_model();
+    }
     public function index()
     {
         $data = [
             'title' => 'tryout',
-            'Tryout' => $this->TryoutModel->orderBy('created_at', 'DESC')->findALL(),
-            'usermodel' => $this->UserModel,
         ];
         return view('tryout/index', $data);
     }
@@ -397,7 +399,7 @@ class Tryout extends BaseController
         }
         $idSoalt = $dataSoalt['id_soalt'];
         $data = [
-            'title' => 'tryout',
+            'title' => allMapel($idSoal),
             'validation' => \Config\Services::validation(),
             'tryout' => $this->TryoutModel->find($id),
             'soalt' => $this->SoaltModel->where(['tryout_id' => $id, 'kind_tryout' => $idSoal])->orderBy('no_soal', 'ASC')->findAll(),
@@ -439,5 +441,68 @@ class Tryout extends BaseController
         } catch (Exception $e) {
         }
         echo "Tryout : " . $item['name'] . " Berhasil " . $message;
+    }
+    public function listdata()
+    {
+
+        $request = \Config\Services::request();
+        $list_data = $this->serverside_model;
+        $where = NULL;
+        $column_order = array(NULL, 'tbl_tryout.name', 'tbl_tryout.date_start', 'tbl_tryout.time_start', 'tbl_tryout.date_end', 'tbl_tryout.time_end', 'tbl_tryout.type_tryout', 'tbl_tryout.cat_tryout', 'tbl_tryout.payment_method', 'tbl_tryout.active', 'tbl_tryout.created_by', 'tbl_tryout.updated_by', NULL);
+        $column_search = array('tbl_tryout.name', 'tbl_tryout.date_start', 'tbl_tryout.time_start', 'tbl_tryout.date_end', 'tbl_tryout.time_end', 'tbl_tryout.type_tryout', 'tbl_tryout.cat_tryout', 'tbl_tryout.payment_method', 'tbl_tryout.active', 'tbl_tryout.created_by', 'tbl_tryout.updated_by');
+        $order = array('tbl_tryout.created_at' => 'desc');
+        $list = $list_data->get_datatables('tbl_tryout', $column_order, $column_search, $order, $where);
+        $data = array();
+        $no = $request->getPost("start");
+        foreach ($list as $lists) {
+            $no++;
+            $row   = array();
+            $row[] = $no;
+            $row[] = $lists->name;
+            $row[] = $lists->date_start;
+            $row[] = $lists->time_start;
+            $row[] = $lists->date_end;
+            $row[] = $lists->time_end;
+            $row[] = jenisTryout($lists->type_tryout);
+            $row[] = catTryout($lists->cat_tryout);
+            $row[] = paymentMethod($lists->payment_method);
+            if ($lists->payment_method == 1) :
+                $dataTable = '<td>';
+                if ($lists->rule1) : $dataTable .= '<li>' . $lists->rule1 . '</li>';
+                endif;
+                if ($lists->rule2) : $dataTable .= '<li>' . $lists->rule2 . '</li>';
+                endif;
+                if ($lists->rule3) : $dataTable .= '<li>' . $lists->rule3 . '</li>';
+                endif;
+                if ($lists->rule4) : $dataTable .= '<li>' . $lists->rule4 . '</li>';
+                endif;
+                if ($lists->rule5) : $dataTable .= '<li>' . $lists->rule5 . '</li>';
+                endif;
+                $dataTable .= '</td>';
+            else :
+                $dataTable = '<td>' . $lists->price . '</td>';
+            endif;
+            $row[] = $dataTable;
+            $switch = '<label class="switch ">';
+            $switch .= '<input type="checkbox" class="primary toogleActive" idto="' . $lists->id_tryout . '" nameto="' . $lists->name . '" active="' . $lists->active . '"';
+            $switch .= $lists->active ? 'checked' : '';
+            $switch .= '/>';
+            $switch .= '<span class="slider round"></span>';
+            $switch .= '</label>';
+            $row[] = $switch;
+            $row[] = $this->UserModel->find($lists->created_by)->email;
+            $row[] = $this->UserModel->find($lists->updated_by)->email;
+            $row[] = '<a href="' . base_url('tryout/detail/' . $lists->id_tryout) . '" class="badge badge-primary">Detail</a>
+            <a href="' . base_url('tryout/edit/' . $lists->id_tryout) . '" class="badge badge-warning">Edit</a>
+            <a href="' . base_url('tryout/delete/' . $lists->id_tryout) . '" class="badge badge-danger">Hapus</a>';
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => $request->getPost("draw"),
+            "recordsTotal" => $list_data->count_all('tbl_tryout', $where),
+            "recordsFiltered" => $list_data->count_filtered('tbl_tryout', $column_order, $column_search, $order, $where),
+            "data" => $data,
+        );
+        return json_encode($output);
     }
 }
