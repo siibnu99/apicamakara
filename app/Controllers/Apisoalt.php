@@ -50,8 +50,8 @@ class Apisoalt extends ResourceController
         if (
             $result
         ) {
-            $json = $this->request->getJSON();
             try {
+                $json = $this->request->getJSON();
                 $answer = $json->answer;
                 $data = [
                     'id_answer' => $result['id_answer'],
@@ -72,7 +72,7 @@ class Apisoalt extends ResourceController
                     'kind_tryout' => $kindTryout,
                     'user_id' => $idUser,
                     'tryout_id' => $idTryout,
-                    'asnwer' => $json->answer,
+                    'answer' => $json->answer,
                 ];
                 $answer = $json->answer;
             } catch (\Throwable $th) {

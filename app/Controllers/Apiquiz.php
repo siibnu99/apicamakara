@@ -12,7 +12,7 @@ class Apiquiz extends ResourceController
     public function index($iduser = null)
     {
         helper('menu');
-        $data = $this->model->findAll();
+        $data = $this->model->where('active', 1)->findAll();
         $temp = array();
         $id = 0;
         if ($iduser) {
@@ -40,7 +40,6 @@ class Apiquiz extends ResourceController
         } else {
             $data = $this->model->findAll();
         }
-
         $data['class'] = classQuiz($data['class']);
         $data['amountBuy'] = $myquiz->where('quiz_id', $id)->countAllResults();
         $data['mapel'] = allMapel($data['mapel']);

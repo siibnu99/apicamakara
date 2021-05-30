@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Exception;
+
 class Quiz extends BaseController
 {
     public function __construct()
@@ -340,6 +342,14 @@ class Quiz extends BaseController
                     'is_image' => '{field} tidak berbentuk gambar!',
                 ]
             ],
+            'imagepembahasan' => [
+                'label'  => 'Gambar',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
             'pilihan1' => [
                 'label'  => 'pilihan1',
                 'rules'  => 'required',
@@ -409,12 +419,38 @@ class Quiz extends BaseController
                     $nameimage = '';
                 }
             } else {
-
                 $nameimage = $uploadimage->getRandomName();
                 $uploadimage->move('assets/image/soalquiz', $nameimage);
                 if ($dataSoalq['image']) {
                     try {
                         unlink('assets/image/soalquiz/' . $dataSoalq['image']);
+                    } catch (\Throwable $th) {
+                    }
+                }
+            }
+        }
+        $uploadimage = $this->request->getFile('imagepembahasan');
+        if ($this->request->getVar('deleteImagePembahasan')) {
+            if ($dataSoalq['imagepembahasan']) {
+                try {
+                    unlink('assets/image/soalquiz/' . $dataSoalq['image']);
+                } catch (\Throwable $th) {
+                }
+            }
+            $nameimagepembahasan = '';
+        } else {
+            if ($uploadimage->getError() === 4) {
+                if ($dataSoalq['imagepembahasan']) {
+                    $nameimagepembahasan = $dataSoalq['imagepembahasan'];
+                } else {
+                    $nameimagepembahasan = '';
+                }
+            } else {
+                $nameimagepembahasan = $uploadimage->getRandomName();
+                $uploadimage->move('assets/image/soalquiz', $nameimagepembahasan);
+                if ($dataSoalq['imagepembahasan']) {
+                    try {
+                        unlink('assets/image/soalquiz/' . $dataSoalq['imagepembahasan']);
                     } catch (\Throwable $th) {
                     }
                 }
@@ -432,6 +468,7 @@ class Quiz extends BaseController
             'pilihan5' => $this->request->getVar('pilihan5'),
             'jawaban' => $this->request->getVar('jawaban'),
             'pembahasan' => $this->request->getVar('pembahasan'),
+            'imagepembahasan' => $nameimagepembahasan,
         ];
         $data['updated_by'] = user_id();
         $this->SoalqModel->save($data);
@@ -474,6 +511,22 @@ class Quiz extends BaseController
         $this->session->setFlashdata('message', 'Soal  Berhasil di update');
         return  redirect()->to(base_url('tryout/detail/' . $id));
     }
+    public function toogleActive($id)
+    {
+        $item = $this->QuizModel->find($id);
+        $data = [
+            'active' => $item['active'] ? 0 : 1
+        ];
+        $message = $item['active'] ? "Dinonaktifkan" : "Diaktifkan";
+        try {
+            $this->QuizModel->update($id, $data);
+            $data = [
+                'message' => "Quiz : " . $item['name'] . " Berhasil " . $message,
+            ];
+        } catch (Exception $e) {
+        }
+        echo "Quiz : " . $item['name'] . " Berhasil " . $message;
+    }
     public function listdata()
     {
 
@@ -499,6 +552,13 @@ class Quiz extends BaseController
             $row[] = allMapel($lists->mapel);
             $row[] = $lists->t_mapel;
             $row[] = $lists->kuota;
+            $switch = '<label class="switch ">';
+            $switch .= '<input type="checkbox" class="primary toogleActive" idto="' . $lists->id_quiz . '" nameto="' . $lists->name . '" active="' . $lists->active . '"';
+            $switch .= $lists->active ? 'checked' : '';
+            $switch .= '/>';
+            $switch .= '<span class="slider round"></span>';
+            $switch .= '</label>';
+            $row[] = $switch;
             $row[] = $this->UserModel->find($lists->created_by)->email;
             $row[] = $this->UserModel->find($lists->updated_by)->email;
             $row[] = $lists->created_at;

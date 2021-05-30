@@ -21,6 +21,7 @@
                         <th>Mata Pelajaran</th>
                         <th>Waktu Pengerjaan (Menit)</th>
                         <th>Kuota (Siswa)</th>
+                        <th>Active</th>
                         <th>Dibuat Oleh</th>
                         <th>Diubah Oleh</th>
                         <th>Dibuat Tanggal</th>
@@ -40,6 +41,7 @@
                         <th>Mata Pelajaran</th>
                         <th>Waktu Pengerjaan (Menit)</th>
                         <th>Kuota (Siswa)</th>
+                        <th>Active</th>
                         <th>Dibuat Oleh</th>
                         <th>Diubah Oleh</th>
                         <th>Dibuat Tanggal</th>
@@ -57,6 +59,21 @@
 <?= $this->endsection() ?>
 <?= $this->section('script') ?>
 <script>
+    function toogleActive(id, nama, checked) {
+        $.post("<?= base_url('quiz/toogleactive') ?>" + "/" + id).done(function(data) {
+            Swal.fire(
+                'Berhasil',
+                data,
+                'success'
+            )
+        });
+    }
+    $(document).on('click', '.toogleActive', function() {
+        let id = $(this).attr('idto');
+        let nameto = $(this).attr('nameto');
+        let active = $(this).attr('active');
+        toogleActive(id, nameto, active)
+    })
     $(document).ready(function() {
 
         var dataTable = $('#tableex1').DataTable({

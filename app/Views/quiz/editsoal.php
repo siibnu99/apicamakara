@@ -97,12 +97,34 @@ $no = 1; ?>
                     <?= $validation->getError('jawaban') ?>
                 </div>
             </div>
+            <div class="ml-2 col-sm-6">
+                <?php
+                if (isset($soalq['imagepembahasan'])) : ?>
+                    <img src="<?= base_url() . '/assets/image/soalquiz/' . $soalq['imagepembahasan']   ?>" id="preview" class="img-thumbnail">
+                <?php else : ?>
+                    <img src="http://placehold.it/80x80" id="preview" class="img-thumbnail">
+                <?php endif
+                ?>
+            </div>
             <div class="form-group">
                 <label for="soal">Pembahasan Soal <?= $noSoal ?></label>
                 <textarea type="text" class="form-control <?= ($validation->hasError('pembahasan')) ? 'is-invalid' : "" ?>" id="soal" name="pembahasan" rows="5"><?= old('pembahasan') ? old('pembahasan') : $soalq['pembahasan'] ?></textarea>
                 <div class="invalid-feedback">
                     <?= $validation->getError('pembahasan') ?>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="">Gambar Pembahasan <?= $noSoal ?></label>
+                <input type="file" id="sampul" class="form-control <?= ($validation->hasError('imagepembahasan')) ? 'is-invalid' : "" ?>" name="imagepembahasan" onchange="previewImg()">
+                <div class="invalid-feedback">
+                    <?= $validation->getError('imagepembahasan') ?>
+                </div>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="defaultCheck2" name="deleteImagePembahasan" value="1">
+                <label class="form-check-label" for="defaultCheck2">
+                    Kosongkan gambar
+                </label>
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>

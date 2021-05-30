@@ -6,12 +6,32 @@ use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Uuid;
 use \App\Libraries\Tokenjwt;
 use \App\Models\UserApiModel;
+use App\Models\TopupModel;
+use App\Models\TransferModel;
+use App\Models\MytryoutModel;
+use App\Models\SoaltModel;
+use App\Models\MyquizModel;
 
 class Apitransfer extends ResourceController
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\TransferModel';
     private $UserapiModel;
+    public function _getSaldo($idUser = NULL)
+    {
+        $TopupModel = new TopupModel();
+        $TransferModel = new TransferModel();
+        $MytryoutModel = new MytryoutModel();
+        $SoaltModel = new SoaltModel();
+        $MyquizModel = new MyquizModel();
+        $topup = $TopupModel->selectSum('nominal', 'totalNominal')->where(['user_id' => $idUser, 'status' => '2'])->first()['totalNominal'];
+        $transferFrom = $TransferModel->selectSum('nominal', 'totalNominal')->where('from_id', $idUser)->first()['totalNominal'];
+        $transferTo = $TransferModel->selectSum('nominal', 'totalNominal')->where('to_id', $idUser)->first()['totalNominal'];
+        $dataMyTryout = $MytryoutModel->selectSum('tbl_tryout.price', 'totalNominal')->where(['user_id' => $idUser, 'tbl_tryout.payment_method' => '2', 'payment_id' => '2'])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->first()['totalNominal'];
+        $dataMyTryout3 = $MytryoutModel->selectSum('tbl_mytryout.price', 'totalNominal')->where(['user_id' => $idUser, 'tbl_tryout.payment_method' => '3', 'payment_id' => '3'])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->first()['totalNominal'];
+        $dataMyquiz = $MyquizModel->selectSum('price', 'totalNominal')->where('user_id', $idUser)->first()['totalNominal'];
+        return $topup + $transferTo - $transferFrom - $dataMyTryout - $dataMyTryout3 - $dataMyquiz;
+    }
     public function __construct()
     {
 
@@ -75,7 +95,7 @@ class Apitransfer extends ResourceController
                 $dataTo = $this->UserapiModel->where('telp', $json->telp)->first();
                 if ((int)$json->nominal > 0) {
 
-                    if ($dataFrom['saldo'] >= $json->nominal) {
+                    if ($this->_getSaldo >= $json->nominal) {
                         $data = [
                             'id_transfer' => $Uuid->v4(),
                             'from_id' => $json->fromid,

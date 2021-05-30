@@ -102,11 +102,16 @@ $routes->get('/api/tryout/get/(:segment)', 'Apitryout::show/$1');
 $routes->resource('/api/tryout', ['controller' => 'Apitryout']);
 // ==========================================================================
 // ==========================================================================
+$routes->get('/api/quiz/get/(:segment)', 'Apiquiz::show/$1');
 $routes->get('/api/quiz/(:segment)', 'Apiquiz::index/$1');
 $routes->resource('/api/quiz', ['controller' => 'Apiquiz']);
 // ==========================================================================
 
 // ==========================================================================
+$routes->post('/api/myquiz/invoice/(:segment)/(:segment)', 'Apimyquiz::invoice/$1/$2');
+$routes->get('/api/myquiz/get/(:segment)/(:segment)', 'Apimyquiz::get/$1/$2');
+$routes->post('/api/myquiz/finish/(:segment)/(:segment)', 'Apimyquiz::finish/$1/$2');
+$routes->get('/api/myquiz/(:segment)', 'Apimyquiz::index/$1');
 $routes->resource('/api/myquiz', ['controller' => 'Apimyquiz']);
 // ==========================================================================
 
@@ -139,6 +144,11 @@ $routes->get('/api/riwayat/(:segment)', 'Apiriwayat::index/$1');
 // ==========================================================================
 $routes->get('/api/exam/(:segment)/(:segment)', 'Apisoalt::index/$1/$2');
 $routes->post('/api/exam/(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$1/$2/$3');
+// ==========================================================================
+// ==========================================================================
+$routes->get('/api/examquiz/score/(:segment)/(:segment)', 'Apisoalq::score/$1/$2');
+$routes->get('/api/examquiz/(:segment)', 'Apisoalq::index/$1');
+$routes->post('/api/examquiz/(:segment)/(:segment)', 'Apisoalq::created/$1/$2');
 // ==========================================================================
 // ==========================================================================
 $routes->get('/api/score/boardtryoutall/(:segment)', 'Apiscore::boardTryoutAll/$1');

@@ -12,6 +12,7 @@ use App\Models\TopupModel;
 use App\Models\MytryoutModel;
 use App\Models\AnswertModel;
 use App\Models\SoaltModel;
+use App\Models\MyquizModel;
 
 class Apimytryout extends ResourceController
 {
@@ -27,12 +28,14 @@ class Apimytryout extends ResourceController
         $TransferModel = new TransferModel();
         $MytryoutModel = new MytryoutModel();
         $SoaltModel = new SoaltModel();
+        $MyquizModel = new MyquizModel();
         $topup = $TopupModel->selectSum('nominal', 'totalNominal')->where(['user_id' => $idUser, 'status' => '2'])->first()['totalNominal'];
         $transferFrom = $TransferModel->selectSum('nominal', 'totalNominal')->where('from_id', $idUser)->first()['totalNominal'];
         $transferTo = $TransferModel->selectSum('nominal', 'totalNominal')->where('to_id', $idUser)->first()['totalNominal'];
         $dataMyTryout = $MytryoutModel->selectSum('tbl_tryout.price', 'totalNominal')->where(['user_id' => $idUser, 'tbl_tryout.payment_method' => '2', 'payment_id' => '2'])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->first()['totalNominal'];
         $dataMyTryout3 = $MytryoutModel->selectSum('tbl_mytryout.price', 'totalNominal')->where(['user_id' => $idUser, 'tbl_tryout.payment_method' => '3', 'payment_id' => '3'])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->first()['totalNominal'];
-        return $topup + $transferTo - $transferFrom - $dataMyTryout - $dataMyTryout3;
+        $dataMyquiz = $MyquizModel->selectSum('price', 'totalNominal')->where('user_id', $idUser)->first()['totalNominal'];
+        return $topup + $transferTo - $transferFrom - $dataMyTryout - $dataMyTryout3 - $dataMyquiz;
     }
     public function __construct()
     {
