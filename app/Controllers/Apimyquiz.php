@@ -149,13 +149,21 @@ class Apimyquiz extends ResourceController
         if ($quiz = $this->model->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first()) {
             $json = $this->request->getJSON();
             if ($this->_getSaldo($idUser) >= $json->price) {
-                $this->model->update($quiz['id_myquiz'], ['price' => $json->price]);
+                if ($json->price >= 0) {
+                    $this->model->update($quiz['id_myquiz'], ['price' => $json->price]);
+                    $response = [
+                        'status' => 200,
+                        'message' => 'Quiz berhasil dibayar!',
+                        'data' => ['price' => $json->price]
+                    ];
+                    return $this->respond($response, 200);
+                }
                 $response = [
-                    'status' => 200,
-                    'message' => 'Quiz berhasil dibayar!',
-                    'data' => ['price' => $json->price]
+                    'status' => 201,
+                    'message' => 'Inputan salah',
+                    'data' => NULL
                 ];
-                return $this->respond($response, 200);
+                return $this->respond($response, 201);
             }
             $response = [
                 'status' => 201,

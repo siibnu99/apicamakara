@@ -11,6 +11,7 @@ use App\Models\QuizModel;
 use App\Models\AnswerqModel;
 use App\Models\MyquizModel;
 use CodeIgniter\Database\MySQLi\Result;
+use Exception;
 use Google\Auth\Cache\Item;
 
 class Apisoalq extends ResourceController
@@ -49,8 +50,10 @@ class Apisoalq extends ResourceController
     public function created($idUser = NULL, $idQuiz = NULL)
     {
         helper('menu');
+
         $result = $this->AnswerqModel->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first();
         $quiz = $this->QuizModel->find($idQuiz);
+
         if (
             $result
         ) {
@@ -62,7 +65,7 @@ class Apisoalq extends ResourceController
                     'answer' => $answer
                 ];
                 $this->AnswerqModel->save($data);
-            } catch (\Throwable $th) {
+            } catch (Exception $th) {
                 $answer = NULL;
             }
             $timestart = explode(' ', $result['created_at'])[1];
@@ -77,7 +80,8 @@ class Apisoalq extends ResourceController
                     'answer' => $json->answer,
                 ];
                 $answer = $json->answer;
-            } catch (\Throwable $th) {
+            } catch (Exception $th) {
+                $answer = NULL;
                 $data = array();
                 $data = [
                     'id_answer' => $Uuid->v4(),

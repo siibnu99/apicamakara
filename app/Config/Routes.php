@@ -149,6 +149,7 @@ $routes->post('/api/exam/(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$
 $routes->get('/api/examquiz/score/(:segment)/(:segment)', 'Apisoalq::score/$1/$2');
 $routes->get('/api/examquiz/(:segment)', 'Apisoalq::index/$1');
 $routes->post('/api/examquiz/(:segment)/(:segment)', 'Apisoalq::created/$1/$2');
+$routes->get('/api/examquiz/(:segment)/(:segment)', 'Apisoalq::created/$1/$2');
 // ==========================================================================
 // ==========================================================================
 $routes->get('/api/score/boardtryoutall/(:segment)', 'Apiscore::boardTryoutAll/$1');
