@@ -30,6 +30,12 @@ class Apiscore extends ResourceController
     }
     public function index($userId = NULL, $idTryout = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         if ($userId && $idTryout) {
             $tryout = $this->TryoutModel->find($idTryout);
@@ -70,6 +76,12 @@ class Apiscore extends ResourceController
     }
     public function boardTryoutAll($idTryout = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         if ($idTryout) {
             $tryout = $this->TryoutModel->find($idTryout);

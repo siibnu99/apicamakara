@@ -45,6 +45,12 @@ class Apitransfer extends ResourceController
         } else {
             return $this->respond($data, 401);
         }
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($this->request) {
             if ($json = $this->request->getJSON()) {
                 $data = $this->model->where('from_id', $json->id)->findAll();
@@ -58,6 +64,12 @@ class Apitransfer extends ResourceController
     }
     public function show($id = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         $tokenjwt = new Tokenjwt;
         $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
         if ($data['status'] == 200) {
@@ -81,6 +93,12 @@ class Apitransfer extends ResourceController
     }
     public function create()
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         $Uuid = new Uuid;
         $tokenjwt = new Tokenjwt;
         // $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
@@ -125,6 +143,12 @@ class Apitransfer extends ResourceController
     }
     public function getByTelp($telp = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         $tokenjwt = new Tokenjwt;
         $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
         if ($data['status'] == 200) {

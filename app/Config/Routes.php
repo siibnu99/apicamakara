@@ -72,7 +72,10 @@ $routes->get('/tabledata', 'Tabledata::index', ['filter' => 'role:admin,finance'
 // ==========================================================================
 // ==========================================================================
 $routes->get('/api/user/islogin', 'Apiuser::islogin');
-$routes->post('/api/user/forgot', 'Apiuser::forgot');
+$routes->post('/api/user/forgot/(:segment)', 'Apiuser::forgot/$1');
+$routes->get('/api/user/forgot/(:segment)', 'Apiuser::forgot/$1');
+$routes->post('/api/user/vtoken/(:segment)/(:segment)', 'Apiuser::tokenverif/$1/$2');
+$routes->post('/api/user/setpw/(:segment)/(:segment)', 'Apiuser::setpw/$1/$2');
 $routes->post('/api/user/login', 'Apiuser::index');
 $routes->post('/api/user/update/(:segment)', 'Apiuser::update/$1');
 $routes->resource('/api/user', ['controller' => 'Apiuser']);
@@ -149,7 +152,6 @@ $routes->post('/api/exam/(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$
 $routes->get('/api/examquiz/score/(:segment)/(:segment)', 'Apisoalq::score/$1/$2');
 $routes->get('/api/examquiz/(:segment)', 'Apisoalq::index/$1');
 $routes->post('/api/examquiz/(:segment)/(:segment)', 'Apisoalq::created/$1/$2');
-$routes->get('/api/examquiz/(:segment)/(:segment)', 'Apisoalq::created/$1/$2');
 // ==========================================================================
 // ==========================================================================
 $routes->get('/api/score/boardtryoutall/(:segment)', 'Apiscore::boardTryoutAll/$1');

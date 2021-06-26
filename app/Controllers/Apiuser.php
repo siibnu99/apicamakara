@@ -10,11 +10,17 @@ use App\Models\TransferModel;
 use App\Models\MytryoutModel;
 use App\Models\SoaltModel;
 use App\Models\MyquizModel;
+use App\Models\TokenModel;
+use TheSeer\Tokenizer\Token;
 
 class Apiuser extends ResourceController
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\UserApiModel';
+    public function __construct()
+    {
+        $this->TokenModel = new TokenModel();
+    }
     public function _getSaldo($idUser = NULL)
     {
         $TopupModel = new TopupModel();
@@ -196,29 +202,92 @@ class Apiuser extends ResourceController
             return $this->respond($data, 401);
         }
     }
-    public function forgot()
+    public function forgot($email)
     {
-        $password = uniqid('pass');
-        $id = $this->model->where('email', $this->request->getVar('email'))->first();
+        helper('menu');
+        $id = $this->model->where('email', $email)->first();
         if ($id) {
-            $data = [
-                'password' => password_hash($password, PASSWORD_DEFAULT)
+            $token = generateRandomString(9);
+            $save = [
+                'user_id' => $id['id_user'],
+                'token_forgot' => $token,
+                'exp' => date("Y-m-d H:i:s", time() + (10 * 60))
             ];
-            $this->model->update($id, $data);
+            if ($this->TokenModel->find($id['id_user'])) {
+                $this->TokenModel->update($id['id_user'], $save);
+            } else {
+                $this->TokenModel->insert($save);
+            }
             $email = \Config\Services::email();
-            $email->setTo($this->request->getVar('email'));
+            $email->setTo($id['email']);
             $email->setSubject('Forgot Password');
-            $email->setMessage('Reset password berhasil dilakukan, password baru adalah ' . $password . ' silahkan login menggunakan password tersebut.');
+            $email->setMessage('Forgot Password berhasil dilakukan, Token yang di dapatkan adalah "' . $token . '"');
             $email->send();
             return $this->respond([
                 'statusCode' => 200,
                 'errors'    => false,
-                'message'    => "Reset password berhasil dilakukan",
-            ], 201);
+                'message'    => "Token sudah terkirim",
+            ], 200);
         } else {
             return $this->respond([
                 'statusCode' => 201,
-                'errors'    => 'Email tidak diteumakan',
+                'errors'    => 'Email tidak ditemukan',
+            ], 201);
+        }
+    }
+    public function tokenverif($email, $token)
+    {
+        $id = $this->model->where('email', $email)->first();
+        $token = $this->TokenModel->where('token_forgot', $token)->first($id['id_user']);
+        if ($id && $token) {
+            if (strtotime($token['exp']) < time()) {
+                return $this->respond([
+                    'statusCode' => 200,
+                    'errors'    => false,
+                    'message'    => "Token Expired",
+                ], 201);
+            } else {
+                return $this->respond([
+                    'statusCode' => 200,
+                    'errors'    => false,
+                    'message'    => "Token benar",
+                ], 201);
+            }
+        } else {
+            return $this->respond([
+                'statusCode' => 201,
+                'errors'    => 'Email atau Token tidak ditemukan ',
+            ], 201);
+        }
+    }
+    public function setpw($email, $token)
+    {
+        $id = $this->model->where('email', $email)->first();
+        $token = $this->TokenModel->where('token_forgot', $token)->first($id['id_user']);
+        if ($id && $token) {
+            if (strtotime($token['exp']) < time()) {
+                return $this->respond([
+                    'statusCode' => 200,
+                    'errors'    => true,
+                    'message'    => "Token Expired",
+                ], 201);
+            } else {
+                $json = $this->request->getJSON();
+                $data = [
+                    'password' => password_hash($json->password, PASSWORD_DEFAULT),
+                    'id_user' => $id['id_user']
+                ];
+                $this->model->update($id['id_user'], $data);
+                return $this->respond([
+                    'statusCode' => 200,
+                    'errors'    => false,
+                    'message'    => "Berhasil set password",
+                ], 201);
+            }
+        } else {
+            return $this->respond([
+                'statusCode' => 201,
+                'errors'    => 'Email atau Token tidak ditemukan ',
             ], 201);
         }
     }

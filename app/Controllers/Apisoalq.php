@@ -29,6 +29,12 @@ class Apisoalq extends ResourceController
     }
     public function index($idQuiz = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $result = $this->model->where(["quiz_id" => $idQuiz])->findAll();
         $temp = [];
@@ -49,8 +55,13 @@ class Apisoalq extends ResourceController
     }
     public function created($idUser = NULL, $idQuiz = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
-
         $result = $this->AnswerqModel->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first();
         $quiz = $this->QuizModel->find($idQuiz);
 
@@ -107,6 +118,12 @@ class Apisoalq extends ResourceController
     }
     public function score($idUser = NULL, $idQuiz = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $result = $this->AnswerqModel->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first();
         $quiz = $this->QuizModel->find($idQuiz);

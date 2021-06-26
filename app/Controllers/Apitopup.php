@@ -15,7 +15,8 @@ class Apitopup extends ResourceController
     {
         $tokenjwt = new Tokenjwt;
         $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if (!$data['status'] == 200) {
+        if ($data['status'] == 200) {
+        } else {
             return $this->respond($data, 401);
         }
         if ($this->request) {
@@ -55,10 +56,10 @@ class Apitopup extends ResourceController
 
         $tokenjwt = new Tokenjwt;
         $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        // if ($data['status'] == 200) {
-        // } else {
-        //     return $this->respond($data, 401);
-        // }
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($this->request->getVar('bankid') != 0) {
             $Uuid = new Uuid;
             // if ($this->request) {

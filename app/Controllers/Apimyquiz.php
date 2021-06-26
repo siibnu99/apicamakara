@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Uuid;
+use \App\Libraries\Tokenjwt;
 use App\Models\QuizModel;
 use App\Models\TransferModel;
 use App\Models\TopupModel;
@@ -48,6 +49,12 @@ class Apimyquiz extends ResourceController
     }
     public function index($iduser = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         $quiz = $this->model->where('user_id', $iduser)->join('tbl_quiz', 'tbl_quiz.id_quiz = tbl_myquiz.quiz_id')->findAll();
         $result = array();
         $id = 0;
@@ -64,6 +71,12 @@ class Apimyquiz extends ResourceController
     }
     public function create()
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         $Uuid = new Uuid;
         $json = $this->request->getJSON();
         $dQuiz = $this->QuizModel->find($json->idquiz);
@@ -101,6 +114,12 @@ class Apimyquiz extends ResourceController
     }
     public function get($idUser = null, $idQuiz = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($quiz = $this->model->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->join('tbl_quiz', 'tbl_quiz.id_quiz = tbl_myquiz.quiz_id')->first()) {
             $quiz['mapel_name'] = allMapel($quiz['mapel']);
             $response = [
@@ -119,6 +138,12 @@ class Apimyquiz extends ResourceController
     }
     public function finish($idUser = null, $idQuiz = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($quiz = $this->model->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first()) {
             if (!$quiz['finish']) {
                 $this->model->update($quiz['id_myquiz'], ['finish' => 1]);
@@ -146,6 +171,12 @@ class Apimyquiz extends ResourceController
     }
     public function invoice($idUser = null, $idQuiz = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($quiz = $this->model->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first()) {
             $json = $this->request->getJSON();
             if ($this->_getSaldo($idUser) >= $json->price) {

@@ -24,6 +24,12 @@ class Apisoalt extends ResourceController
     }
     public function index($idTryout = NULL, $kindTryout = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $result = $this->model->where(["tryout_id" => $idTryout, "kind_tryout" => $kindTryout])->orderBy("no_soal")->findAll();
         $temp = [];
@@ -44,6 +50,12 @@ class Apisoalt extends ResourceController
     }
     public function created($idUser = NULL, $idTryout = NULL, $kindTryout = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $result = $this->AnswertModel->where(['user_id' => $idUser, 'tryout_id' => $idTryout, 'kind_tryout' => $kindTryout])->first();
         $tryout = $this->TryoutModel->find($idTryout);

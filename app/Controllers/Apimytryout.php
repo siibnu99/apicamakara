@@ -57,6 +57,12 @@ class Apimytryout extends ResourceController
     }
     public function index($iduser = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $tryout = $this->model->where('user_id', $iduser)->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')->findAll();
         $result = [];
@@ -84,6 +90,12 @@ class Apimytryout extends ResourceController
     }
     public function check()
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         if ($this->request) {
             if ($json = $this->request->getJSON()) {
                 $result = $this->model->where(['user_id' => $json->iduser, 'tryout_id' => $json->idtryout])->first();
@@ -104,6 +116,12 @@ class Apimytryout extends ResourceController
     }
     public function create()
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         $Uuid = new Uuid;
         $json = $this->request->getJSON();
         if ($json != NULL) {
@@ -211,6 +229,12 @@ class Apimytryout extends ResourceController
     }
     public function get($idUser = null, $id = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $mytryout = new MytryoutModel();
         $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $id])->first();
@@ -263,6 +287,12 @@ class Apimytryout extends ResourceController
     }
     public function finish($idUser = null, $id = null)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $mytryout = new MytryoutModel();
         $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $id])->first();
@@ -283,6 +313,12 @@ class Apimytryout extends ResourceController
     }
     public function getAnswert($idUser = null, $id = null, $kindTryout = NULL, $nomerSoalt = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper('menu');
         $mytryout = new MytryoutModel();
         $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $id])->first();

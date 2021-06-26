@@ -15,6 +15,12 @@ class Apiriwayat extends ResourceController
     protected $format       = 'json';
     public function index($id = NULL)
     {
+        $tokenjwt = new Tokenjwt;
+        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
+        if ($data['status'] == 200) {
+        } else {
+            return $this->respond($data, 401);
+        }
         helper("menu");
         $topup = new TopupModel();
         $transfer = new TransferModel();
