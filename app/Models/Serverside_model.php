@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Exception;
 
 class Serverside_model extends Model
 {
@@ -26,17 +27,20 @@ class Serverside_model extends Model
         $i = 0;
 
         foreach ($column_search as $item) {
-            if ($_POST['search']['value']) {
+            try {
+                if ($_POST['search']['value']) {
 
-                if ($i === 0) {
-                    $this->builder->groupStart();
-                    $this->builder->like($item, $_POST['search']['value']);
-                } else {
-                    $this->builder->orLike($item, $_POST['search']['value']);
+                    if ($i === 0) {
+                        $this->builder->groupStart();
+                        $this->builder->like($item, $_POST['search']['value']);
+                    } else {
+                        $this->builder->orLike($item, $_POST['search']['value']);
+                    }
+
+                    if (count($column_search) - 1 == $i)
+                        $this->builder->groupEnd();
                 }
-
-                if (count($column_search) - 1 == $i)
-                    $this->builder->groupEnd();
+            } catch (Exception $e) {
             }
             $i++;
         }
@@ -56,8 +60,11 @@ class Serverside_model extends Model
     public function get_datatables($table, $column_order, $column_search, $order, $data = '')
     {
         $this->_get_datatables_query($table, $column_order, $column_search, $order);
-        if ($_POST['length'] != -1)
-            $this->builder->limit($_POST['length'], $_POST['start']);
+        try {
+            if ($_POST['length'] != -1)
+                $this->builder->limit($_POST['length'], $_POST['start']);
+        } catch (Exception $e) {
+        }
         if ($data) {
             $this->builder->where($data);
         }

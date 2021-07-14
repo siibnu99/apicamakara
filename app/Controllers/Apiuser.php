@@ -124,19 +124,13 @@ class Apiuser extends ResourceController
                     'telp'   => $json->telp,
                     'is_active'   => 1,
                 ]);
-                if ($dataR) {
-                    $msg = ['message' => 'Created user successfully'];
-                    $response = [
-                        'status' => 200,
-                        'error' => false,
-                        'data' => $msg,
-                    ];
-                    return $this->respond($response, 200);
-                }
+                $msg = ['message' => 'Created user successfully'];
                 $response = [
-                    'status' => 404,
+                    'status' => 200,
+                    'error' => false,
+                    'data' => $msg,
                 ];
-                return $this->respond($response, 201);
+                return $this->respond($response, 200);
             }
             $response = [
                 'status' => 404,

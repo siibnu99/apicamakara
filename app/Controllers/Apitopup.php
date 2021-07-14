@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Uuid;
 use \App\Libraries\Tokenjwt;
+use Pusher\Pusher;
 
 class Apitopup extends ResourceController
 {
@@ -90,6 +91,19 @@ class Apitopup extends ResourceController
                 'status' => 200,
                 'message' => 'Success Top Up',
             ];
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+            $pusher = new Pusher(
+                '9572fc108523db38ff8c',
+                '00f81ecce367b823260d',
+                '1235332',
+                $options
+            );
+
+            $data['message'] = 'success';
+            $pusher->trigger('my-channel', 'confirmfinance', $data);
         } else {
             $response = [
                 'status' => 201,

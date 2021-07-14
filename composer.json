@@ -10,7 +10,8 @@
 		"php": ">=7.2",
 		"codeigniter4/framework": "^4",
 		"google/apiclient": "^2.0",
-		"myth/auth": "^1.0@beta"
+		"myth/auth": "^1.0@beta",
+		"pusher/pusher-php-server": "^7.0"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "^1.9@dev",

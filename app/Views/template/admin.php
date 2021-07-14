@@ -343,6 +343,7 @@
     <script src="<?= base_url('assets') ?>/js/sb-admin-2.min.js"></script>
     <!-- Page level plugins -->
     <script src="<?= base_url('assets') ?>/vendor/datatables/datatables.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets') ?>/js/demo/datatables-demo.js"></script>

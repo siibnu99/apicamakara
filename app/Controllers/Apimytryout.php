@@ -13,6 +13,7 @@ use App\Models\MytryoutModel;
 use App\Models\AnswertModel;
 use App\Models\SoaltModel;
 use App\Models\MyquizModel;
+use Pusher\Pusher;
 
 class Apimytryout extends ResourceController
 {
@@ -171,6 +172,19 @@ class Apimytryout extends ResourceController
                 'status' => 1,
             ];
             $this->model->insert($data);
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+            $pusher = new Pusher(
+                '9572fc108523db38ff8c',
+                '00f81ecce367b823260d',
+                '1235332',
+                $options
+            );
+
+            $data['message'] = 'success';
+            $pusher->trigger('my-channel', 'confirm', $data);
             $response = [
                 'status' => 200,
                 'message' => 'Permintaan Sukses',

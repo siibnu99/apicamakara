@@ -45,8 +45,24 @@
 <script>
     $(document).ready(function() {
 
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('9572fc108523db38ff8c', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('confirmfinance', function(data) {
+            getData();
+        });
+    })
+
+    function getData() {
+
         var dataTable = $('#tableex1').DataTable({
             "processing": true,
+            destroy: true,
             responsive: true,
             "oLanguage": {
                 "sLengthMenu": "Tampilkan _MENU_ data per halaman",
@@ -82,6 +98,9 @@
                 }
             }
         });
+    }
+    $(document).ready(function() {
+        getData();
     });
 </script>
 <?= $this->endsection() ?>
