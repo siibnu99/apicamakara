@@ -100,19 +100,11 @@ class Apitransfer extends ResourceController
             return $this->respond($data, 401);
         }
         $Uuid = new Uuid;
-        $tokenjwt = new Tokenjwt;
-        // $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        // if ($data['status'] == 200) {
-        // } else {
-        //     return $this->respond($data, 401);
-        // }
         if ($this->request) {
             if ($this->request->getJSON()) {
                 $json = $this->request->getJSON();
-                $dataFrom = $this->UserapiModel->find($json->fromid);
                 $dataTo = $this->UserapiModel->where('telp', $json->telp)->first();
                 if ((int)$json->nominal > 0) {
-
                     if ($this->_getSaldo >= $json->nominal) {
                         $data = [
                             'id_transfer' => $Uuid->v4(),
