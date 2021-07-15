@@ -149,14 +149,8 @@ class Apitransfer extends ResourceController
         } else {
             return $this->respond($data, 401);
         }
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
         if ($telp) {
-            $data = $this->UserapiModel->where('telp', $telp)->first();
+            $data = $this->UserapiModel->select('id_user,fullname,telp')->where('telp', $telp)->first();
             $response = [
                 'status' => 200,
                 'data' => $data,

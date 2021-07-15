@@ -22,7 +22,7 @@ class Apitopup extends ResourceController
         }
         if ($this->request) {
             if ($json = $this->request->getJSON()) {
-                $data = $this->model->select('id_user,fullname,telp')->where('user_id', $json->id)->findAll();
+                $data = $this->model->where('user_id', $json->id)->findAll();
                 $response = [
                     'status' => 200,
                     'data' => $data,
