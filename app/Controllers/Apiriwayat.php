@@ -13,14 +13,9 @@ use Google\Auth\Cache\Item;
 class Apiriwayat extends ResourceController
 {
     protected $format       = 'json';
-    public function index($id = NULL)
+    public function index()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        $id = $this->request->auth->idUser;
         helper("menu");
         $topup = new TopupModel();
         $transfer = new TransferModel();

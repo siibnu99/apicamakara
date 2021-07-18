@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
-use \App\Libraries\Uuid;
-use \App\Libraries\Tokenjwt;
 
 class Apiprov extends ResourceController
 {

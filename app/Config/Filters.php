@@ -15,13 +15,12 @@ class Filters extends BaseConfig
 		'login'      => \Myth\Auth\Filters\LoginFilter::class,
 		'role'       => \Myth\Auth\Filters\RoleFilter::class,
 		'permission' => \Myth\Auth\Filters\PermissionFilter::class,
-		'options' => \App\Filters\Options::class,
+		'jwt' => \App\Filters\Jwt::class,
 	];
 
 	// Always applied before every request
 	public $globals = [
 		'before' => [
-			'options', //register option CORS
 			//'honeypot'
 			// 'csrf',
 		],

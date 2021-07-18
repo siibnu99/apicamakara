@@ -22,14 +22,8 @@ class Apisoalt extends ResourceController
         $this->TryoutModel = new TryoutModel;
         $this->AnswertModel = new AnswertModel;
     }
-    public function index($idTryout = NULL, $kindTryout = NULL)
+    public function show($idTryout = NULL, $kindTryout = NULL)
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
         helper('menu');
         $result = $this->model->where(["tryout_id" => $idTryout, "kind_tryout" => $kindTryout])->orderBy("no_soal")->findAll();
         $temp = [];
@@ -48,14 +42,12 @@ class Apisoalt extends ResourceController
         ];
         return $this->respond($response, 200);
     }
-    public function created($idUser = NULL, $idTryout = NULL, $kindTryout = NULL)
+    public function created()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        $idUser = $this->request->auth->idUser;
+        $json = $this->request->getJSON();
+        $idTryout = $json->idtryout;
+        $kindTryout = $json->kindtryout;
         helper('menu');
         $result = $this->AnswertModel->where(['user_id' => $idUser, 'tryout_id' => $idTryout, 'kind_tryout' => $kindTryout])->first();
         $tryout = $this->TryoutModel->find($idTryout);
@@ -77,7 +69,6 @@ class Apisoalt extends ResourceController
             $timestart = explode(' ', $result['created_at'])[1];
         } else {
             $Uuid = new Uuid;
-            $json = $this->request->getJSON();
             try {
                 $data = [
                     'id_answer' => $Uuid->v4(),

@@ -11,7 +11,6 @@ use App\Models\AnswertModel;
 use App\Models\SoaltModel;
 use App\Models\UnivModel;
 use App\Models\ProdiModel;
-use CodeIgniter\Database\MySQLi\Result;
 
 class Apiscore extends ResourceController
 {

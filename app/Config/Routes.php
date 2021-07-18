@@ -21,7 +21,7 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+$routes->setAutoRoute(false);
 
 /**
  * --------------------------------------------------------------------
@@ -36,127 +36,135 @@ $routes->setAutoRoute(true);
 // $routes->post('/aauth/register', 'Aauth::register');
 // $routes->post('/aauth/login', 'Aauth::login');
 
-$routes->get('/', 'Home::index');
-$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'role:admin,finance,task']);
-$routes->get('/documentation', 'Documentation::index', ['filter' => 'role:admin,finance,task']);
-$routes->get('/confirm', 'Confirm::index', ['filter' => 'role:admin,task']);
-// ==========================================================================
-$routes->get('/tryout', 'Tryout::index', ['filter' => 'role:admin,task']);
-$routes->get('/tryout/create', 'Tryout::create', ['filter' => 'role:admin,task']);
-$routes->post('/tryout/create', 'Tryout::attemptcreate', ['filter' => 'role:admin,task']);
-$routes->get('/tryout/edit/(:segment)', 'Tryout::edit/$1', ['filter' => 'role:admin,task']);
-$routes->post('/tryout/edit/(:segment)', 'Tryout::attemptedit/$1', ['filter' => 'role:admin,task']);
-$routes->post('/tryout/delete/(:segment)', 'Tryout::delete/$1', ['filter' => 'role:admin,task']);
-$routes->get('/tryout/editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::editsoal/$1/$2/$3', ['filter' => 'role:admin,task']);
-$routes->post('/tryout/editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::attemptEditSoal/$1/$2/$3', ['filter' => 'role:admin,task']);
-$routes->get('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::editbobot/$1/$2', ['filter' => 'role:admin,task']);
-$routes->post('/tryout/editbobot/(:segment)/(:segment)', 'Tryout::attempteditbobot/$1/$2', ['filter' => 'role:admin,task']);
-$routes->get('/tryout/detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'role:admin,task']);
-// ==========================================================================
 
-// ==========================================================================
-$routes->get('/quiz', 'Quiz::index', ['filter' => 'role:admin,task']);
-$routes->get('/quiz/create', 'Quiz::create', ['filter' => 'role:admin,task']);
-$routes->post('/quiz/create', 'Quiz::attemptcreate', ['filter' => 'role:admin,task']);
-$routes->get('/quiz/edit/(:segment)', 'Quiz::edit/$1', ['filter' => 'role:admin,task']);
-$routes->post('/quiz/edit/(:segment)', 'Quiz::attemptedit/$1', ['filter' => 'role:admin,task']);
-$routes->post('/quiz/delete/(:segment)', 'Quiz::delete/$1', ['filter' => 'role:admin,task']);
-$routes->get('/quiz/detail/(:segment)', 'Quiz::detail/$1', ['filter' => 'role:admin,task']);
-$routes->get('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::editsoal/$1/$2', ['filter' => 'role:admin,task']);
-$routes->post('/quiz/editsoal/(:segment)/(:segment)', 'Quiz::attemptEditSoal/$1/$2', ['filter' => 'role:admin,task']);
-// ==========================================================================
+$routes->group('api', function ($routes) {
+	$routes->group('auth', function ($routes) {
+		$routes->post('login', 'Apiauth::login');
+		$routes->post('register', 'Apiauth::register');
+		$routes->get('islogin', 'Apiauth::islogin');
+		$routes->post('forgot', 'Apiauth::forgot');
+		$routes->post('tokenv', 'Apiauth::tokenverif');
+		$routes->post('setpw', 'Apiauth::setpw');
+	});
+	$routes->group('profile', ['filter' => 'jwt'], function ($routes) {
+		$routes->get('', 'Apiprofile::index');
+		$routes->put('', 'Apiprofile::update');
+	});
+	$routes->group('produk', ['filter' => 'jwt:1'], function ($routes) {
+		$routes->resource('quiz', ['controller' => 'Apiquiz']);
+		$routes->resource('tryout', ['controller' => 'Apitryout']);
+	});
+	$routes->group('me', ['filter' => 'jwt'], function ($routes) {
+		$routes->group('quiz', function ($routes) {
+			$routes->post('invoice', 'Apimyquiz::invoice');
+			$routes->post('finish', 'Apimyquiz::finish');
+		});
+		$routes->resource('quiz', ['controller' => 'Apimyquiz']);
+		$routes->group('tryout', function ($routes) {
+			$routes->post('finish', 'Apimytryout::finish');
+			$routes->post('getanswert', 'Apimytryout::getAnswert');
+		});
+		$routes->resource('tryout', ['controller' => 'Apimytryout']);
+		$routes->resource('topup', ['controller' => 'Apitopup']);
+		$routes->group('transfer', function ($routes) {
+			$routes->get('notelp/(:segment)', 'Apitransfer::getByTelp/$1');
+		});
+		$routes->resource('transfer', ['controller' => 'Apitransfer']);
+		$routes->get('riwayat', 'Apiriwayat::index');
+	});
+	$routes->group('exam', ['filter' => 'jwt'], function ($routes) {
+		$routes->group('quiz', function ($routes) {
+			$routes->post('score', 'Apisoalq::score');
+		});
+		$routes->resource('quiz', ['controller' => 'Apisoalq']);
+		$routes->group('tryout', function ($routes) {
+			$routes->get('(:segment)/(:segment)', 'Apisoalt::index/$1/$2');
+			$routes->post('(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$1/$2/$3');
+		});
+	});
+	$routes->group('address', function ($routes) {
+		$routes->resource('prov', ['controller' => 'Apiprov']);
+		$routes->get('reg/get/(:segment)', 'Apireg::get/$1');
+		$routes->resource('reg', ['controller' => 'Apireg']);
+	});
+	$routes->group('graduate', function ($routes) {
+		$routes->resource('univ', ['controller' => 'Apiuniv']);
+		$routes->get('prodi/get/(:segment)', 'Apiprodi::get/$1');
+		$routes->resource('prodi', ['controller' => 'Apiprodi']);
+	});
+	$routes->group('resource', function ($routes) {
+		$routes->resource('bank', ['controller' => 'Apibank']);
+	});
+	// $routes->group('board', function ($routes) {
+	// 	$routes->get('boardtryoutall/(:segment)', 'Apiscore::boardTryoutAll/$1');
+	// 	$routes->get('(:segment)/(:segment)', 'Apiscore::index/$1/$2');
+	// });
+});
+$routes->group('admincamakara', function ($routes) {
+	$routes->get('dashboard', 'Dashboard::index', ['filter' => 'role:admin,finance,task']);
 
-// ==========================================================================
-$routes->get('/confirmfinance', 'Confirmfinance::index', ['filter' => 'role:admin,finance']);
-$routes->get('/tabledata', 'Tabledata::index', ['filter' => 'role:admin,finance']);
-// ==========================================================================
-// ==========================================================================
-$routes->get('/api/user/islogin', 'Apiuser::islogin');
-$routes->post('/api/user/forgot/(:segment)', 'Apiuser::forgot/$1');
-$routes->get('/api/user/forgot/(:segment)', 'Apiuser::forgot/$1');
-$routes->post('/api/user/vtoken/(:segment)/(:segment)', 'Apiuser::tokenverif/$1/$2');
-$routes->post('/api/user/setpw/(:segment)/(:segment)', 'Apiuser::setpw/$1/$2');
-$routes->post('/api/user/login', 'Apiuser::index');
-$routes->post('/api/user/update/(:segment)', 'Apiuser::update/$1');
-$routes->resource('/api/user', ['controller' => 'Apiuser']);
-// ==========================================================================
 
-// ==========================================================================
-$routes->resource('/api/address/prov', ['controller' => 'Apiprov']);
-// ==========================================================================
+	$routes->get('login', 'AuthController::login', ['as' => 'login', 'namespace' => 'Myth\Auth\Controllers']);
+	$routes->post('login', 'AuthController::attemptLogin', ['namespace' => 'Myth\Auth\Controllers']);
+	$routes->get('logout', 'AuthController::logout', ['namespace' => 'Myth\Auth\Controllers']);
 
-// ==========================================================================
-$routes->get('/api/address/reg/get/(:segment)', 'Apireg::get/$1');
-$routes->resource('/api/address/reg', ['controller' => 'Apireg']);
-// ==========================================================================
+	$routes->group('confirm', ['filter' => 'role:admin,task'], function ($routes) {
+		$routes->get('', 'Confirm::index');
+		$routes->get('confirm/(:segment)', 'Confirm::confirm/$1');
+		$routes->get('notconfirm/(:segment)', 'Confirm::confirm/$1');
+		$routes->post('listdata', 'Confirm::listdata');
+	});
 
-// ==========================================================================
-$routes->resource('/api/univ', ['controller' => 'Apiuniv']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->get('/api/prodi/get/(:segment)', 'Apiprodi::get/$1');
-$routes->resource('/api/prodi', ['controller' => 'Apiprodi']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->get('/api/tryout/(:segment)', 'Apitryout::index/$1');
-$routes->get('/api/tryout/get/(:segment)', 'Apitryout::show/$1');
-$routes->resource('/api/tryout', ['controller' => 'Apitryout']);
-// ==========================================================================
-// ==========================================================================
-$routes->get('/api/quiz/get/(:segment)', 'Apiquiz::show/$1');
-$routes->get('/api/quiz/(:segment)', 'Apiquiz::index/$1');
-$routes->resource('/api/quiz', ['controller' => 'Apiquiz']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->post('/api/myquiz/invoice/(:segment)/(:segment)', 'Apimyquiz::invoice/$1/$2');
-$routes->get('/api/myquiz/get/(:segment)/(:segment)', 'Apimyquiz::get/$1/$2');
-$routes->post('/api/myquiz/finish/(:segment)/(:segment)', 'Apimyquiz::finish/$1/$2');
-$routes->get('/api/myquiz/(:segment)', 'Apimyquiz::index/$1');
-$routes->resource('/api/myquiz', ['controller' => 'Apimyquiz']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->resource('/api/topup', ['controller' => 'Apitopup']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->get('/api/transfer/notelp/(:segment)', 'Apitransfer::getByTelp/$1');
-$routes->resource('/api/transfer', ['controller' => 'Apitransfer']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->get('/api/mytryout/get/(:segment)/(:segment)', 'Apimytryout::get/$1/$2');
-$routes->get('/api/mytryout/finish/(:segment)/(:segment)', 'Apimytryout::finish/$1/$2');
-$routes->get('/api/mytryout/getanswert/(:segment)/(:segment)/(:segment)/(:segment)', 'Apimytryout::getAnswert/$1/$2/$3/$4');
-$routes->get('/api/mytryout/(:segment)', 'Apimytryout::index/$1');
-$routes->get('/api/mytryout/check', 'Apimytryout::check');
-$routes->resource('/api/mytryout', ['controller' => 'Apimytryout']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->resource('/api/bank', ['controller' => 'Apibank']);
-// ==========================================================================
-
-// ==========================================================================
-$routes->get('/api/riwayat/(:segment)', 'Apiriwayat::index/$1');
-// ==========================================================================
-
-// ==========================================================================
-$routes->get('/api/exam/(:segment)/(:segment)', 'Apisoalt::index/$1/$2');
-$routes->post('/api/exam/(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$1/$2/$3');
-// ==========================================================================
-// ==========================================================================
-$routes->get('/api/examquiz/score/(:segment)/(:segment)', 'Apisoalq::score/$1/$2');
-$routes->get('/api/examquiz/(:segment)', 'Apisoalq::index/$1');
-$routes->post('/api/examquiz/(:segment)/(:segment)', 'Apisoalq::created/$1/$2');
-// ==========================================================================
-// ==========================================================================
-$routes->get('/api/score/boardtryoutall/(:segment)', 'Apiscore::boardTryoutAll/$1');
-$routes->get('/api/score/(:segment)/(:segment)', 'Apiscore::index/$1/$2');
-// ==========================================================================
+	$routes->group('tryout', ['filter' => 'role:admin,task'], function ($routes) {
+		$routes->get('', 'Tryout::index', ['filter' => 'role:admin,task']);
+		$routes->post('listdata', 'Tryout::listdata');
+		$routes->get('create', 'Tryout::create', ['filter' => 'role:admin,task']);
+		$routes->post('create', 'Tryout::attemptcreate', ['filter' => 'role:admin,task']);
+		$routes->get('edit/(:segment)', 'Tryout::edit/$1', ['filter' => 'role:admin,task']);
+		$routes->post('edit/(:segment)', 'Tryout::attemptedit/$1', ['filter' => 'role:admin,task']);
+		$routes->get('delete/(:segment)', 'Tryout::delete/$1', ['filter' => 'role:admin,task']);
+		$routes->get('detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'role:admin,task']);
+		$routes->get('editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::editsoal/$1/$2/$3', ['filter' => 'role:admin,task']);
+		$routes->post('editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::attemptEditSoal/$1/$2/$3', ['filter' => 'role:admin,task']);
+		$routes->get('editbobot/(:segment)/(:segment)', 'Tryout::editbobot/$1/$2', ['filter' => 'role:admin,task']);
+		$routes->post('editbobot/(:segment)/(:segment)', 'Tryout::attempteditbobot/$1/$2', ['filter' => 'role:admin,task']);
+		$routes->post('toogleactive/(:segment)', 'Tryout::toogleActive/$1', ['filter' => 'role:admin,task']);
+	});
+	$routes->group('quiz', ['filter' => 'role:admin,task'], function ($routes) {
+		$routes->get('', 'Quiz::index', ['filter' => 'role:admin,task']);
+		$routes->post('listdata', 'Quiz::listdata');
+		$routes->get('create', 'Quiz::create', ['filter' => 'role:admin,task']);
+		$routes->post('create', 'Quiz::attemptcreate', ['filter' => 'role:admin,task']);
+		$routes->get('edit/(:segment)', 'Quiz::edit/$1', ['filter' => 'role:admin,task']);
+		$routes->post('edit/(:segment)', 'Quiz::attemptedit/$1', ['filter' => 'role:admin,task']);
+		$routes->get('delete/(:segment)', 'Quiz::delete/$1', ['filter' => 'role:admin,task']);
+		$routes->get('detail/(:segment)', 'Quiz::detail/$1', ['filter' => 'role:admin,task']);
+		$routes->get('editsoal/(:segment)/(:segment)', 'Quiz::editsoal/$1/$2', ['filter' => 'role:admin,task']);
+		$routes->post('editsoal/(:segment)/(:segment)', 'Quiz::attemptEditSoal/$1/$2', ['filter' => 'role:admin,task']);
+		$routes->post('toogleactive/(:segment)', 'Quiz::toogleActive/$1', ['filter' => 'role:admin,task']);
+	});
+	$routes->group('confirmfinance', ['filter' => 'role:admin,finance'], function ($routes) {
+		$routes->get('', 'Confirmfinance::index');
+		$routes->get('confirm/(:segment)', 'Confirmfinance::confirm/$1');
+		$routes->get('notconfirm/(:segment)', 'Confirmfinance::confirm/$1');
+		$routes->post('listdata', 'Confirmfinance::listdata');
+	});
+	$routes->group('tabledata', ['filter' => 'role:admin,finance'], function ($routes) {
+		$routes->get('', 'Tabledata::index');
+		$routes->post('listdata', 'Tabledata::listdata');
+	});
+	$routes->group('listuser', ['filter' => 'role:admin'], function ($routes) {
+		$routes->get('', 'Listuser::index');
+		$routes->get('create', 'Listuser::create', ['filter' => 'role:admin,task']);
+		$routes->post('create', 'Listuser::attemptcreate', ['filter' => 'role:admin,task']);
+		$routes->get('changepassword/(:segment)', 'Listuser::changePassword/$1', ['filter' => 'role:admin,task']);
+		$routes->post('changepassword/(:segment)', 'Listuser::changePasswordAttempt/$1', ['filter' => 'role:admin,task']);
+		$routes->get('edit/(:segment)', 'Listuser::edit/$1', ['filter' => 'role:admin,task']);
+		$routes->post('edit/(:segment)', 'Listuser::attemptedit/$1', ['filter' => 'role:admin,task']);
+		$routes->get('delete/(:segment)', 'Listuser::delete/$1', ['filter' => 'role:admin,task']);
+	});
+});
+$routes->get('/(:any)', 'Home::index');
 
 /**
  * --------------------------------------------------------------------

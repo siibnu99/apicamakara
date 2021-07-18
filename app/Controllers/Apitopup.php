@@ -14,73 +14,40 @@ class Apitopup extends ResourceController
 
     public function index()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
-        if ($this->request) {
-            if ($json = $this->request->getJSON()) {
-                $data = $this->model->where('user_id', $json->id)->findAll();
-                $response = [
-                    'status' => 200,
-                    'data' => $data,
-                ];
-                return $this->respond($response, 200);
-            }
-        }
+        $idUser = $this->request->auth->idUser;
+        $data = $this->model->where('user_id', $idUser)->findAll();
+        $response = [
+            'status' => 200,
+            'data' => $data,
+        ];
+        return $this->respond($response, 200);
     }
     public function show($id = NULL)
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
-        if ($this->request) {
-            if ($id) {
-                if ($json = $this->request->getJSON()) {
-                    $data = $this->model->find($id);
-                    $response = [
-                        'status' => 200,
-                        'data' => $data,
-                    ];
-                    return $this->respond($response, 200);
-                }
-            }
+        if ($id) {
+            $data = $this->model->find($id);
+            $response = [
+                'status' => 200,
+                'data' => $data,
+            ];
+            return $this->respond($response, 200);
         }
     }
     public function create()
     {
-
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        $idUser = $this->request->auth->idUser;
         if ($this->request->getVar('bankid') != 0) {
             $Uuid = new Uuid;
-            // if ($this->request) {
-            //     if ($this->request->getJSON()) {
             $namaFile = $_FILES['image']['name'];
             $ektensiGambar = explode('.', $namaFile);
             $ektensiGambar = strtolower(end($ektensiGambar));
             $namaFile = $Uuid->v4() . '.' . $ektensiGambar;
-
             $namaSementara = $_FILES['image']['tmp_name'];
-
-            // tentukan lokasi file akan dipindahkan
             $dirUpload = "assets/image/topup/";
-
-            // pindahkan file
-            $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
-            $json = $this->request->getJSON();
+            move_uploaded_file($namaSementara, $dirUpload . $namaFile);
             $data = [
                 'id_topup' => $Uuid->v4(),
-                'user_id' => $this->request->getVar('id'),
+                'user_id' => $idUser,
                 'bank_id' => $this->request->getVar('bankid'),
                 'nominal' => $this->request->getVar('nominal'),
                 'image' => $namaFile,
@@ -101,7 +68,6 @@ class Apitopup extends ResourceController
                 '1235332',
                 $options
             );
-
             $data['message'] = 'success';
             $pusher->trigger('my-channel', 'confirmfinance', $data);
         } else {

@@ -4,21 +4,17 @@ namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Uuid;
-use \App\Libraries\Tokenjwt;
 use App\Models\UserApiModel;
 use Myth\Auth\Models\UserModel;
 use App\Models\QuizModel;
 use App\Models\AnswerqModel;
 use App\Models\MyquizModel;
-use CodeIgniter\Database\MySQLi\Result;
 use Exception;
-use Google\Auth\Cache\Item;
 
 class Apisoalq extends ResourceController
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\SoalqModel';
-    private $TryoutModel;
     public function __construct()
     {
         $this->UserApiModel = new UserApiModel;
@@ -27,16 +23,10 @@ class Apisoalq extends ResourceController
         $this->AnswerqModel = new AnswerqModel;
         $this->MyquizModel = new MyquizModel;
     }
-    public function index($idQuiz = NULL)
+    public function show($idQuiz = NULL)
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
         helper('menu');
-        $result = $this->model->where(["quiz_id" => $idQuiz])->findAll();
+        $result = $this->model->where(["quiz_id" => $idQuiz])->orderBy('no_soal', 'ASC')->findAll();
         $temp = [];
         $id = 0;
         foreach ($result as $item) {
@@ -53,36 +43,44 @@ class Apisoalq extends ResourceController
         ];
         return $this->respond($response, 200);
     }
-    public function created($idUser = NULL, $idQuiz = NULL)
+    public function create()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        $idUser = $this->request->auth->idUser;
+        $json = $this->request->getJSON();
+        $idQuiz = $json->idquiz;
         helper('menu');
         $result = $this->AnswerqModel->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first();
         $quiz = $this->QuizModel->find($idQuiz);
-
         if (
             $result
         ) {
             try {
-                $json = $this->request->getJSON();
                 $answer = $json->answer;
+                if ($json->answer) {
+                    $answer = $json->answer;
+                } else {
+                    $answer = $result['answer'];
+                }
                 $data = [
                     'id_answer' => $result['id_answer'],
                     'answer' => $answer
                 ];
                 $this->AnswerqModel->save($data);
+                if ($answer) {
+                    $answer = explode(',', $result['answer']);
+                } else {
+                    $answer = array();
+                }
             } catch (Exception $th) {
-                $answer = NULL;
+                if ($result['answer']) {
+                    $answer = explode(',', $result['answer']);
+                } else {
+                    $answer = array();
+                }
             }
             $timestart = explode(' ', $result['created_at'])[1];
         } else {
             $Uuid = new Uuid;
-            $json = $this->request->getJSON();
             try {
                 $data = [
                     'id_answer' => $Uuid->v4(),
@@ -92,7 +90,7 @@ class Apisoalq extends ResourceController
                 ];
                 $answer = $json->answer;
             } catch (Exception $th) {
-                $answer = NULL;
+                $answer = array();
                 $data = array();
                 $data = [
                     'id_answer' => $Uuid->v4(),
@@ -109,6 +107,7 @@ class Apisoalq extends ResourceController
             'message' => "Berhasil Submit",
             'data' => $answer,
             'time' => $quiz['t_mapel'],
+            'timeserver' => time(),
             'timestart' => $timestart,
             'timestartsecond' => strtotime($timestart),
             'timeend' => date("H:i:s", strtotime($timestart) + ($quiz['t_mapel'] * 60)),
@@ -116,14 +115,11 @@ class Apisoalq extends ResourceController
         ];
         return $this->respond($response, 200);
     }
-    public function score($idUser = NULL, $idQuiz = NULL)
+    public function score()
     {
-        $tokenjwt = new Tokenjwt;
-        $data = $tokenjwt->checkToken($this->request->getServer('HTTP_AUTHORIZATION'));
-        if ($data['status'] == 200) {
-        } else {
-            return $this->respond($data, 401);
-        }
+        $idUser = $this->request->auth->idUser;
+        $json = $this->request->getJSON();
+        $idQuiz = $json->idquiz;
         helper('menu');
         $result = $this->AnswerqModel->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first();
         $quiz = $this->QuizModel->find($idQuiz);
@@ -135,8 +131,11 @@ class Apisoalq extends ResourceController
             $correct = 0;
             $answer = explode(',', $result['answer']);
             foreach ($this->model->where('quiz_id', $idQuiz)->orderBy('no_soal', 'ASC')->findAll() as $item) {
-                if ($answer[$no] == $item['jawaban']) {
-                    $correct++;
+                try {
+                    if ($answer[$no] == $item['jawaban']) {
+                        $correct++;
+                    }
+                } catch (Exception $e) {
                 }
                 $no++;
             }
