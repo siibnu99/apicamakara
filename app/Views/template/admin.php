@@ -128,7 +128,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item <?= $title == 'dashboard' ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('dashboard') ?>">
+                <a class="nav-link" href="<?= base_url('admincamakara/dashboard') ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -144,19 +144,19 @@
                 </div>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item <?= $title == 'confirm' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('confirm') ?>">
+                    <a class="nav-link" href="<?= base_url('admincamakara/confirm') ?>">
                         <i class="fas fa-fw fa-archive"></i>
                         <span>Tabel Konfirmasi</span></a>
                 </li>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item <?= $title == 'tryout' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('tryout') ?>">
+                    <a class="nav-link" href="<?= base_url('admincamakara/tryout') ?>">
                         <i class="fas fa-fw fa-book-open"></i>
                         <span>Tryout</span></a>
                 </li>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item <?= $title == 'quiz' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('quiz') ?>">
+                    <a class="nav-link" href="<?= base_url('admincamakara/quiz') ?>">
                         <i class="fas fa-fw fa-book-open"></i>
                         <span>Quiz</span></a>
                 </li>
@@ -170,13 +170,13 @@
                 </div>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item <?= $title == 'confirmfinance' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('confirmfinance') ?>">
+                    <a class="nav-link" href="<?= base_url('admincamakara/confirmfinance') ?>">
                         <i class="fas fa-fw fa-archive"></i>
                         <span>Tabel Konfirmasi</span></a>
                 </li>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item <?= $title == 'tabledata' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('tabledata') ?>">
+                    <a class="nav-link" href="<?= base_url('admincamakara/tabledata') ?>">
                         <i class="fas fa-fw fa-book-open"></i>
                         <span>Tabel Data</span></a>
                 </li>
@@ -191,22 +191,22 @@
                 </div>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item <?= $title == 'listuser' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('listuser') ?>">
+                    <a class="nav-link" href="<?= base_url('admincamakara/listuser') ?>">
                         <i class="fas fa-fw fa-users"></i>
                         <span>List User</span></a>
                 </li>
                 <!-- Divider -->
-                <hr class="sidebar-divider">
+                <!-- <hr class="sidebar-divider"> -->
                 <!-- Heading -->
-                <div class="sidebar-heading">
+                <!-- <div class="sidebar-heading">
                     Documentation
-                </div>
+                </div> -->
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item <?= $title == 'documentation' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('documentation') ?>">
+                <!-- <li class="nav-item <?= $title == 'documentation' ? 'active' : '' ?>">
+                    <a class="nav-link" href="<?= base_url('admincamakara/documentation') ?>">
                         <i class="fas fa-fw fa-book"></i>
                         <span>APi dokumentation</span></a>
-                </li>
+                </li> -->
                 <!-- Divider -->
                 <hr class="sidebar-divider">
             <?php endif
@@ -326,7 +326,7 @@
                 <div class="modal-body">Yakin logout?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="<?= base_url('logout') ?>">Logout</a>
+                    <a class="btn btn-primary" href="<?= base_url('admincamakara/logout') ?>">Logout</a>
                 </div>
             </div>
         </div>

@@ -88,7 +88,7 @@
             "stateSave": true,
             "scrollX": true,
             "ajax": {
-                url: "<?= base_url('confirmfinance/listdata') ?>", // json datasource
+                url: "<?= base_url('admincamakara/confirmfinance/listdata') ?>", // json datasource
                 type: "post", // method  , by default get
                 error: function() { // error handling
                     $(".tabel_serverside-error").html("");

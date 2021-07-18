@@ -5,7 +5,7 @@
 </div>
 <div class="alert alert-success messageSuccess d-none" role="alert">
 </div>
-<a href="<?= base_url('tryout/create') ?>" class="btn btn-primary mb-4">Buat Tryout</a>
+<a href="<?= base_url('admincamakara/tryout/create') ?>" class="btn btn-primary mb-4">Buat Tryout</a>
 
 <div class="card shadow mb-4">
 
@@ -59,7 +59,7 @@
 <?= $this->section('script') ?>
 <script>
     function toogleActive(id, nama, checked) {
-        $.post("<?= base_url('tryout/toogleactive') ?>" + "/" + id).done(function(data) {
+        $.post("<?= base_url('admincamakara/tryout/toogleactive') ?>" + "/" + id).done(function(data) {
             Swal.fire(
                 'Berhasil',
                 data,
@@ -102,7 +102,7 @@
             "stateSave": true,
             "scrollX": true,
             "ajax": {
-                url: "<?= base_url('tryout/listdata') ?>", // json datasource
+                url: "<?= base_url('admincamakara/tryout/listdata') ?>", // json datasource
                 type: "post", // method  , by default get
                 error: function() { // error handling
                     $(".tabel_serverside-error").html("");

@@ -4,7 +4,7 @@
  * Myth:Auth routes file.
  */
 
-$routes->group('', ['namespace' => 'Myth\Auth\Controllers'], function($routes) {
+$routes->group('admincamakara', ['namespace' => 'Myth\Auth\Controllers'], function ($routes) {
     // Login/out
     $routes->get('login', 'AuthController::login', ['as' => 'login']);
     $routes->post('login', 'AuthController::attemptLogin');
@@ -24,4 +24,3 @@ $routes->group('', ['namespace' => 'Myth\Auth\Controllers'], function($routes) {
     $routes->get('reset-password', 'AuthController::resetPassword', ['as' => 'reset-password']);
     $routes->post('reset-password', 'AuthController::attemptReset');
 });
-

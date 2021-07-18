@@ -6,7 +6,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12">
-        <form method="POST" action="<?= base_url('listuser/editattempt/' . $id) ?>" enctype="multipart/form-data">
+        <form method="POST" action="" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="form-group">

@@ -4,7 +4,7 @@
     <h1 class="h3 mb-0 text-gray-800">Data Quiz</h1>
 </div>
 
-<a href="<?= base_url('quiz/create') ?>" class="btn btn-primary mb-4">Buat Quiz</a>
+<a href="<?= base_url('admincamakara/quiz/create') ?>" class="btn btn-primary mb-4">Buat Quiz</a>
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -60,7 +60,7 @@
 <?= $this->section('script') ?>
 <script>
     function toogleActive(id, nama, checked) {
-        $.post("<?= base_url('quiz/toogleactive') ?>" + "/" + id).done(function(data) {
+        $.post("<?= base_url('admincamakara/quiz/toogleactive') ?>" + "/" + id).done(function(data) {
             Swal.fire(
                 'Berhasil',
                 data,
@@ -103,7 +103,7 @@
             "stateSave": true,
             "scrollX": true,
             "ajax": {
-                url: "<?= base_url('quiz/listdata') ?>", // json datasource
+                url: "<?= base_url('admincamakara/quiz/listdata') ?>", // json datasource
                 type: "post", // method  , by default get
                 error: function() { // error handling
                     $(".tabel_serverside-error").html("");

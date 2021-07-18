@@ -3,7 +3,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Tabel User</h1>
 </div>
-<a href="<?= base_url('listuser/create') ?>" class="btn btn-primary mb-4">Buat User</a>
+<a href="<?= base_url('admincamakara/listuser/create') ?>" class="btn btn-primary mb-4">Buat User</a>
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -40,9 +40,9 @@
                             <th><?= $item->created_at ?></th>
                             <th><?= $item->updated_at ?></th>
                             <th>
-                                <a href="<?= base_url('listuser/changepassword') . '/' . $item->id ?>" class="badge badge-primary">Change Password</a>
-                                <a href="<?= base_url('listuser/edit') . '/' . $item->id ?>" class="badge badge-warning">Edit</a>
-                                <a href="<?= base_url('listuser/deleteAttempt') . '/' . $item->id ?>" class="badge badge-danger">Hapus</a>
+                                <a href="<?= base_url('admincamakara/listuser/changepassword') . '/' . $item->id ?>" class="badge badge-primary">Change Password</a>
+                                <a href="<?= base_url('admincamakara/listuser/edit') . '/' . $item->id ?>" class="badge badge-warning">Edit</a>
+                                <a href="<?= base_url('admincamakara/listuser/delete') . '/' . $item->id ?>" class="badge badge-danger">Hapus</a>
                             </th>
                         </tr>
                     <?php

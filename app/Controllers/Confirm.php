@@ -19,7 +19,7 @@ class Confirm extends BaseController
         ];
         delete_files('/assets/image/ruleto/' . $result['image']);
         $this->MytryoutModel->update($id, $data);
-        return redirect()->to(base_url('confirm'));
+        return redirect()->to(base_url('admincamakara/confirm'));
     }
     public function notconfirm($id = NULL)
     {
@@ -29,7 +29,7 @@ class Confirm extends BaseController
         ];
         delete_files('/assets/image/ruleto/' . $result['image']);
         $this->MytryoutModel->update($id, $data);
-        return redirect()->to(base_url('confirm'));
+        return redirect()->to(base_url('admincamakara/confirm'));
     }
     public function listdata()
     {
@@ -58,8 +58,8 @@ class Confirm extends BaseController
             endforeach;
             $row[] = $dataImage;
             $row[] = $lists->created_at;
-            $row[] = '<a class="btn btn-danger" href="' . base_url('confirm/notconfirm') . '/' . $lists->id_mytryout . '">Tidak Diterima</a>
-            <a class="btn btn-success" href="' . base_url('confirm/confirm') . '/'  . $lists->id_mytryout . '">Diterima</a>';
+            $row[] = '<a class="btn btn-danger" href="' . base_url('admincamakara/confirm/notconfirm') . '/' . $lists->id_mytryout . '">Tidak Diterima</a>
+            <a class="btn btn-success" href="' . base_url('admincamakara/confirm/confirm') . '/'  . $lists->id_mytryout . '">Diterima</a>';
             $data[] = $row;
         }
         $output = array(

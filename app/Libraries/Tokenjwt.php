@@ -92,6 +92,7 @@ class Tokenjwt
                     // response true
                     $output = [
                         'message' => 'Access granted',
+                        'data' => $decoded,
                         'status' => 200
                     ];
                     return $output;

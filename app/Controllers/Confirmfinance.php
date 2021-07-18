@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Pusher\Pusher;
+
 class Confirmfinance extends BaseController
 {
     public function index()
@@ -20,8 +22,20 @@ class Confirmfinance extends BaseController
         ];
         delete_files('/assets/image/topup/' . $result['image']);
         $this->TopupModel->update($id, $data);
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            '9572fc108523db38ff8c',
+            '00f81ecce367b823260d',
+            '1235332',
+            $options
+        );
+        $data['message'] = 'success';
+        $pusher->trigger('my-channel', 'saldo', $data);
 
-        return redirect()->to(base_url('confirmfinance'));
+        return redirect()->to(base_url('admincamakara/confirmfinance'));
     }
     public function notconfirm($id = NULL)
     {
@@ -32,7 +46,19 @@ class Confirmfinance extends BaseController
         ];
         delete_files('/assets/image/topup/' . $result['image']);
         $this->TopupModel->update($id, $data);
-        return redirect()->to(base_url('confirmfinance'));
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            '9572fc108523db38ff8c',
+            '00f81ecce367b823260d',
+            '1235332',
+            $options
+        );
+        $data['message'] = 'success';
+        $pusher->trigger('my-channel', 'saldo', $data);
+        return redirect()->to(base_url('admincamakara/confirmfinance'));
     }
     public function listdata()
     {
@@ -54,8 +80,8 @@ class Confirmfinance extends BaseController
             $row[] = AllPayment($lists->bank_id);
             $row[] = $lists->nominal;
             $row[] = $lists->created_at;
-            $row[] = '<a class="btn btn-danger" href="' . base_url('confirmfinance/notconfirm') . '/' . $lists->id_topup . '">Tidak Diterima</a>
-            <a class="btn btn-success" href="' . base_url('confirmfinance/confirm') . '/'  . $lists->id_topup . '">Diterima</a>';
+            $row[] = '<a class="btn btn-danger" href="' . base_url('admincamakara/confirmfinance/notconfirm') . '/' . $lists->id_topup . '">Tidak Diterima</a>
+            <a class="btn btn-success" href="' . base_url('admincamakara/confirmfinance/confirm') . '/'  . $lists->id_topup . '">Diterima</a>';
             $data[] = $row;
         }
         $output = array(

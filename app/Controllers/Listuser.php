@@ -31,13 +31,44 @@ class Listuser extends BaseController
     }
     public function create()
     {
-        $usermodel = new UserModel();
         $data = [
             'title' => 'listuser',
             'validation' => \Config\Services::validation(),
 
         ];
         return view('listuser/add', $data);
+    }
+    public function attemptCreate()
+    {
+
+        $users = model('UserModel');
+
+        // Validate here first, since some things,
+        // like the password, can only be validated properly here.
+        $rules = [
+            'username'      => 'required|alpha_numeric_space|min_length[3]|is_unique[users.username]',
+            'email'            => 'required|valid_email|is_unique[users.email]',
+            'password'         => 'required|min_length[8]',
+            'pass_confirm'     => 'required|matches[password]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', service('validation')->getErrors());
+        }
+
+        // Save the user
+        $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
+        $user = new User($this->request->getPost($allowedPostFields));
+
+        $user->activate();
+
+        // Ensure default group gets assigned if set
+        $users = $users->withGroupId($this->request->getVar('group'));
+        if (!$users->save($user)) {
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', $users->errors());
+        }
+        $this->session->setFlashdata('message', 'User ' . $this->request->getVar('username') . ' Berhasil dibuat');
+        return redirect()->to(base_url('admincamakara/listuser'));
     }
     public function changePassword($id)
     {
@@ -49,6 +80,22 @@ class Listuser extends BaseController
             'id' => $id
         ];
         return view('listuser/changepassword', $data);
+    }
+    public function changePasswordAttempt($id)
+    {
+        $usermodel = new UserModel();
+        $user = $usermodel->find($id);
+        $rules = [
+            'password'         => 'required|min_length[8]',
+            'pass_confirm'     => 'required|matches[password]',
+        ];
+        if (!$this->validate($rules)) {
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', service('validation')->getErrors());
+        }
+        $user->password = $this->request->getVar('password');
+        $usermodel->save($user);
+        $this->session->setFlashdata('message', 'User ' . $this->request->getVar('username') . ' Berhasil mengubah password');
+        return redirect()->to(base_url('admincamakara/listuser'));
     }
     public function edit($id)
     {
@@ -64,7 +111,7 @@ class Listuser extends BaseController
         ];
         return view('listuser/edit', $data);
     }
-    public function editattempt($id)
+    public function attemptedit($id)
     {
         $usermodel = new UserModel();
         $user = $usermodel->find($id);
@@ -75,7 +122,7 @@ class Listuser extends BaseController
             'email'            => $ruleEmail,
         ];
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', service('validation')->getErrors());
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', service('validation')->getErrors());
         }
         $data = [
             'username' => $this->request->getVar('username'),
@@ -86,61 +133,13 @@ class Listuser extends BaseController
         $groupmodel = $this->db->table('auth_groups_users');
         $group = $groupmodel->set('group_id', $this->request->getVar('group'))->where('user_id', $id)->update();
         $this->session->setFlashdata('message', 'User ' . $this->request->getVar('username') . ' Berhasil diedit');
-        return redirect()->to(base_url('listuser'));
+        return redirect()->to(base_url('admincamakara/listuser'));
     }
-    public function changePasswordAttempt($id)
-    {
-        $usermodel = new UserModel();
-        $user = $usermodel->find($id);
-        $rules = [
-            'password'         => 'required|min_length[8]',
-            'pass_confirm'     => 'required|matches[password]',
-        ];
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', service('validation')->getErrors());
-        }
-        $user->password = $this->request->getVar('password');
-        $usermodel->save($user);
-        $this->session->setFlashdata('message', 'User ' . $this->request->getVar('username') . ' Berhasil mengubah password');
-        return redirect()->to(base_url('listuser'));
-    }
-    public function createAttempt()
-    {
-
-        $users = model('UserModel');
-
-        // Validate here first, since some things,
-        // like the password, can only be validated properly here.
-        $rules = [
-            'username'      => 'required|alpha_numeric_space|min_length[3]|is_unique[users.username]',
-            'email'            => 'required|valid_email|is_unique[users.email]',
-            'password'         => 'required|min_length[8]',
-            'pass_confirm'     => 'required|matches[password]',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', service('validation')->getErrors());
-        }
-
-        // Save the user
-        $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
-        $user = new User($this->request->getPost($allowedPostFields));
-
-        $user->activate();
-
-        // Ensure default group gets assigned if set
-        $users = $users->withGroupId($this->request->getVar('group'));
-        if (!$users->save($user)) {
-            return redirect()->back()->withInput()->with('errors', $users->errors());
-        }
-        $this->session->setFlashdata('message', 'User ' . $this->request->getVar('username') . ' Berhasil dibuat');
-        return redirect()->to(base_url('listuser'));
-    }
-    public function deleteAttempt($id)
+    public function delete($id)
     {
         $usermodel = new UserModel();
         $usermodel->delete($id);
         $this->session->setFlashdata('message', 'User ' . $this->request->getVar('username') . ' Berhasil dihapus');
-        return redirect()->to(base_url('listuser'));
+        return redirect()->to(base_url('admincamakara/listuser'));
     }
 }

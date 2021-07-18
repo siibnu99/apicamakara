@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Detail Quiz</h1>
-    <a type="button" class="btn btn-primary" href="<?= base_url("quiz") ?>">Kembali</a>
+    <a type="button" class="btn btn-primary" href="<?= base_url("admincamakara/quiz") ?>">Kembali</a>
 </div>
 <div class="card shadow mb-4">
 
@@ -34,7 +34,7 @@
                         <td><?= $quiz['q_mapel'] . ' Soal' ?></td>
                         <td><?= $quiz['t_mapel'] . ' menit' ?></td>
                         <td>
-                            <a href="<?= base_url('quiz') . "/editsoal/" . $quiz['id_quiz'] . '/' . '1' ?>" class="badge badge-primary">Edit Soal</a>
+                            <a href="<?= base_url('admincamakara/quiz') . "/editsoal/" . $quiz['id_quiz'] . '/' . '1' ?>" class="badge badge-primary">Edit Soal</a>
                         </td>
                     </tr>
                 </tbody>

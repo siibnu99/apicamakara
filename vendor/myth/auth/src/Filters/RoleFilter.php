@@ -39,7 +39,7 @@ class RoleFilter implements FilterInterface
 		// if no user is logged in then send to the login form
 		if (!$authenticate->check()) {
 			session()->set('redirect_url', current_url());
-			return redirect('login');
+			return redirect('admincamakara/login');
 		}
 
 		$authorize = Services::authorization();

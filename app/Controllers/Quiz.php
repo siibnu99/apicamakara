@@ -130,7 +130,7 @@ class Quiz extends BaseController
                 ]
             ],
         ]))
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', $this->validator->getErrors());
         $uploadimage = $this->request->getFile('image');
         $nameimage = $uploadimage->getRandomName();
         $uploadimage->move('assets/image/quiz/', $nameimage);
@@ -141,7 +141,7 @@ class Quiz extends BaseController
         $data['updated_by'] = user_id();
         $this->QuizModel->insert($data);
         $this->session->setFlashdata('message', 'Quiz ' . $data['name'] . ' Berhasil dibuat');
-        return redirect()->to(base_url('quiz'));
+        return redirect()->to(base_url('admincamakara/quiz'));
     }
     public function edit($id = null)
     {
@@ -256,7 +256,7 @@ class Quiz extends BaseController
                 ]
             ],
         ]))
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', $this->validator->getErrors());
         $rData = $this->QuizModel->find($id);
         $uploadimage = $this->request->getFile('image');
         if ($uploadimage->getError() === 4) {
@@ -274,7 +274,7 @@ class Quiz extends BaseController
         $data['updated_by'] = user_id();
         $this->QuizModel->update($id, $data);
         $this->session->setFlashdata('message', 'Quiz ' . $data['name'] . ' Berhasil diedit');
-        return redirect()->to(base_url('quiz'));
+        return redirect()->to(base_url('admincamakara/quiz'));
     }
     public function delete($id)
     {
@@ -285,7 +285,7 @@ class Quiz extends BaseController
         }
         $this->QuizModel->delete($id);
         $this->session->setFlashdata('message', 'Quiz ' . $rData['name'] . '  Berhasil dihapus');
-        return redirect()->to(base_url('quiz'));
+        return redirect()->to(base_url('admincamakara/quiz'));
     }
     public function detail($id = null)
     {
@@ -400,7 +400,7 @@ class Quiz extends BaseController
                 ]
             ],
         ]))
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', $this->validator->getErrors());
         $dataSoalq = $this->SoalqModel->find($this->request->getVar('id_soalq'));
         $uploadimage = $this->request->getFile('image');
         if ($this->request->getVar('deleteImage')) {
@@ -473,43 +473,7 @@ class Quiz extends BaseController
         $data['updated_by'] = user_id();
         $this->SoalqModel->save($data);
         $this->session->setFlashdata('message', 'Soal ' . $noSoal . ' Berhasil di update');
-        return  redirect()->back();
-    }
-    public function editbobot($id, $idSoal)
-    {
-        $dataSoalt = $this->SoaltModel->where(['tryout_id' => $id, 'kind_tryout' => $idSoal])->first();
-        if (!$dataSoalt) {
-            $this->session->setFlashdata('message', 'Soal belum ada, tidak bisa edit bobot');
-            return redirect()->back();
-        }
-        $idSoalt = $dataSoalt['id_soalt'];
-        $data = [
-            'title' => 'tryout',
-            'validation' => \Config\Services::validation(),
-            'tryout' => $this->TryoutModel->find($id),
-            'soalt' => $this->SoaltModel->where(['tryout_id' => $id, 'kind_tryout' => $idSoal])->orderBy('no_soal', 'ASC')->findAll(),
-            'SoaltModel' => $this->SoaltModel,
-            'id' => $id,
-            'idSoal' => $idSoal,
-            'idSoalt' => $idSoalt,
-        ];
-        return view('tryout/editbobot', $data);
-    }
-    public function attempteditbobot($id, $idSoal)
-    {
-        $dataSoalt = $this->SoaltModel->where(['tryout_id' => $id, 'kind_tryout' => $idSoal])->findAll();
-        foreach ($dataSoalt as $item) {
-            $data = [
-                'id_soalt' => $this->request->getVar('id' . $item['no_soal']),
-                'bobot' => $this->request->getVar($item['no_soal'])
-            ];
-            $this->SoaltModel->save($data);
-            d($data);
-        }
-        $datas['updated_by'] = user_id();
-        $this->QuizModel->update($id, $datas);
-        $this->session->setFlashdata('message', 'Soal  Berhasil di update');
-        return  redirect()->to(base_url('tryout/detail/' . $id));
+        return  redirect()->to($_SERVER['HTTP_REFERER']);
     }
     public function toogleActive($id)
     {
@@ -563,9 +527,9 @@ class Quiz extends BaseController
             $row[] = $this->UserModel->find($lists->updated_by)->email;
             $row[] = $lists->created_at;
             $row[] = $lists->updated_at;
-            $row[] = '<a href="' . base_url('quiz/detail/' . $lists->id_quiz) . '" class="badge badge-primary">Detail</a>
-            <a href="' . base_url('quiz/edit/' . $lists->id_quiz) . '" class="badge badge-warning">Edit</a>
-            <a href="' . base_url('quiz/delete/' . $lists->id_quiz) . '" class="badge badge-danger">Hapus</a>';
+            $row[] = '<a href="' . base_url('admincamakara/quiz/detail/' . $lists->id_quiz) . '" class="badge badge-primary">Detail</a>
+            <a href="' . base_url('admincamakara/quiz/edit/' . $lists->id_quiz) . '" class="badge badge-warning">Edit</a>
+            <a href="' . base_url('admincamakara/quiz/delete/' . $lists->id_quiz) . '" class="badge badge-danger">Hapus</a>';
             $data[] = $row;
         }
         $output = array(

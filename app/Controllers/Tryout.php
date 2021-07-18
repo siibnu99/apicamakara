@@ -87,7 +87,7 @@ class Tryout extends BaseController
                 ]
             ],
         ]))
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', $this->validator->getErrors());
         $uploadimage = $this->request->getFile('image');
         $nameimage = $uploadimage->getRandomName();
         $uploadimage->move('assets/image/tryout/', $nameimage);
@@ -98,7 +98,7 @@ class Tryout extends BaseController
         $data['updated_by'] = user_id();
         $this->TryoutModel->insert($data);
         $this->session->setFlashdata('message', 'Tryout ' . $data['name'] . ' Berhasil dibuat');
-        return redirect()->to(base_url('tryout'));
+        return redirect()->to(base_url('admincamakara/tryout'));
     }
     public function edit($id = null)
     {
@@ -170,7 +170,7 @@ class Tryout extends BaseController
                 ]
             ],
         ]))
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', $this->validator->getErrors());
         $rData = $this->TryoutModel->find($id);
         $uploadimage = $this->request->getFile('image');
         if ($uploadimage->getError() === 4) {
@@ -190,7 +190,7 @@ class Tryout extends BaseController
         $data['updated_by'] = user_id();
         $this->TryoutModel->update($id, $data);
         $this->session->setFlashdata('message', 'Tryout ' . $data['name'] . ' Berhasil diedit');
-        return redirect()->to(base_url('tryout'));
+        return redirect()->to(base_url('admincamakara/tryout'));
     }
     public function delete($id)
     {
@@ -201,7 +201,7 @@ class Tryout extends BaseController
         }
         $this->TryoutModel->delete($id);
         $this->session->setFlashdata('message', 'Tryout Berhasil dihapus');
-        return redirect()->to(base_url('tryout'));
+        return redirect()->to(base_url('admincamakara/tryout'));
     }
     public function detail($id = null)
     {
@@ -310,7 +310,7 @@ class Tryout extends BaseController
                 ]
             ],
         ]))
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->to($_SERVER['HTTP_REFERER'])->withInput()->with('errors', $this->validator->getErrors());
         $dataSoalt = $this->SoaltModel->find($this->request->getVar('id_soalt'));
         $uploadimage = $this->request->getFile('image');
         if ($this->request->getVar('deleteImage')) {
@@ -388,14 +388,14 @@ class Tryout extends BaseController
         $datas['updated_by'] = user_id();
         $this->TryoutModel->update($id, $datas);
         $this->session->setFlashdata('message', 'Soal ' . $noSoal . ' Berhasil di update');
-        return  redirect()->back();
+        return  redirect()->to($_SERVER['HTTP_REFERER']);
     }
     public function editbobot($id, $idSoal)
     {
         $dataSoalt = $this->SoaltModel->where(['tryout_id' => $id, 'kind_tryout' => $idSoal])->first();
         if (!$dataSoalt) {
             $this->session->setFlashdata('message', 'Soal belum ada, tidak bisa edit bobot');
-            return redirect()->back();
+            return redirect()->to($_SERVER['HTTP_REFERER']);
         }
         $idSoalt = $dataSoalt['id_soalt'];
         $data = [
@@ -424,7 +424,7 @@ class Tryout extends BaseController
         $datas['updated_by'] = user_id();
         $this->TryoutModel->update($id, $datas);
         $this->session->setFlashdata('message', 'Soal  Berhasil di update');
-        return  redirect()->to(base_url('tryout/detail/' . $id));
+        return  redirect()->to(base_url('admincamakara/tryout/detail/' . $id));
     }
     public function toogleActive($id)
     {
@@ -492,9 +492,9 @@ class Tryout extends BaseController
             $row[] = $switch;
             $row[] = $this->UserModel->find($lists->created_by)->email;
             $row[] = $this->UserModel->find($lists->updated_by)->email;
-            $row[] = '<a href="' . base_url('tryout/detail/' . $lists->id_tryout) . '" class="badge badge-primary">Detail</a>
-            <a href="' . base_url('tryout/edit/' . $lists->id_tryout) . '" class="badge badge-warning">Edit</a>
-            <a href="' . base_url('tryout/delete/' . $lists->id_tryout) . '" class="badge badge-danger">Hapus</a>';
+            $row[] = '<a href="' . base_url('admincamakara/tryout/detail/' . $lists->id_tryout) . '" class="badge badge-primary">Detail</a>
+            <a href="' . base_url('admincamakara/tryout/edit/' . $lists->id_tryout) . '" class="badge badge-warning">Edit</a>
+            <a href="' . base_url('admincamakara/tryout/delete/' . $lists->id_tryout) . '" class="badge badge-danger">Hapus</a>';
             $data[] = $row;
         }
         $output = array(

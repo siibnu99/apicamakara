@@ -10,7 +10,7 @@ endforeach ?>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Edit <?= $dataMapel[0] ?></h1>
-    <a type="button" class="btn btn-primary" href="<?= base_url('tryout/detail/' . $id) ?>">Kembali</a>
+    <a type="button" class="btn btn-primary" href="<?= base_url('admincamakara/tryout/detail/' . $id) ?>">Kembali</a>
 </div>
 <div class="row">
     <div class="col-lg-8 col-md-12">
@@ -138,7 +138,7 @@ endforeach ?>
         <div class="card" id="navigasi-soal">
             <div class="card-body">
                 <?php for ($i = 1; $i <= $tryout[$idSoal]; $i++) : ?>
-                    <a href="<?= base_url('tryout') . "/editsoal/" . $id . '/' . $idSoal . '/' . $i ?>" class="box <?= $i == $noSoal ? 'active' : '' ?>"><?= $i ?></a>
+                    <a href="<?= base_url('admincamakara/tryout') . "/editsoal/" . $id . '/' . $idSoal . '/' . $i ?>" class="box <?= $i == $noSoal ? 'active' : '' ?>"><?= $i ?></a>
                 <?php endfor
                 ?>
             </div>

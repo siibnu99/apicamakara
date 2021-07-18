@@ -17,7 +17,7 @@
 				</div>
 
 				<div class="card-body">
-					<form action="<?= base_url('login') ?>" method="post">
+					<form action="<?= base_url('admincamakara/login') ?>" method="post">
 						<?= csrf_field() ?>
 						<div class="form-group">
 							<label for="">Email</label>
@@ -28,9 +28,6 @@
 							<label for="">Password</label>
 							<input type="password" name="password" placeholder="Password">
 						</div>
-
-						<a href="<?= base_url('forgot') ?>">Lupa Password ?</a>
-
 						<button type="submit" class="btn-login">Masuk</button>
 					</form>
 				</div>
