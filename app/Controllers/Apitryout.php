@@ -94,26 +94,26 @@ class Apitryout extends ResourceController
         $Uuid = new Uuid;
         $json = $this->request->getJSON();
         if ($json != NULL) {
-            if ($this->model->where(['user_id' => $iduser, 'tryout_id' => $json->idtryout, 'status' => '2'])->first()) {
-                $response = [
-                    'status' => 201,
-                    'message' => 'Tryout Sudah dibeli!',
-                ];
-                return $this->respond($response, 201);
-            }
+            $dataTryout = $this->model->find($json->idtryout);
         } else {
-            if ($this->model->where(['user_id' => $iduser, 'tryout_id' => $this->request->getVar('idtryout'), 'status' => '2'])->first()) {
-                $response = [
-                    'status' => 201,
-                    'message' => 'Tryout Sudah dibeli!',
-                ];
-                return $this->respond($response, 201);
-            }
+            $dataTryout = $this->model->find($this->request->getVar('idtryout'));
         }
-        if ($json != NULL) {
-            $dataTryout = $this->TryoutModel->find($json->idtryout);
+        if ($dataTryout['payment_method'] == 2) {
+            if ($this->MytryoutModel->where(['user_id' => $iduser, 'tryout_id' => $json->idtryout, 'status' => '2'])->first()) {
+                $response = [
+                    'status' => 201,
+                    'message' => 'Tryout Sudah dibeli!',
+                ];
+                return $this->respond($response, 201);
+            }
         } else {
-            $dataTryout = $this->TryoutModel->find($this->request->getVar('idtryout'));
+            if ($this->MytryoutModel->where(['user_id' => $iduser, 'tryout_id' => $this->request->getVar('idtryout'), 'status' => '2'])->first()) {
+                $response = [
+                    'status' => 201,
+                    'message' => 'Tryout Sudah dibeli!',
+                ];
+                return $this->respond($response, 201);
+            }
         }
         if ($dataTryout['payment_method'] == 1) {
             $nameImageTotal = NULL;
@@ -139,7 +139,7 @@ class Apitryout extends ResourceController
                 'image' => $nameImageTotal,
                 'status' => 1,
             ];
-            $this->model->insert($data);
+            $this->MytryoutModel->insert($data);
             $options = array(
                 'cluster' => 'ap1',
                 'useTLS' => true
@@ -166,7 +166,7 @@ class Apitryout extends ResourceController
                     'tryout_id' => $json->idtryout,
                     'payment_id' => 2,
                 ];
-                $this->model->insert($data);
+                $this->MytryoutModel->insert($data);
                 $options = array(
                     'cluster' => 'ap1',
                     'useTLS' => true
@@ -200,7 +200,7 @@ class Apitryout extends ResourceController
                         'payment_id' => 3,
                         'price' => $json->price,
                     ];
-                    $this->model->insert($data);
+                    $this->MytryoutModel->insert($data);
                     $response = [
                         'status' => 200,
                         'message' => 'Success Buying',

@@ -7,7 +7,6 @@ use \App\Libraries\Uuid;
 use App\Models\AnswerqModel;
 use App\Models\QuizModel;
 use App\Models\UserApiModel;
-use Exception;
 use Pusher\Pusher;
 
 class Apimyquiz extends ResourceController
@@ -35,65 +34,6 @@ class Apimyquiz extends ResourceController
         $response = [
             'status' => false,
             'data' => $result
-        ];
-        return $this->respond($response, 200);
-    }
-    public function create()
-    {
-        $idUser = $this->request->auth->idUser;
-        $json = $this->request->getJSON();
-        $idQuiz = $json->idquiz;
-        helper('menu');
-        $result = $this->AnswerqModel->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first();
-        $quiz = $this->QuizModel->find($idQuiz);
-        if (
-            $result
-        ) {
-            try {
-                $json = $this->request->getJSON();
-                $answer = $json->answer;
-                $data = [
-                    'id_answer' => $result['id_answer'],
-                    'answer' => $answer
-                ];
-                $this->AnswerqModel->save($data);
-            } catch (Exception $th) {
-                $answer = NULL;
-            }
-            $timestart = explode(' ', $result['created_at'])[1];
-        } else {
-            $Uuid = new Uuid;
-            $json = $this->request->getJSON();
-            try {
-                $data = [
-                    'id_answer' => $Uuid->v4(),
-                    'user_id' => $idUser,
-                    'quiz_id' => $idQuiz,
-                    'answer' => $json->answer,
-                ];
-                $answer = $json->answer;
-            } catch (Exception $th) {
-                $answer = NULL;
-                $data = array();
-                $data = [
-                    'id_answer' => $Uuid->v4(),
-                    'user_id' => $idUser,
-                    'quiz_id' => $idQuiz,
-                ];
-            }
-            $this->AnswerqModel->insert($data);
-            $result = $this->AnswerqModel->find($data['id_answer']);
-            $timestart = explode(' ', $result['created_at'])[1];
-        }
-        $response = [
-            'status' => 200,
-            'message' => "Berhasil Submit",
-            'data' => $answer,
-            'time' => $quiz['t_mapel'],
-            'timestart' => $timestart,
-            'timestartsecond' => strtotime($timestart),
-            'timeend' => date("H:i:s", strtotime($timestart) + ($quiz['t_mapel'] * 60)),
-            'timeendsecond' => strtotime($timestart) + ($quiz['t_mapel'] * 60)
         ];
         return $this->respond($response, 200);
     }

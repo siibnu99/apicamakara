@@ -62,7 +62,6 @@ $routes->group('api', function ($routes) {
 		$routes->resource('quiz', ['controller' => 'Apimyquiz']);
 		$routes->group('tryout', function ($routes) {
 			$routes->post('finish', 'Apimytryout::finish');
-			$routes->post('getanswert', 'Apimytryout::getAnswert');
 		});
 		$routes->resource('tryout', ['controller' => 'Apimytryout']);
 		$routes->resource('topup', ['controller' => 'Apitopup']);
@@ -78,9 +77,9 @@ $routes->group('api', function ($routes) {
 		});
 		$routes->resource('quiz', ['controller' => 'Apisoalq']);
 		$routes->group('tryout', function ($routes) {
-			$routes->get('(:segment)/(:segment)', 'Apisoalt::index/$1/$2');
-			$routes->post('(:segment)/(:segment)/(:segment)', 'Apisoalt::created/$1/$2/$3');
+			$routes->get('(:segment)/(:segment)', 'Apisoalt::show/$1/$2');
 		});
+		$routes->resource('tryout', ['controller' => 'Apisoalt']);
 	});
 	$routes->group('address', function ($routes) {
 		$routes->resource('prov', ['controller' => 'Apiprov']);
