@@ -209,6 +209,22 @@ function groupUser($id = null)
     }
     return $data;
 }
+function abjad($id = null)
+{
+    $data = [
+        [1, "A"],
+        [2, "B"],
+        [3, "C"],
+        [4, "D"],
+        [5, "E"],
+    ];
+    foreach ($data as $item) {
+        if ($item[0] == $id) {
+            return $item[1];
+        }
+    }
+    return $data;
+}
 function generateRandomString($length = 10)
 {
     $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

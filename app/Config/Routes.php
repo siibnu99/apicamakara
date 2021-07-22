@@ -67,7 +67,7 @@ $routes->group('api', function ($routes) {
 		$routes->resource('tryout', ['controller' => 'Apimytryout']);
 		$routes->resource('topup', ['controller' => 'Apitopup']);
 		$routes->group('transfer', function ($routes) {
-			$routes->get('notelp/(:segment)', 'Apitransfer::getByTelp/$1');
+			$routes->get('email/(:segment)', 'Apitransfer::getByEmail/$1');
 		});
 		$routes->resource('transfer', ['controller' => 'Apitransfer']);
 		$routes->get('riwayat', 'Apiriwayat::index');

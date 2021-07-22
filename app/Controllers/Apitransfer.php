@@ -49,9 +49,9 @@ class Apitransfer extends ResourceController
         if ($this->request) {
             if ($this->request->getJSON()) {
                 $json = $this->request->getJSON();
-                $dataTo = $this->UserApiModel->where('telp', $json->telp)->first();
+                $dataTo = $this->UserApiModel->where('email', $json->email)->first();
                 if ((int)$json->nominal > 0) {
-                    if ($this->UserApiModel->getSaldo($dataTo['id_user']) >= $json->nominal) {
+                    if ($this->UserApiModel->getSaldo($iduser) >= $json->nominal) {
                         $data = [
                             'id_transfer' => $Uuid->v4(),
                             'from_id' => $iduser,
@@ -91,15 +91,23 @@ class Apitransfer extends ResourceController
             }
         }
     }
-    public function getByTelp($telp = null)
+    public function getByEmail($email = null)
     {
-        if ($telp) {
-            $data = $this->UserApiModel->select('id_user,fullname,telp')->where('telp', $telp)->first();
-            $response = [
-                'status' => 200,
-                'data' => $data,
-            ];
-            return $this->respond($response, 200);
+        if ($email) {
+            $data = $this->UserApiModel->select('id_user,fullname,email')->where('email', $email)->first();
+            if ($data) {
+                $response = [
+                    'status' => 200,
+                    'data' => $data,
+                ];
+                return $this->respond($response, 200);
+            } else {
+                $response = [
+                    'status' => 201,
+                    'message' => "Email tidak terdaftar!",
+                ];
+                return $this->respond($response, 201);
+            }
         }
     }
 }

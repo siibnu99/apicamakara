@@ -3,10 +3,6 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
-use App\models\TopupModel;
-use App\models\TransferModel;
-use App\models\MytryoutModel;
-use App\models\MyquizModel;
 
 class UserApiModel extends Model
 {
@@ -24,11 +20,10 @@ class UserApiModel extends Model
 
     public function getSaldo($idUser = NULL)
     {
-        $data =  $this->find($idUser);
-        $TopupModel = new TopupModel();
-        $TransferModel = new TransferModel();
-        $MytryoutModel = new MytryoutModel();
-        $MyquizModel = new MyquizModel();
+        $TopupModel = new TopupModel;
+        $TransferModel = new TransferModel;
+        $MytryoutModel = new MytryoutModel;
+        $MyquizModel = new MyquizModel;
         $topup = $TopupModel->selectSum('nominal', 'totalNominal')->where(['user_id' => $idUser, 'status' => '2'])->first()['totalNominal'];
         $transferFrom = $TransferModel->selectSum('nominal', 'totalNominal')->where('from_id', $idUser)->first()['totalNominal'];
         $transferTo = $TransferModel->selectSum('nominal', 'totalNominal')->where('to_id', $idUser)->first()['totalNominal'];

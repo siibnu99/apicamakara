@@ -9,12 +9,12 @@ class Email extends BaseConfig
 	/**
 	 * @var string
 	 */
-	public $fromEmail = "testerdevelopment10@gmail.com";
+	public $fromEmail = "admin@camakara.com";
 
 	/**
 	 * @var string
 	 */
-	public $fromName = "Tester Development";
+	public $fromName = "Camakara Tryout UTBK & Quiz";
 
 	/**
 	 * @var string
@@ -47,21 +47,21 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPHost = 'smtp.gmail.com';
+	public $SMTPHost = 'smtp.hostinger.com';
 
 	/**
 	 * SMTP Username
 	 *
 	 * @var string
 	 */
-	public $SMTPUser = "testerdevelopment10@gmail.com";
+	public $SMTPUser = "admin@camakara.com";
 
 	/**
 	 * SMTP Password
 	 *
 	 * @var string
 	 */
-	public $SMTPPass = 'lostsaga123';
+	public $SMTPPass = 'Admin123*';
 
 	/**
 	 * SMTP Port

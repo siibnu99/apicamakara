@@ -30,10 +30,16 @@ class Apisoalq extends ResourceController
         $temp = [];
         $id = 0;
         foreach ($result as $item) {
-            $item['jawaban'] = NULL;
-            $item['pembahasan'] = NULL;
-            $item['image'] = base_url('assets/image/soalquiz') . '/' . $item['image'];
-            $item['imagepembahasan'] = base_url('assets/image/soalquiz') . '/' . $item['imagepembahasan'];
+            if ($item['image']) {
+                $item['image'] = base_url('assets/image/soalquiz') . '/' . $item['image'];
+            } else {
+                $item['image'] = NULL;
+            }
+            if ($item['imagepembahasan']) {
+                $item['imagepembahasan'] = base_url('assets/image/soalquiz') . '/' . $item['imagepembahasan'];
+            } else {
+                $item['imagepembahasan'] = NULL;
+            }
             $temp[$id] = $item;
             $id++;
         }
@@ -51,6 +57,9 @@ class Apisoalq extends ResourceController
         helper('menu');
         $result = $this->AnswerqModel->where(['user_id' => $idUser, 'quiz_id' => $idQuiz])->first();
         $quiz = $this->QuizModel->find($idQuiz);
+        if (!$quiz) {
+            return;
+        }
         if (
             $result
         ) {
@@ -62,10 +71,10 @@ class Apisoalq extends ResourceController
                     $answer = $result['answer'];
                 }
                 $data = [
-                    'id_answer' => $result['id_answer'],
-                    'answer' => $answer
+                    'answer' => $answer,
+                    'created_at' => $result['created_at']
                 ];
-                $this->AnswerqModel->save($data);
+                $this->AnswerqModel->update($result['id_answer'], $data);
                 if ($answer) {
                     $answer = explode(',', $result['answer']);
                 } else {

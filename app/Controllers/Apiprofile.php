@@ -21,6 +21,12 @@ class Apiprofile extends ResourceController
             unset($get['password']);
             $get['saldo'] = $this->UserApiModel->getSaldo($this->request->auth->idUser);
             $code = 200;
+            $get['province_id'] = ($get['province_id'] ? $get['province_id'] : 0);
+            $get['regency_id'] = ($get['regency_id'] ? $get['regency_id'] : 0);
+            $get['univ1_id'] = ($get['univ1_id'] ? $get['univ1_id'] : 0);
+            $get['univ2_id'] = ($get['univ2_id'] ? $get['univ2_id'] : 0);
+            $get['prodi1_id'] = ($get['prodi1_id'] ? $get['prodi1_id'] : 0);
+            $get['prodi2_id'] = ($get['prodi2_id'] ? $get['prodi2_id'] : 0);
             $response = [
                 'status' => $code,
                 'error' => false,
