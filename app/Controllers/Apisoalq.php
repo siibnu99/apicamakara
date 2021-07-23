@@ -27,9 +27,13 @@ class Apisoalq extends ResourceController
     {
         helper('menu');
         $result = $this->model->where(["quiz_id" => $idQuiz])->orderBy('no_soal', 'ASC')->findAll();
+        $quiz = $this->QuizModel->find($idQuiz);
         $temp = [];
         $id = 0;
         foreach ($result as $item) {
+            if ($item['no_soal'] > $quiz['q_mapel']) {
+                continue;
+            }
             if ($item['image']) {
                 $item['image'] = base_url('assets/image/soalquiz') . '/' . $item['image'];
             } else {
@@ -63,7 +67,7 @@ class Apisoalq extends ResourceController
         if (
             $result
         ) {
-            try {
+            if (isset($json->answer)) {
                 $answer = $json->answer;
                 if ($json->answer) {
                     $answer = $json->answer;
@@ -80,7 +84,7 @@ class Apisoalq extends ResourceController
                 } else {
                     $answer = array();
                 }
-            } catch (Exception $th) {
+            } else {
                 if ($result['answer']) {
                     $answer = explode(',', $result['answer']);
                 } else {
@@ -90,7 +94,7 @@ class Apisoalq extends ResourceController
             $timestart = explode(' ', $result['created_at'])[1];
         } else {
             $Uuid = new Uuid;
-            try {
+            if (isset($json->answer)) {
                 $data = [
                     'id_answer' => $Uuid->v4(),
                     'user_id' => $idUser,
@@ -98,7 +102,7 @@ class Apisoalq extends ResourceController
                     'answer' => $json->answer,
                 ];
                 $answer = $json->answer;
-            } catch (Exception $th) {
+            } else {
                 $answer = array();
                 $data = array();
                 $data = [

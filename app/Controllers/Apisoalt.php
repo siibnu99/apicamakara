@@ -8,7 +8,6 @@ use App\Models\UserApiModel;
 use App\Models\TryoutModel;
 use App\Models\AnswertModel;
 use App\Models\MytryoutModel;
-use Exception;
 
 class Apisoalt extends ResourceController
 {
@@ -56,9 +55,9 @@ class Apisoalt extends ResourceController
         $idUser = $this->request->auth->idUser;
         $json = $this->request->getJSON();
         $idTryout = $json->idtryout;
-        try {
+        if (isset($json->kindtryout)) {
             $kindTryout = $json->kindtryout;
-        } catch (Exception $e) {
+        } else {
             $kindTryout = NULL;
         }
         if ($kindTryout) {
@@ -76,7 +75,7 @@ class Apisoalt extends ResourceController
                 if (
                     $result
                 ) {
-                    try {
+                    if (isset($json->answer)) {
                         $answer = $json->answer;
                         if ($json->answer) {
                             $answer = $json->answer;
@@ -93,7 +92,7 @@ class Apisoalt extends ResourceController
                         } else {
                             $answer = array();
                         }
-                    } catch (\Throwable $th) {
+                    } else {
                         if ($result['answer']) {
                             $answer = explode(',', $result['answer']);
                         } else {
@@ -104,7 +103,7 @@ class Apisoalt extends ResourceController
                     $timestart = explode(' ', $result['created_at'])[1];
                 } else {
                     $Uuid = new Uuid;
-                    try {
+                    if (isset($json->answer)) {
                         $data = [
                             'id_answer' => $Uuid->v4(),
                             'kind_tryout' => $kindTryout,
@@ -113,7 +112,7 @@ class Apisoalt extends ResourceController
                             'answer' => $json->answer,
                         ];
                         $answer = $json->answer;
-                    } catch (\Throwable $th) {
+                    } else {
                         $answer = array();
                         $data = array();
                         $data = [

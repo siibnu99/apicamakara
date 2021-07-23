@@ -62,6 +62,7 @@ $routes->group('api', function ($routes) {
 		$routes->resource('quiz', ['controller' => 'Apimyquiz']);
 		$routes->group('tryout', function ($routes) {
 			$routes->post('finish', 'Apimytryout::finish');
+			$routes->post('finisheachkind', 'Apimytryout::finishEachKind');
 		});
 		$routes->resource('tryout', ['controller' => 'Apimytryout']);
 		$routes->resource('topup', ['controller' => 'Apitopup']);

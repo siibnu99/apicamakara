@@ -11,7 +11,7 @@ class AnswertModel extends Model
 
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
-    protected $allowedFields = ["id_answer", "user_id", "tryout_id", "kind_tryout", "answer", "created_at", "updated_at"];
+    protected $allowedFields = ["id_answer", "user_id", "tryout_id", "kind_tryout", "answer", "finish", "created_at", "updated_at"];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
