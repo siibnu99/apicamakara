@@ -145,13 +145,13 @@ class Apiauth extends ResourceController
         if ($id && $token) {
             if (strtotime($token['exp']) < time()) {
                 return $this->respond([
-                    'status' => 200,
+                    'status' => 201,
                     'errors'    => false,
                     'message'    => "Token Expired",
                 ], 200);
             } else {
                 return $this->respond([
-                    'status' => 201,
+                    'status' => 200,
                     'errors'    => false,
                     'message'    => "Token benar",
                 ], 201);
@@ -173,7 +173,7 @@ class Apiauth extends ResourceController
         if ($id && $token) {
             if (strtotime($token['exp']) < time()) {
                 return $this->respond([
-                    'status' => 200,
+                    'status' => 201,
                     'errors'    => true,
                     'message'    => "Token Expired",
                 ], 201);

@@ -26,9 +26,13 @@ class Apisoalt extends ResourceController
     {
         helper('menu');
         $result = $this->model->where(["tryout_id" => $idTryout, "kind_tryout" => $kindTryout])->orderBy("no_soal")->findAll();
+        $tryout = $this->TryoutModel->find($idTryout);
         $temp = [];
         $id = 0;
         foreach ($result as $item) {
+            if ($item['no_soal'] > $tryout[$kindTryout]) {
+                continue;
+            }
             if ($item['image']) {
                 $item['image'] = base_url('assets/image/soalquiz') . '/' . $item['image'];
             } else {
