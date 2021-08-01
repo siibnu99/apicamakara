@@ -37,12 +37,19 @@ class Apisoalq extends ResourceController
             if ($item['image']) {
                 $item['image'] = base_url('assets/image/soalquiz') . '/' . $item['image'];
             } else {
-                $item['image'] = NULL;
+                $item['image'] = "";
             }
             if ($item['imagepembahasan']) {
                 $item['imagepembahasan'] = base_url('assets/image/soalquiz') . '/' . $item['imagepembahasan'];
             } else {
-                $item['imagepembahasan'] = NULL;
+                $item['imagepembahasan'] = "";
+            }
+            foreach (abjad() as $key => $value) {
+                if ($item['imagepilihan' . $value[0]]) {
+                    $item['imagepilihan' . $value[0]] = base_url('assets/image/soalquiz') . '/' . $item['imagepilihan' . $value[0]];
+                } else {
+                    $item['imagepilihan' . $value[0]] = "";
+                }
             }
             $temp[$id] = $item;
             $id++;

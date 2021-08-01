@@ -78,14 +78,11 @@ class Apimytryout extends ResourceController
             $data['totalSoshum'] = $totalSoshum + 30;
             $countPersonBuy = $mytryout->where('tryout_id', $id)->countAllResults();
             $data['personBuy'] = $countPersonBuy;
-            $dataDikerjakan = $this->AnswertModel->where(['user_id' => $idUser, 'tryout_id' => $id])->findAll();
             $dataAnswert = [];
             foreach (getTypeMapel($data['type_tryout']) as $mapel) {
                 $inData = [$mapel[1], 0];
-                foreach ($dataDikerjakan as $answertData) {
-                    if ($answertData['finish'] == 1) {
-                        $inData[1] = 1;
-                    }
+                if ($this->AnswertModel->where(['user_id' => $idUser, 'tryout_id' => $id, 'kind_tryout' => $mapel[1]])->findAll()) {
+                    $inData[1] = 1;
                 }
                 $dataAnswert[] = $inData;
             }

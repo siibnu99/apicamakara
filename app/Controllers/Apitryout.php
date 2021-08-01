@@ -40,6 +40,8 @@ class Apitryout extends ResourceController
             foreach ($result as $item) {
                 $temp[] = $item;
                 $temp[$id]['image'] = base_url('assets/image/tryout') . '/' . $temp[$id]['image'];
+                $countPersonBuy = $this->MytryoutModel->where('tryout_id', $temp[$id]['id_tryout'])->countAllResults();
+                $temp[$id]['amountBuy'] = $countPersonBuy;
                 $id++;
             }
             $data = [

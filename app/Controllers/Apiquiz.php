@@ -28,6 +28,7 @@ class Apiquiz extends ResourceController
         $result = array();
         $id = 0;
         $MyquizModel = new MyquizModel();
+        $myquiz = new MyquizModel();
         if ($iduser) {
             foreach ($data as $item) {
                 if (!$MyquizModel->where(['user_id' => $iduser, 'quiz_id' => $item['id_quiz']])->first()) {
@@ -40,6 +41,7 @@ class Apiquiz extends ResourceController
         foreach ($result as $item) {
             if (strtotime($item['date_end'] . ' ' . $item['time_end']) > time()) {
                 $temp[] = $item;
+                $temp[$id]['amountBuy'] = $myquiz->where('quiz_id', $temp[$id]['id_quiz'])->countAllResults();
                 $temp[$id]['class'] = classQuiz($temp[$id]['class']);
                 $temp[$id]['mapel'] = allMapel($temp[$id]['mapel']);
                 $temp[$id]['image'] = base_url('assets/image/quiz') . '/' . $temp[$id]['image'];
@@ -61,6 +63,7 @@ class Apiquiz extends ResourceController
         } else {
             $data = $this->model->findAll();
         }
+        $data['token'] = $data['token'] ? $data['token'] : "";
         $data['class'] = classQuiz($data['class']);
         $data['amountBuy'] = $myquiz->where('quiz_id', $id)->countAllResults();
         $data['mapel'] = allMapel($data['mapel']);

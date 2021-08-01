@@ -112,6 +112,13 @@
                             <?= $validation->getError('kuota') ?>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="">Token</label>
+                        <input type="text" class="form-control  <?= ($validation->hasError('token')) ? 'is-invalid' : "" ?>" name="token" value="<?= old('token') ?>">
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('token') ?>
+                        </div>
+                    </div>
 
                 </div>
 

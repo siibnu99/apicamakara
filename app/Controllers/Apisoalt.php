@@ -33,18 +33,25 @@ class Apisoalt extends ResourceController
             if ($item['no_soal'] > $tryout[$kindTryout]) {
                 continue;
             }
+            $temp[$id] = $item;
             if ($item['image']) {
-                $item['image'] = base_url('assets/image/soalquiz') . '/' . $item['image'];
+                $temp[$id]['image'] = base_url('assets/image/soalTryout') . '/' . $item['image'];
             } else {
-                $item['image'] = NULL;
+                $temp[$id]['image'] = "";
             }
             if ($item['imagepembahasan']) {
-                $item['imagepembahasan'] = base_url('assets/image/soalquiz') . '/' . $item['imagepembahasan'];
+                $temp[$id]['imagepembahasan'] = base_url('assets/image/soalTryout') . '/' . $item['imagepembahasan'];
             } else {
-                $item['imagepembahasan'] = NULL;
+                $temp[$id]['imagepembahasan'] = "";
             }
-            $item['namamapel'] = allMapel($kindTryout);
-            $temp[$id] = $item;
+            $temp[$id]['namamapel'] = allMapel($kindTryout);
+            foreach (abjad() as $key => $value) {
+                if ($item['imagepilihan' . $value[0]]) {
+                    $temp[$id]['imagepilihan' . $value[0]] = base_url('assets/image/soalTryout') . '/' . $item['imagepilihan' . $value[0]];
+                } else {
+                    $temp[$id]['imagepilihan' . $value[0]] = "";
+                }
+            }
             $id++;
         }
         $response = [

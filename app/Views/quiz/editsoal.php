@@ -22,15 +22,15 @@ $no = 1; ?>
             <div class="ml-2 col-sm-6">
                 <?php
                 if ($soalq['image']) : ?>
-                    <img src="<?= base_url() . '/assets/image/soalquiz/' . $soalq['image']   ?>" id="preview" class="img-thumbnail">
+                    <img src="<?= base_url() . '/assets/image/soalquiz/' . $soalq['image']   ?>" id="preview" class="img-thumbnail" alt="">
                 <?php else : ?>
-                    <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail">
+                    <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail" alt="">
                 <?php endif
                 ?>
             </div>
             <div class="form-group">
                 <label for="">Gambar Soal <?= $noSoal ?></label>
-                <input type="file" id="sampul" class="form-control <?= ($validation->hasError('image')) ? 'is-invalid' : "" ?>" name="image" onchange="previewImg()">
+                <input type="file" id="sampul" class="form-control <?= ($validation->hasError('image')) ? 'is-invalid' : "" ?>" name="image" onchange="previewImg('#sampul','#preview')">
                 <div class="invalid-feedback">
                     <?= $validation->getError('image') ?>
                 </div>
@@ -43,41 +43,41 @@ $no = 1; ?>
             </div>
             <div class="form-group">
                 <label for="">Pilihan Jawaban</label>
-                <div class="form-group">
-                    <label for="">Pilihan A</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan1')) ? 'is-invalid' : "" ?>" name="pilihan1" value="<?= old('pilihan1') ? old('pilihan1') : $soalq['pilihan1'] ?>">
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('pilihan1') ?>
+                <?php foreach (abjad() as $key => $value) : ?>
+                    <div class=" border border-dark my-2 p-2 rounded-sm">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="">Pilihan <?= $value[1] ?></label>
+                                <input type="text" class="form-control <?= ($validation->hasError('pilihan' . $value[0])) ? 'is-invalid' : "" ?>" name="pilihan<?= $value[0] ?>" value="<?= old('pilihan' . $value[0]) ? old('pilihan' . $value[0]) : $soalq['pilihan' . $value[0]] ?>">
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('pilihan' . $value[0]) ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-2 col-sm-6">
+                            <?php
+                            if ($soalq['imagepilihan' . $value[0]]) : ?>
+                                <img src="<?= base_url() . '/assets/image/soalquiz/' . $soalq['imagepilihan' . $value[0]]   ?>" id="preview<?= $value[0] ?>" class="img-thumbnail" alt="">
+                            <?php else : ?>
+                                <img src="https://placehold.it/80x80" id="preview<?= $value[0] ?>" class="img-thumbnail" alt="">
+                            <?php endif
+                            ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Gambar Pilihan <?= $value[0] ?></label>
+                            <input type="file" id="sampul<?= $value[0] ?>" class="form-control <?= ($validation->hasError('imagepilihan' . $value[0])) ? 'is-invalid' : "" ?>" name="imagepilihan<?= $value[0] ?>" onchange="previewImg('#sampul<?= $value[0] ?>','#preview<?= $value[0] ?>')">
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('imagepilihan' . $value[0]) ?>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="defaultCheck2" name="deleteimagepilihan<?= $value[0] ?>" value="1">
+                            <label class="form-check-label" for="defaultCheck2">
+                                Kosongkan gambar
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="">Pilihan B</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan2')) ? 'is-invalid' : "" ?>" name="pilihan2" value="<?= old('pilihan2') ? old('pilihan2') : $soalq['pilihan2'] ?>">
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('pilihan2') ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="">Pilihan C</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan3')) ? 'is-invalid' : "" ?>" name="pilihan3" value="<?= old('pilihan3') ? old('pilihan3') : $soalq['pilihan3'] ?>">
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('pilihan3') ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="">Pilihan D</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan4')) ? 'is-invalid' : "" ?>" name="pilihan4" value="<?= old('pilihan4') ? old('pilihan4') : $soalq['pilihan4'] ?>">
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('pilihan4') ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="">Pilihan E</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('pilihan5')) ? 'is-invalid' : "" ?>" name="pilihan5" value="<?= old('pilihan5') ? old('pilihan5') : $soalq['pilihan5'] ?>">
-                    <div class="invalid-feedback">
-                        <?= $validation->getError('pilihan5') ?>
-                    </div>
-                </div>
+                <?php endforeach ?>
             </div>
 
             <div class="form-group">
@@ -100,9 +100,9 @@ $no = 1; ?>
             <div class="ml-2 col-sm-6">
                 <?php
                 if (isset($soalq['imagepembahasan'])) : ?>
-                    <img src="<?= base_url() . '/assets/image/soalquiz/' . $soalq['imagepembahasan']   ?>" id="preview" class="img-thumbnail">
+                    <img src="<?= base_url() . '/assets/image/soalquiz/' . $soalq['imagepembahasan']   ?>" id="previewpembahasan" class="img-thumbnail" alt="">
                 <?php else : ?>
-                    <img src="http://placehold.it/80x80" id="preview" class="img-thumbnail">
+                    <img src="http://placehold.it/80x80" id="previewpembahasan" class="img-thumbnail" alt="">
                 <?php endif
                 ?>
             </div>
@@ -115,7 +115,7 @@ $no = 1; ?>
             </div>
             <div class="form-group">
                 <label for="">Gambar Pembahasan <?= $noSoal ?></label>
-                <input type="file" id="sampul" class="form-control <?= ($validation->hasError('imagepembahasan')) ? 'is-invalid' : "" ?>" name="imagepembahasan" onchange="previewImg()">
+                <input type="file" id="sampulpembahasan" class="form-control <?= ($validation->hasError('imagepembahasan')) ? 'is-invalid' : "" ?>" name="imagepembahasan" onchange="previewImg('#sampulpembahasan','#previewpembahasan')">
                 <div class="invalid-feedback">
                     <?= $validation->getError('imagepembahasan') ?>
                 </div>
@@ -143,12 +143,11 @@ $no = 1; ?>
 <?= $this->endsection() ?>
 <?= $this->section('script') ?>
 <script>
-    function previewImg() {
-        const sampul = document.querySelector('#sampul');
-        const imgPreview = document.querySelector('#preview');
-
+    function previewImg(from, target) {
+        const input = document.querySelector(from);
+        const imgPreview = document.querySelector(target);
         const fileSampul = new FileReader();
-        fileSampul.readAsDataURL(sampul.files[0]);
+        fileSampul.readAsDataURL(input.files[0]);
 
         fileSampul.onload = function(e) {
             imgPreview.src = e.target.result;

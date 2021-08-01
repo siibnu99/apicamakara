@@ -18,6 +18,14 @@ class Tryout extends BaseController
         ];
         return view('tryout/index', $data);
     }
+    public function submitted($id = null)
+    {
+        $data = [
+            'title' => 'tryout',
+            'id' => $id
+        ];
+        return view('tryout/submitted', $data);
+    }
     public function create()
     {
         $data = [
@@ -295,6 +303,46 @@ class Tryout extends BaseController
                     'required' => '{field} Harus di isi',
                 ]
             ],
+            'imagepilihan1' => [
+                'label'  => 'Gambar',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
+            'imagepilihan2' => [
+                'label'  => 'Gambar',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
+            'imagepilihan3' => [
+                'label'  => 'Gambar',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
+            'imagepilihan4' => [
+                'label'  => 'Gambar',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
+            'imagepilihan5' => [
+                'label'  => 'Gambar',
+                'rules'  => 'max_size[image,2048]|is_image[image]',
+                'errors' => [
+                    'max_size' => '{field} tidak boleh lebih dari 2 MB!',
+                    'is_image' => '{field} tidak berbentuk gambar!',
+                ]
+            ],
             'jawaban' => [
                 'label'  => 'jawaban',
                 'rules'  => 'required',
@@ -370,6 +418,36 @@ class Tryout extends BaseController
                 }
             }
         }
+        $nameimagepilihan = array();
+        foreach (abjad() as $key => $value) {
+            $uploadimage = $this->request->getFile('imagepilihan' . $value[0]);
+            if ($this->request->getVar('deleteimagepilihan' . $value[0])) {
+                if ($dataSoalt['imagepilihan' . $value[0]]) {
+                    try {
+                        unlink('assets/image/soalTryout/' . $dataSoalt['imagepilihan' . $value[0]]);
+                    } catch (\Throwable $th) {
+                    }
+                }
+                $nameimagepilihan[$key] = '';
+            } else {
+                if ($uploadimage->getError() === 4) {
+                    if ($dataSoalt['imagepilihan' . $value[0]]) {
+                        $nameimagepilihan[$key] = $dataSoalt['imagepilihan' . $value[0]];
+                    } else {
+                        $nameimagepilihan[$key] = '';
+                    }
+                } else {
+                    $nameimagepilihan[$key] = $uploadimage->getRandomName();
+                    $uploadimage->move('assets/image/soalTryout/', $nameimagepilihan[$key]);
+                    if ($dataSoalt['imagepilihan' . $value[0]]) {
+                        try {
+                            unlink('assets/image/soalTryout/' . $dataSoalt['imagepilihan' . $value[0]]);
+                        } catch (\Throwable $th) {
+                        }
+                    }
+                }
+            }
+        }
         $data = [
             'id_soalt' => $this->request->getVar('id_soalt'),
             'no_soal' => $noSoal,
@@ -380,6 +458,11 @@ class Tryout extends BaseController
             'pilihan3' => $this->request->getVar('pilihan3'),
             'pilihan4' => $this->request->getVar('pilihan4'),
             'pilihan5' => $this->request->getVar('pilihan5'),
+            'imagepilihan1' => $nameimagepilihan[0],
+            'imagepilihan2' => $nameimagepilihan[1],
+            'imagepilihan3' => $nameimagepilihan[2],
+            'imagepilihan4' => $nameimagepilihan[3],
+            'imagepilihan5' => $nameimagepilihan[4],
             'jawaban' => $this->request->getVar('jawaban'),
             'pembahasan' => $this->request->getVar('pembahasan'),
             'imagepembahasan' => $nameimagepembahasan,
@@ -492,7 +575,7 @@ class Tryout extends BaseController
             $row[] = $switch;
             $row[] = $this->UserModel->find($lists->created_by)->email;
             $row[] = $this->UserModel->find($lists->updated_by)->email;
-            $row[] = '<a href="' . base_url('admincamakara/tryout/detail/' . $lists->id_tryout) . '" class="badge badge-primary">Detail</a>
+            $row[] = '<a href="' . base_url('admincamakara/tryout/submitted/' . $lists->id_tryout) . '" class="badge badge-info">Pengumpulan</a>  <a href="' . base_url('admincamakara/tryout/detail/' . $lists->id_tryout) . '" class="badge badge-primary">Detail</a>
             <a href="' . base_url('admincamakara/tryout/edit/' . $lists->id_tryout) . '" class="badge badge-warning">Edit</a>
             <a href="' . base_url('admincamakara/tryout/delete/' . $lists->id_tryout) . '" class="badge badge-danger">Hapus</a>';
             $data[] = $row;
@@ -501,6 +584,43 @@ class Tryout extends BaseController
             "draw" => $request->getPost("draw"),
             "recordsTotal" => $list_data->count_all('tbl_tryout', $where),
             "recordsFiltered" => $list_data->count_filtered('tbl_tryout', $column_order, $column_search, $order, $where),
+            "data" => $data,
+        );
+        return json_encode($output);
+    }
+    public function listdatasubmitted($id = null)
+    {
+        $request = \Config\Services::request();
+        $list_data = $this->serverside_model;
+        $where = ['tbl_mytryout.tryout_id =' => $id];
+        $column_order = array(NULL, 'tbl_mytryout.tryout_id', 'tbl_mytryout.user_id', 'tbl_mytryout.finish', 'tbl_mytryout.price');
+        $column_search = array('tbl_mytryout.tryout_id', 'tbl_mytryout.user_id', 'tbl_mytryout.finish', 'tbl_mytryout.price');
+        $order = array('tbl_mytryout.created_at' => 'asc');
+        $list = $list_data->get_datatables('tbl_mytryout', $column_order, $column_search, $order, $where);
+        $data = array();
+        $no = $request->getPost("start");
+        foreach ($list as $lists) {
+            $tryout = $this->TryoutModel->find($lists->tryout_id);
+            if ($tryout['payment_method'] == 1) {
+                $price = 0;
+            } else if ($tryout['payment_method'] == 2) {
+                $price = $tryout['price'];
+            } else {
+                $price = $lists['price'];
+            }
+            $no++;
+            $row   = array();
+            $row[] = $no;
+            $row[] = $this->TryoutModel->find($lists->tryout_id)['name'];
+            $row[] = $this->UserapiModel->find($lists->user_id)['fullname'];
+            $row[] = $lists->finish ? '<span class="badge badge-success">Sudah Mengerjakan</span>' : '<span class="badge badge-danger">Belum Mengerjakan</span>';
+            $row[] = $price ? $price : '0';
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => $request->getPost("draw"),
+            "recordsTotal" => $list_data->count_all('tbl_mytryout', $where),
+            "recordsFiltered" => $list_data->count_filtered('tbl_mytryout', $column_order, $column_search, $order, $where),
             "data" => $data,
         );
         return json_encode($output);

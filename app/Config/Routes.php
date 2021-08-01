@@ -31,10 +31,6 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-// $routes->get('/auth', 'Auth::index', ['filter' => 'auth']);
-// $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'noauth']);
-// $routes->post('/aauth/register', 'Aauth::register');
-// $routes->post('/aauth/login', 'Aauth::login');
 
 
 $routes->group('api', function ($routes) {
@@ -118,12 +114,14 @@ $routes->group('admincamakara', function ($routes) {
 	$routes->group('tryout', ['filter' => 'role:admin,task'], function ($routes) {
 		$routes->get('', 'Tryout::index', ['filter' => 'role:admin,task']);
 		$routes->post('listdata', 'Tryout::listdata');
+		$routes->post('listdatasubmitted/(:segment)', 'Tryout::listdatasubmitted/$1');
 		$routes->get('create', 'Tryout::create', ['filter' => 'role:admin,task']);
 		$routes->post('create', 'Tryout::attemptcreate', ['filter' => 'role:admin,task']);
 		$routes->get('edit/(:segment)', 'Tryout::edit/$1', ['filter' => 'role:admin,task']);
 		$routes->post('edit/(:segment)', 'Tryout::attemptedit/$1', ['filter' => 'role:admin,task']);
 		$routes->get('delete/(:segment)', 'Tryout::delete/$1', ['filter' => 'role:admin,task']);
 		$routes->get('detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'role:admin,task']);
+		$routes->get('submitted/(:segment)', 'Tryout::submitted/$1', ['filter' => 'role:admin,task']);
 		$routes->get('editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::editsoal/$1/$2/$3', ['filter' => 'role:admin,task']);
 		$routes->post('editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::attemptEditSoal/$1/$2/$3', ['filter' => 'role:admin,task']);
 		$routes->get('editbobot/(:segment)/(:segment)', 'Tryout::editbobot/$1/$2', ['filter' => 'role:admin,task']);
@@ -133,8 +131,10 @@ $routes->group('admincamakara', function ($routes) {
 	$routes->group('quiz', ['filter' => 'role:admin,task'], function ($routes) {
 		$routes->get('', 'Quiz::index', ['filter' => 'role:admin,task']);
 		$routes->post('listdata', 'Quiz::listdata');
+		$routes->post('listdatasubmitted/(:segment)', 'Quiz::listdatasubmitted/$1');
 		$routes->get('create', 'Quiz::create', ['filter' => 'role:admin,task']);
 		$routes->post('create', 'Quiz::attemptcreate', ['filter' => 'role:admin,task']);
+		$routes->get('submitted/(:segment)', 'Quiz::submitted/$1', ['filter' => 'role:admin,task']);
 		$routes->get('edit/(:segment)', 'Quiz::edit/$1', ['filter' => 'role:admin,task']);
 		$routes->post('edit/(:segment)', 'Quiz::attemptedit/$1', ['filter' => 'role:admin,task']);
 		$routes->get('delete/(:segment)', 'Quiz::delete/$1', ['filter' => 'role:admin,task']);
