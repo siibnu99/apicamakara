@@ -172,4 +172,32 @@ class Apimytryout extends ResourceController
             return $this->respond($response, 200);
         }
     }
+    public function setcollage()
+    {
+        $idUser = $this->request->auth->idUser;
+        $data = $this->request->getJSON();
+        helper('menu');
+        $mytryout = new MytryoutModel();
+        $result = $mytryout->where(['user_id' => $idUser, 'tryout_id' => $data->idtryout])->first();
+        if ($result) {
+            $save = [
+                'univ1' => $data->univ1,
+                'prodi1' => $data->prodi1,
+                'univ2' => $data->univ2,
+                'prodi2' => $data->prodi2,
+            ];
+            $mytryout->update($result['id_mytryout'], $save);
+            $response = [
+                'status' => 200,
+                'message' => "Berhasil menyimpan Univ dan prodi",
+            ];
+            return $this->respond($response, 200);
+        } else {
+            $response = [
+                'status' => 201,
+                'message' => "gagal menyimpan Univ dan prodii"
+            ];
+            return $this->respond($response, 200);
+        }
+    }
 }

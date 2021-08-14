@@ -6,7 +6,8 @@ function jenisTryout($id = null)
 {
     $data = [
         ['SAINTEK', 1],
-        ['SOSHUM', 2,]
+        ['SOSHUM', 2,],
+        ['IPC', 3,]
     ];
     if ($id) {
         return $data[$id - 1][0];
@@ -74,6 +75,23 @@ function mapel($type, $arr)
             ['Ekonomi', $arr['q_ekonomi'], $arr['t_ekonomi'], 'q_ekonomi'],
         ];
         return $data;
+    } else if ($type == 3) {
+        $data = [
+            ['Penalaran Umum', $arr['q_penalaran'], $arr['t_penalaran'], 'q_penalaran'],
+            ['Pemahamnan Bacaan dan Menulis', $arr['q_pemahaman'], $arr['t_pemahaman'], 'q_pemahaman'],
+            ['Pengetahuan dan Pemahaman Umum', $arr['q_pengetahuan'], $arr['t_pengetahuan'], 'q_pengetahuan'],
+            ['Pengetahuan Kuantitatif', $arr['q_pengetahuank'], $arr['t_pengetahuank'], 'q_pengetahuank'],
+            ['Kimia', $arr['q_kimia'], $arr['t_kimia'], 'q_kimia'],
+            ['Fisika', $arr['q_fisika'], $arr['t_fisika'], 'q_fisika'],
+            ['Biologi', $arr['q_biologi'], $arr['t_biologi'], 'q_biologi'],
+            ['Matematika', $arr['q_matematika'], $arr['t_matematika'], 'q_matematika'],
+            ['Sejarah', $arr['q_sejarah'], $arr['t_sejarah'], 'q_sejarah'],
+            ['Geografi', $arr['q_geografi'], $arr['t_geografi'], 'q_geografi'],
+            ['Sosiologi', $arr['q_sosiologi'], $arr['t_sosiologi'], 'q_sosiologi'],
+            ['Ekonomi', $arr['q_ekonomi'], $arr['t_ekonomi'], 'q_ekonomi'],
+
+        ];
+        return $data;
     }
 }
 function getTypeMapel($type)
@@ -96,6 +114,22 @@ function getTypeMapel($type)
             ['Pemahamnan Bacaan dan Menulis', 'q_pemahaman', 't_pemahaman', 'q_pemahaman'],
             ['Pengetahuan dan Pemahaman Umum', 'q_pengetahuan', 't_pengetahuan', 'q_pengetahuan'],
             ['Pengetahuan Kuantitatif', 'q_pengetahuank', 't_pengetahuank', 'q_pengetahuank'],
+            ['Sejarah', 'q_sejarah', 't_sejarah', 'q_sejarah'],
+            ['Geografi', 'q_geografi', 't_geografi', 'q_geografi'],
+            ['Sosiologi', 'q_sosiologi', 't_sosiologi', 'q_sosiologi'],
+            ['Ekonomi', 'q_ekonomi', 't_ekonomi', 'q_ekonomi'],
+        ];
+        return $data;
+    } else if ($type == 3) {
+        $data = [
+            ['Penalaran Umum', 'q_penalaran', 't_penalaran', 'q_penalaran'],
+            ['Pemahamnan Bacaan dan Menulis', 'q_pemahaman', 't_pemahaman', 'q_pemahaman'],
+            ['Pengetahuan dan Pemahaman Umum', 'q_pengetahuan', 't_pengetahuan', 'q_pengetahuan'],
+            ['Pengetahuan Kuantitatif', 'q_pengetahuank', 't_pengetahuank', 'q_pengetahuank'],
+            ['Kimia', 'q_kimia', 't_kimia', 'q_kimia'],
+            ['Fisika', 'q_fisika', 't_fisika', 'q_fisika'],
+            ['Biologi', 'q_biologi', 't_biologi', 'q_biologi'],
+            ['Matematika', 'q_matematika', 't_matematika', 'q_matematika'],
             ['Sejarah', 'q_sejarah', 't_sejarah', 'q_sejarah'],
             ['Geografi', 'q_geografi', 't_geografi', 'q_geografi'],
             ['Sosiologi', 'q_sosiologi', 't_sosiologi', 'q_sosiologi'],

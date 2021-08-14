@@ -53,7 +53,7 @@ endforeach ?>
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="">Pilihan <?= $value[1] ?></label>
-                                <input type="text" class="form-control <?= ($validation->hasError('pilihan' . $value[0])) ? 'is-invalid' : "" ?>" name="pilihan<?= $value[0] ?>" value="<?= old('pilihan' . $value[0]) ? old('pilihan' . $value[0]) : $soalt['pilihan' . $value[0]] ?>">
+                                <textarea type="text" class="form-control <?= ($validation->hasError('pilihan' . $value[0])) ? 'is-invalid' : "" ?>" name="pilihan<?= $value[0] ?>" id="editor<?= $value[0] ?>"><?= htmlspecialchars_decode(old('pilihan' . $value[0]) ? old('pilihan' . $value[0]) : $soalt['pilihan' . $value[0]]) ?></textarea>
                                 <div class="invalid-feedback">
                                     <?= $validation->getError('pilihan' . $value[0]) ?>
                                 </div>

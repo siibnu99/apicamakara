@@ -12,7 +12,7 @@ class MytryoutModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['id_mytryout', 'user_id', 'tryout_id', 'price', 'status', 'image', 'payment_id', 'created_at', 'updated_at', 'time_start_answer', 'finish'];
+    protected $allowedFields = ['id_mytryout', 'user_id', 'tryout_id', 'price', 'status', 'image', 'payment_id', 'created_at', 'updated_at', 'time_start_answer', 'finish', 'univ1', 'univ2', 'prodi1', 'prodi2'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

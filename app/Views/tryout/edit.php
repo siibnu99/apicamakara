@@ -336,24 +336,32 @@
 <?= $this->section('script') ?>
 <script>
     if ($('#jenis_tryout option:selected').attr("value") == 1) {
-        $('.tps').show()
-        $('.tka-saintek').show()
-        $('.tka-soshum').hide()
+        $('.tps').show('slow')
+        $('.tka-saintek').show('slow')
+        $('.tka-soshum').hide('slow')
     } else if ($('#jenis_tryout option:selected').attr("value") == 2) {
-        $('.tps').show()
-        $('.tka-saintek').hide()
-        $('.tka-soshum').show()
+        $('.tps').show('slow')
+        $('.tka-saintek').hide('slow')
+        $('.tka-soshum').show('slow')
+    } else if ($('#jenis_tryout option:selected').attr("value") == 3) {
+        $('.tps').show('slow')
+        $('.tka-saintek').show('slow')
+        $('.tka-soshum').show('slow')
     }
 
     $('#jenis_tryout').on('change', function() {
         if ($('#jenis_tryout option:selected').attr("value") == 1) {
-            $('.tps').show()
-            $('.tka-saintek').show()
-            $('.tka-soshum').hide()
+            $('.tps').show('slow')
+            $('.tka-saintek').show('slow')
+            $('.tka-soshum').hide('slow')
         } else if ($('#jenis_tryout option:selected').attr("value") == 2) {
-            $('.tps').show()
-            $('.tka-saintek').hide()
-            $('.tka-soshum').show()
+            $('.tps').show('slow')
+            $('.tka-saintek').hide('slow')
+            $('.tka-soshum').show('slow')
+        } else if ($('#jenis_tryout option:selected').attr("value") == 3) {
+            $('.tps').show('slow')
+            $('.tka-saintek').show('slow')
+            $('.tka-soshum').show('slow')
         }
     })
 
@@ -361,11 +369,11 @@
     $('.syarat-pembayaran-gratis').hide();
     $('#metode_pembayaran').on('change', function() {
         if ($('#metode_pembayaran option:selected').attr("value") == 1) {
-            $('.syarat-pembayaran-gratis').show();
+            $('.syarat-pembayaran-gratis').show('slow');
         } else if ($('#metode_pembayaran option:selected').attr("value") == 2) {
-            $('.syarat-pembayaran-gratis').hide();
+            $('.syarat-pembayaran-gratis').hide('slow');
         } else if ($('#metode_pembayaran option:selected').attr("value") == 3) {
-            $('.syarat-pembayaran-gratis').hide();
+            $('.syarat-pembayaran-gratis').hide('slow');
         }
     })
     if ($('#metode_pembayaran option:selected').attr("value") == 1) {

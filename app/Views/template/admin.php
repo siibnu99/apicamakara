@@ -21,6 +21,7 @@
     <link href="<?= base_url('assets') ?>/vendor/datatables/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/sweetalert2.min.css">
     <link rel="stylesheet" href="<?= base_url('assets') ?>/css/style.css">
+    <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
     <style>
         /* The switch - the box around the slider */
         .switch {
@@ -350,8 +351,60 @@
     <!-- Page level plugins -->
     <script src="<?= base_url('assets') ?>/vendor/chart.js/Chart.min.js"></script>
     <script src="<?= base_url('assets') ?>/js/sweetalert2.min.js"></script>
+    <script src="<?= base_url('assets') ?>/vendor/ckeditor/ckeditor.js"></script>
     <?= $this->renderSection('script') ?>
     <script>
+        $(document).ready(function() {
+            var mathElements = [
+                'math',
+                'maction',
+                'maligngroup',
+                'malignmark',
+                'menclose',
+                'merror',
+                'mfenced',
+                'mfrac',
+                'mglyph',
+                'mi',
+                'mlabeledtr',
+                'mlongdiv',
+                'mmultiscripts',
+                'mn',
+                'mo',
+                'mover',
+                'mpadded',
+                'mphantom',
+                'mroot',
+                'mrow',
+                'ms',
+                'mscarries',
+                'mscarry',
+                'msgroup',
+                'msline',
+                'mspace',
+                'msqrt',
+                'msrow',
+                'mstack',
+                'mstyle',
+                'msub',
+                'msup',
+                'msubsup',
+                'mtable',
+                'mtd',
+                'mtext',
+                'mtr',
+                'munder',
+                'munderover',
+                'semantics',
+                'annotation',
+                'annotation-xml'
+            ];
+            for (let i = 1; i <= 5; i++) {
+                CKEDITOR.replace('editor' + i, {
+                    extraAllowedContent: mathElements.join(' ') + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)'
+                });
+            }
+        });
         const flashdata = $('.flash-data').data('flashdata');
         if (flashdata) {
             Swal.fire(
