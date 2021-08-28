@@ -269,3 +269,16 @@ function generateRandomString($length = 10)
     }
     return $randomString;
 }
+function timeToSecond($time = null, $server = false)
+{
+    $time = explode(':', $time);
+    if ($server) {
+        return ((($time[0] ?? 0) * 3600) + (($time[1] ?? 0) * 60) + ($time[2] ?? 0));
+    } else {
+        return ((($time[0] ?? 0) * 3600) + (($time[1] ?? 0) * 60) + ($time[2] ?? 0)) * 1000;
+    }
+}
+function secondToTime($time = null)
+{
+    return ($time / 3600) . ':' . (($time / 60) % 60) . ':' . $time % 60;
+}

@@ -51,6 +51,7 @@ class ComposerStaticInit10d92da11f3a079793f3d9cb9f7f9ced
         array (
             'Myth\\Auth\\' => 10,
             'Monolog\\' => 8,
+            'Midtrans\\' => 9,
         ),
         'L' => 
         array (
@@ -139,6 +140,10 @@ class ComposerStaticInit10d92da11f3a079793f3d9cb9f7f9ced
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Midtrans\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans',
         ),
         'Laminas\\ZendFrameworkBridge\\' => 
         array (

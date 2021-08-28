@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '569162754ac96c9d755adc01d8fbcf93e352cfba',
+    'reference' => '93a5e6a961a94bf52c7bb8b3e83bf7e31ab5f4de',
     'name' => 'codeigniter4/appstarter',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '569162754ac96c9d755adc01d8fbcf93e352cfba',
+      'reference' => '93a5e6a961a94bf52c7bb8b3e83bf7e31ab5f4de',
     ),
     'codeigniter4/framework' => 
     array (
@@ -137,6 +137,15 @@
       array (
       ),
       'reference' => '6ede70583e101030bcace4dcddd648f760ddf642',
+    ),
+    'midtrans/midtrans-php' => 
+    array (
+      'pretty_version' => '2.5.2',
+      'version' => '2.5.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a1ad0c824449ca8c68c4cf11b3417ad518311d2b',
     ),
     'mikey179/vfsstream' => 
     array (

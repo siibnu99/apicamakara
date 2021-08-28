@@ -65,11 +65,11 @@ class Apitryout extends ResourceController
                 $totalSoshum = 0;
                 $dataMapel = mapel(1, $data);
                 foreach ($dataMapel as $item) {
-                    $totalSaint +=  $item[2];
+                    $totalSaint +=  timeToSecond($item[2]);
                 }
                 $dataMapel = mapel(2, $data);
                 foreach ($dataMapel as $item) {
-                    $totalSoshum += $item[2];
+                    $totalSoshum += timeToSecond($item[2]);
                 }
                 $data['totalSaint'] = $totalSaint + 30;
                 $data['totalSoshum'] = $totalSoshum + 30;

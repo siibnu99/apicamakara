@@ -32,6 +32,7 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+$routes->get('test', 'Test::test');
 
 $routes->group('api', function ($routes) {
 	$routes->group('auth', function ($routes) {
@@ -57,6 +58,7 @@ $routes->group('api', function ($routes) {
 		});
 		$routes->resource('quiz', ['controller' => 'Apimyquiz']);
 		$routes->group('tryout', function ($routes) {
+			$routes->post('leaderboard', 'Apimytryout::leaderboard');
 			$routes->post('setcollage', 'Apimytryout::setcollage');
 			$routes->post('finish', 'Apimytryout::finish');
 			$routes->post('finisheachkind', 'Apimytryout::finishEachKind');
