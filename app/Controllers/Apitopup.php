@@ -4,14 +4,33 @@ namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Uuid;
-use \App\Libraries\Tokenjwt;
+use App\Models\RegModel;
+use App\Models\TryoutModel;
+use App\Models\UserApiModel;
+use Exception;
 use Pusher\Pusher;
 
 class Apitopup extends ResourceController
 {
     protected $format       = 'json';
     protected $modelName    = 'App\Models\TopupModel';
+    public function __construct()
+    {
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-4mGDRAXnP8w59UoH5H1-T7SO';
+        // \Midtrans\Config::$serverKey = 'Mid-server-iDdAPVX8XtVjS0-z-Sd2y6t2';
+        // Uncomment for production environment
+        // \Midtrans\Config::$isProduction = true;
 
+        // Uncomment to enable sanitization
+        // Config::$isSanitized = true;
+
+        // Uncomment to enable idempotency-key, more details: (http://api-docs.midtrans.com/#idempotent-requests)
+        // Config::$paymentIdempotencyKey = "Unique-ID";
+        $this->TryoutModel = new TryoutModel();
+        $this->UserApiModel = new UserApiModel();
+        $this->RegencieModel = new RegModel();
+    }
     public function index()
     {
         $idUser = $this->request->auth->idUser;
@@ -36,27 +55,133 @@ class Apitopup extends ResourceController
     public function create()
     {
         $idUser = $this->request->auth->idUser;
-        if ($this->request->getVar('bankid') != 0) {
+        $data = $this->request->getJSON();
+        if (isset($data->payment)) {
+            $dataUser = $this->UserApiModel->find($idUser);
+            $dataRegencie = $this->RegencieModel->find($dataUser['regency_id']);
             $Uuid = new Uuid;
-            $namaFile = $_FILES['image']['name'];
-            $ektensiGambar = explode('.', $namaFile);
-            $ektensiGambar = strtolower(end($ektensiGambar));
-            $namaFile = $Uuid->v4() . '.' . $ektensiGambar;
-            $namaSementara = $_FILES['image']['tmp_name'];
-            $dirUpload = "assets/image/topup/";
-            move_uploaded_file($namaSementara, $dirUpload . $namaFile);
-            $data = [
+            $save = [
                 'id_topup' => $Uuid->v4(),
                 'user_id' => $idUser,
-                'bank_id' => $this->request->getVar('bankid'),
-                'nominal' => $this->request->getVar('nominal'),
-                'image' => $namaFile,
+                'bank_id' => $data->payment,
+                'nominal' => $data->price,
                 'status' => 1,
             ];
-            $this->model->insert($data);
+            $transaction_details = array(
+                'order_id'    => $save['id_topup'],
+                'gross_amount'  => $save['nominal'],
+            );
+            // Populate customer's billing address
+            $billing_address = array(
+                'first_name'   => $dataUser['firstname'],
+                'lastname'    => $dataUser['lastname'],
+                'adress'      => $dataUser['address'],
+                'city'         => $dataRegencie['name'],
+                'postal_code'  => null,
+                'phone'        => $dataUser['telp'],
+                'country_code' => 'IDN'
+            );
+
+            // Populate customer's info
+            $customer_details = array(
+                'first_name'   => $dataUser['firstname'],
+                'last_name'    => $dataUser['lastname'],
+                'email'            => $dataUser['email'],
+                'phone'        => $dataUser['telp'],
+                'billing_address'  => $billing_address,
+            );
+            switch ($data->payment) {
+                case 'alfamart':
+                    $save['bank_id'] = 5;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        'payment_type' => 'cstore',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
+                        "cstore" => [
+                            "store" => "alfamart"
+                        ]
+                    );
+                    break;
+                case 'indomaret':
+                    $save['bank_id'] = 6;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        'payment_type' => 'cstore',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
+                        "cstore" => [
+                            "store" => "indomaret"
+                        ]
+                    );
+                    break;
+                case 'bca':
+                    $save['bank_id'] = 1;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        'payment_type' => 'bank_transfer',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
+                        "bank_transfer" => [
+                            "bank" => "bca"
+                        ]
+                    );
+                    break;
+                case 'mandiri':
+                    $save['bank_id'] = 2;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        'payment_type' => 'echannel',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
+                    );
+                case 'bni':
+                    $save['bank_id'] = 3;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        'payment_type' => 'bank_transfer',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
+                        "bank_transfer" => [
+                            "bank" => "bni"
+                        ]
+                    );
+                    break;
+                case 'bri':
+                    $save['bank_id'] = 4;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        'payment_type' => 'bank_transfer',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
+                        "bank_transfer" => [
+                            "bank" => "bri"
+                        ]
+                    );
+                    break;
+                default:
+                    break;
+            }
+            try {
+                $responseCoreAPi =  \Midtrans\CoreApi::charge($transaction_data);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+                die();
+            }
+            // Success
+            if ($responseCoreAPi->transaction_status == 'pending') {
+            } else {
+                $response = [
+                    'status' => 201,
+                    'message' => 'Terjadi kesalahan pada data transaksi yang dikirim.',
+                ];
+                return $this->respond($response, 201);
+            }
+            $this->model->insert($save);
             $response = [
                 'status' => 200,
                 'message' => 'Success Top Up',
+                'response' => $responseCoreAPi,
             ];
             $options = array(
                 'cluster' => 'ap1',
@@ -68,8 +193,7 @@ class Apitopup extends ResourceController
                 '1235332',
                 $options
             );
-            $data['message'] = 'success';
-            $pusher->trigger('my-channel', 'confirmfinance', $data);
+            $pusher->trigger('my-channel', 'confirmfinance', ['message' => 'success']);
         } else {
             $response = [
                 'status' => 201,

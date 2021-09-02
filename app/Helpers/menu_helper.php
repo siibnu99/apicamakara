@@ -195,8 +195,9 @@ function AllPayment($id = null)
         ['Bank BNI', 3],
         ['Bank BRI', 4],
         ['Alfamart/Alfamidi', 5],
-        ['Ovo', 6],
-        ['Shopee Pay', 7],
+        ['Indomaret', 6],
+        ['Ovo', 7],
+        ['Shopee Pay', 8],
     ];
     if ($id) {
         foreach ($data as $item) {

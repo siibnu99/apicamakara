@@ -15,17 +15,6 @@ class Test extends BaseController
     }
     public function test()
     {
-        // Set your Merchant Server Key
-        // \Midtrans\Config::$serverKey = 'SB-Mid-server-J2ndA6XoeLvqC3BmIiWeXSGo';
-        \Midtrans\Config::$serverKey = 'Mid-server-iDdAPVX8XtVjS0-z-Sd2y6t2';
-        // Uncomment for production environment
-        \Midtrans\Config::$isProduction = true;
-
-        // Uncomment to enable sanitization
-        // Config::$isSanitized = true;
-
-        // Uncomment to enable idempotency-key, more details: (http://api-docs.midtrans.com/#idempotent-requests)
-        // Config::$paymentIdempotencyKey = "Unique-ID";
 
         $transaction_details = array(
             'order_id'    => time(),
