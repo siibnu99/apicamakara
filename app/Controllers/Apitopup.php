@@ -17,10 +17,10 @@ class Apitopup extends ResourceController
     public function __construct()
     {
         // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-4mGDRAXnP8w59UoH5H1-T7SO';
-        // \Midtrans\Config::$serverKey = 'Mid-server-iDdAPVX8XtVjS0-z-Sd2y6t2';
+        // \Midtrans\Config::$serverKey = 'SB-Mid-server-J2ndA6XoeLvqC3BmIiWeXSGo';
+        \Midtrans\Config::$serverKey = 'Mid-server-iDdAPVX8XtVjS0-z-Sd2y6t2';
         // Uncomment for production environment
-        // \Midtrans\Config::$isProduction = true;
+        \Midtrans\Config::$isProduction = true;
 
         // Uncomment to enable sanitization
         // Config::$isSanitized = true;
@@ -76,7 +76,7 @@ class Apitopup extends ResourceController
                 'first_name'   => $dataUser['firstname'],
                 'lastname'    => $dataUser['lastname'],
                 'adress'      => $dataUser['address'],
-                'city'         => $dataRegencie['name'],
+                'city'         => (isset($dataRegencie['name']) ? $dataRegencie['name'] : ""),
                 'postal_code'  => null,
                 'phone'        => $dataUser['telp'],
                 'country_code' => 'IDN'
@@ -112,6 +112,43 @@ class Apitopup extends ResourceController
                         'customer_details'    => $customer_details,
                         "cstore" => [
                             "store" => "indomaret"
+                        ]
+                    );
+                    break;
+                    // case 'gopay':
+                    //     $save['bank_id'] = 8;
+                    //     // Transaction data to be sent
+                    //     $transaction_data = array(
+                    //         'payment_type' => 'gopay',
+                    //         'transaction_details' => $transaction_details,
+                    //         'customer_details'    => $customer_details,
+                    //     );
+                    //     break;
+                case 'gopay':
+                    $save['bank_id'] = 8;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        "payment_type" => "gopay",
+                        "transaction_details" => [
+                            "order_id" => "order03",
+                            "gross_amount" => 275000
+                        ],
+                        "item_details" => [
+                            [
+                                "id" => "id1",
+                                "price" => 275000,
+                                "quantity" => 1,
+                                "name" => "Bluedio H+ Turbine Headphone with Bluetooth 4.1 -"
+                            ]
+                        ],
+                        "customer_details" => [
+                            "first_name" => "Budi",
+                            "last_name" => "Utomo",
+                            "email" => "budi.utomo@midtrans.com",
+                            "phone" => "081223323423"
+                        ],
+                        "qris" => [
+                            "acquirer" => "gopay"
                         ]
                     );
                     break;
@@ -159,6 +196,15 @@ class Apitopup extends ResourceController
                         ]
                     );
                     break;
+                case 'permata':
+                    $save['bank_id'] = 9;
+                    // Transaction data to be sent
+                    $transaction_data = array(
+                        'payment_type' => 'permata',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
+                    );
+                    break;
                 default:
                     break;
             }
@@ -182,6 +228,10 @@ class Apitopup extends ResourceController
                 'status' => 200,
                 'message' => 'Success Top Up',
                 'response' => $responseCoreAPi,
+                'data' => [
+                    'timeExp' => time() + (60 * 60 * 24),
+                    'time' => time()
+                ]
             ];
             $options = array(
                 'cluster' => 'ap1',

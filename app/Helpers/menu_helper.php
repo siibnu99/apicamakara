@@ -197,7 +197,8 @@ function AllPayment($id = null)
         ['Alfamart/Alfamidi', 5],
         ['Indomaret', 6],
         ['Ovo', 7],
-        ['Shopee Pay', 8],
+        ['E-Money', 8],
+        ['Bank Permata', 9],
     ];
     if ($id) {
         foreach ($data as $item) {

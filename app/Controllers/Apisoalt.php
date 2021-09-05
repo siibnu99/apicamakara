@@ -45,7 +45,9 @@ class Apisoalt extends ResourceController
                 $temp[$id]['imagepembahasan'] = "";
             }
             $temp[$id]['namamapel'] = allMapel($kindTryout);
+            $temp[$id]['soal'] = htmlspecialchars_decode($temp[$id]['soal']);
             foreach (abjad() as $key => $value) {
+                $temp[$id]['pilihan' . $value[0]] = htmlspecialchars_decode($temp[$id]['pilihan' . $value[0]]);
                 if ($item['imagepilihan' . $value[0]]) {
                     $temp[$id]['imagepilihan' . $value[0]] = base_url('assets/image/soalTryout') . '/' . $item['imagepilihan' . $value[0]];
                 } else {

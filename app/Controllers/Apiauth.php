@@ -121,7 +121,7 @@ class Apiauth extends ResourceController
             $email = \Config\Services::email();
             $email->setTo($id['email']);
             $email->setSubject('Forgot Password');
-            $email->setMessage('Forgot Password berhasil dilakukan, Token yang di dapatkan adalah "' . $token . '"');
+            $email->setMessage('Forgot Password berhasil dilakukan, Token yang di dapatkan adalah "' . $save['token_forgot'] . '"');
             $email->send();
             return $this->respond([
                 'status' => 200,
