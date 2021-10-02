@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Libraries\Uuid;
 use CodeIgniter\RESTful\ResourceController;
 use Exception;
-use Pusher\Pusher;
+// use Pusher\Pusher;
 
 class Apitryout extends ResourceController
 {
@@ -142,19 +142,19 @@ class Apitryout extends ResourceController
                 'status' => 1,
             ];
             $this->MytryoutModel->insert($data);
-            $options = array(
-                'cluster' => 'ap1',
-                'useTLS' => true
-            );
-            $pusher = new Pusher(
-                '9572fc108523db38ff8c',
-                '00f81ecce367b823260d',
-                '1235332',
-                $options
-            );
+            // $options = array(
+            //     'cluster' => 'ap1',
+            //     'useTLS' => true
+            // );
+            // $pusher = new Pusher(
+            //     '9572fc108523db38ff8c',
+            //     '00f81ecce367b823260d',
+            //     '1235332',
+            //     $options
+            // );
 
-            $data['message'] = 'success';
-            $pusher->trigger('my-channel', 'confirm', $data);
+            // $data['message'] = 'success';
+            // $pusher->trigger('my-channel', 'confirm', $data);
             $response = [
                 'status' => 200,
                 'message' => 'Permintaan Sukses',
@@ -169,18 +169,18 @@ class Apitryout extends ResourceController
                     'payment_id' => 2,
                 ];
                 $this->MytryoutModel->insert($data);
-                $options = array(
-                    'cluster' => 'ap1',
-                    'useTLS' => true
-                );
-                $pusher = new Pusher(
-                    '9572fc108523db38ff8c',
-                    '00f81ecce367b823260d',
-                    '1235332',
-                    $options
-                );
-                $data['message'] = 'success';
-                $pusher->trigger('my-channel', 'saldo', $data);
+                // $options = array(
+                //     'cluster' => 'ap1',
+                //     'useTLS' => true
+                // );
+                // $pusher = new Pusher(
+                //     '9572fc108523db38ff8c',
+                //     '00f81ecce367b823260d',
+                //     '1235332',
+                //     $options
+                // );
+                // $data['message'] = 'success';
+                // $pusher->trigger('my-channel', 'saldo', $data);
                 $response = [
                     'status' => 200,
                     'message' => 'Success Buying',
@@ -207,18 +207,18 @@ class Apitryout extends ResourceController
                         'status' => 200,
                         'message' => 'Success Buying',
                     ];
-                    $options = array(
-                        'cluster' => 'ap1',
-                        'useTLS' => true
-                    );
-                    $pusher = new Pusher(
-                        '9572fc108523db38ff8c',
-                        '00f81ecce367b823260d',
-                        '1235332',
-                        $options
-                    );
-                    $data['message'] = 'success';
-                    $pusher->trigger('my-channel', 'saldo', $data);
+                    // $options = array(
+                    //     'cluster' => 'ap1',
+                    //     'useTLS' => true
+                    // );
+                    // $pusher = new Pusher(
+                    //     '9572fc108523db38ff8c',
+                    //     '00f81ecce367b823260d',
+                    //     '1235332',
+                    //     $options
+                    // );
+                    // $data['message'] = 'success';
+                    // $pusher->trigger('my-channel', 'saldo', $data);
                     return $this->respond($response, 200);
                 }
                 $response = [

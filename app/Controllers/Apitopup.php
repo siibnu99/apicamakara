@@ -8,7 +8,7 @@ use App\Models\RegModel;
 use App\Models\TryoutModel;
 use App\Models\UserApiModel;
 use Exception;
-use Pusher\Pusher;
+// use Pusher\Pusher;
 
 class Apitopup extends ResourceController
 {
@@ -46,6 +46,8 @@ class Apitopup extends ResourceController
         if ($id) {
             $data = $this->model->find($id);
             $status = \Midtrans\Transaction::status($id);
+            $status->actions = json_decode($data['actions']);
+            unset($data['actions']);
             $response = [
                 'status' => 200,
                 'data' => $data,
@@ -65,7 +67,7 @@ class Apitopup extends ResourceController
             $save = [
                 'id_topup' => $Uuid->v4(),
                 'user_id' => $idUser,
-                'bank_id' => $data->payment,
+                'bank_id' => $data->payment_id,
                 'nominal' => $data->price,
                 'status' => 1,
             ];
@@ -94,7 +96,6 @@ class Apitopup extends ResourceController
             );
             switch ($data->payment) {
                 case 'alfamart':
-                    $save['bank_id'] = 5;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'cstore',
@@ -106,7 +107,6 @@ class Apitopup extends ResourceController
                     );
                     break;
                 case 'indomaret':
-                    $save['bank_id'] = 6;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'cstore',
@@ -117,17 +117,7 @@ class Apitopup extends ResourceController
                         ]
                     );
                     break;
-                    // case 'gopay':
-                    //     $save['bank_id'] = 8;
-                    //     // Transaction data to be sent
-                    //     $transaction_data = array(
-                    //         'payment_type' => 'gopay',
-                    //         'transaction_details' => $transaction_details,
-                    //         'customer_details'    => $customer_details,
-                    //     );
-                    //     break;
                 case 'gopay':
-                    $save['bank_id'] = 8;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'gopay',
@@ -136,7 +126,6 @@ class Apitopup extends ResourceController
                     );
                     break;
                 case 'bca':
-                    $save['bank_id'] = 1;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'bank_transfer',
@@ -148,7 +137,6 @@ class Apitopup extends ResourceController
                     );
                     break;
                 case 'mandiri':
-                    $save['bank_id'] = 2;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'echannel',
@@ -156,7 +144,6 @@ class Apitopup extends ResourceController
                         'customer_details'    => $customer_details,
                     );
                 case 'bni':
-                    $save['bank_id'] = 3;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'bank_transfer',
@@ -168,7 +155,6 @@ class Apitopup extends ResourceController
                     );
                     break;
                 case 'bri':
-                    $save['bank_id'] = 4;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'bank_transfer',
@@ -180,7 +166,6 @@ class Apitopup extends ResourceController
                     );
                     break;
                 case 'permata':
-                    $save['bank_id'] = 9;
                     // Transaction data to be sent
                     $transaction_data = array(
                         'payment_type' => 'permata',
@@ -206,6 +191,10 @@ class Apitopup extends ResourceController
                 ];
                 return $this->respond($response, 201);
             }
+            try {
+                $save['actions'] = json_encode($responseCoreAPi->actions);
+            } catch (Exception $e) {
+            }
             $this->model->insert($save);
             $response = [
                 'status' => 200,
@@ -216,17 +205,17 @@ class Apitopup extends ResourceController
                     'time' => time()
                 ]
             ];
-            $options = array(
-                'cluster' => 'ap1',
-                'useTLS' => true
-            );
-            $pusher = new Pusher(
-                '9572fc108523db38ff8c',
-                '00f81ecce367b823260d',
-                '1235332',
-                $options
-            );
-            $pusher->trigger('my-channel', 'confirmfinance', ['message' => 'success']);
+            // $options = array(
+            //     'cluster' => 'ap1',
+            //     'useTLS' => true
+            // );
+            // $pusher = new Pusher(
+            //     '9572fc108523db38ff8c',
+            //     '00f81ecce367b823260d',
+            //     '1235332',
+            //     $options
+            // );
+            // $pusher->trigger('my-channel', 'confirmfinance', ['message' => 'success']);
         } else {
             $response = [
                 'status' => 201,

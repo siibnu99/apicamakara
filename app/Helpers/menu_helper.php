@@ -191,14 +191,22 @@ function AllPayment($id = null)
 {
     $data = [
         ['Bank BCA', 1],
-        ['Bank Mandiri', 2],
-        ['Bank BNI', 3],
-        ['Bank BRI', 4],
-        ['Alfamart/Alfamidi', 5],
-        ['Indomaret', 6],
-        ['Ovo', 7],
-        ['E-Money', 8],
-        ['Bank Permata', 9],
+        ['Bank BNI', 2],
+        ['Bank BRI', 3],
+        ['Bank Mandiri', 4],
+        ['Bank Permata', 5],
+        ['ATM Bersama', 6],
+        ['Alto', 7],
+        ['Prima', 8],
+        ['Ovo', 9],
+        ['Gopay', 10],
+        ['Shopee', 11],
+        ['Dana', 12],
+        ['Link Aja', 13],
+        ['Qris', 14],
+        ['Alfamart', 15],
+        ['Alfamidi', 16],
+        ['Indomaret', 17],
     ];
     if ($id) {
         foreach ($data as $item) {
