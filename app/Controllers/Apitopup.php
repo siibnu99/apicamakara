@@ -130,28 +130,9 @@ class Apitopup extends ResourceController
                     $save['bank_id'] = 8;
                     // Transaction data to be sent
                     $transaction_data = array(
-                        "payment_type" => "gopay",
-                        "transaction_details" => [
-                            "order_id" => "order03",
-                            "gross_amount" => 275000
-                        ],
-                        "item_details" => [
-                            [
-                                "id" => "id1",
-                                "price" => 275000,
-                                "quantity" => 1,
-                                "name" => "Bluedio H+ Turbine Headphone with Bluetooth 4.1 -"
-                            ]
-                        ],
-                        "customer_details" => [
-                            "first_name" => "Budi",
-                            "last_name" => "Utomo",
-                            "email" => "budi.utomo@midtrans.com",
-                            "phone" => "081223323423"
-                        ],
-                        "qris" => [
-                            "acquirer" => "gopay"
-                        ]
+                        'payment_type' => 'gopay',
+                        'transaction_details' => $transaction_details,
+                        'customer_details'    => $customer_details,
                     );
                     break;
                 case 'bca':
