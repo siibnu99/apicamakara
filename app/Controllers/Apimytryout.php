@@ -206,7 +206,7 @@ class Apimytryout extends ResourceController
     public function sortScore($a, $b)
     {
         if ($a['score'] == $b['score']) return 0;
-        return ($a['score'] < $b['score']) ? -1 : 1;
+        return ($a['score'] > $b['score']) ? -1 : 1;
     }
     public function leaderboard()
     {
@@ -280,26 +280,83 @@ class Apimytryout extends ResourceController
                         $totalSaint[$_keyDataAllTryout]['prodi'] = $_dataAllTryout['prodi2'];
                     }
                 } else {
-                    $totalSaint[$_keyDataAllTryout] = [
-                        'userid' => $_dataAllTryout['id_user'],
-                        'fullname' => $_dataAllTryout['fullname'],
-                        'school' => $_dataAllTryout['school'],
-                        'univ1' => $_dataAllTryout['univ1'],
-                        'univ2' => $_dataAllTryout['univ2'],
-                        'prodi1' => $_dataAllTryout['prodi1'],
-                        'prodi2' => $_dataAllTryout['prodi2'],
-                        'score' => $this->TryoutModel->getScore($_dataAllTryout, 1, 'true')
-                    ];
-                    $totalSoshum[$_keyDataAllTryout] = [
-                        'userid' => $_dataAllTryout['id_user'],
-                        'fullname' => $_dataAllTryout['fullname'],
-                        'school' => $_dataAllTryout['school'],
-                        'univ1' => $_dataAllTryout['univ1'],
-                        'univ2' => $_dataAllTryout['univ2'],
-                        'prodi1' => $_dataAllTryout['prodi1'],
-                        'prodi2' => $_dataAllTryout['prodi2'],
-                        'score' => $this->TryoutModel->getScore($_dataAllTryout, 2, 'true')
-                    ];
+                    $dataProdi1 = $this->ProdiModel->find($_dataAllTryout['prodi1']);
+                    $dataProdi2 = $this->ProdiModel->find($_dataAllTryout['prodi2']);
+                    if (!$dataProdi1 || !$dataProdi2) {
+                        continue;
+                    }
+                    if ($dataProdi1['kelompok_ujian'] == $dataProdi2['kelompok_ujian']) {
+                        if ($dataProdi1['kelompok_ujian'] == 1) {
+                            $totalSaint[$_keyDataAllTryout] = [
+                                'userid' => $_dataAllTryout['id_user'],
+                                'fullname' => $_dataAllTryout['fullname'],
+                                'school' => $_dataAllTryout['school'],
+                                'univ1' => $_dataAllTryout['univ1'],
+                                'univ2' => $_dataAllTryout['univ2'],
+                                'prodi1' => $_dataAllTryout['prodi1'],
+                                'prodi2' => $_dataAllTryout['prodi2'],
+                                'score' => $this->TryoutModel->getScore($_dataAllTryout, $dataProdi1['kelompok_ujian'], 'true')
+                            ];
+                        } else {
+                            $totalSoshum[$_keyDataAllTryout] = [
+                                'userid' => $_dataAllTryout['id_user'],
+                                'fullname' => $_dataAllTryout['fullname'],
+                                'school' => $_dataAllTryout['school'],
+                                'univ1' => $_dataAllTryout['univ1'],
+                                'univ2' => $_dataAllTryout['univ2'],
+                                'prodi1' => $_dataAllTryout['prodi1'],
+                                'prodi2' => $_dataAllTryout['prodi2'],
+                                'score' => $this->TryoutModel->getScore($_dataAllTryout, $dataProdi1['kelompok_ujian'], 'true')
+                            ];
+                        }
+                    } else {
+                        if ($dataProdi1['kelompok_ujian'] == 1) {
+                            $totalSaint[$_keyDataAllTryout] = [
+                                'userid' => $_dataAllTryout['id_user'],
+                                'fullname' => $_dataAllTryout['fullname'],
+                                'school' => $_dataAllTryout['school'],
+                                'univ1' => $_dataAllTryout['univ1'],
+                                'univ2' => $_dataAllTryout['univ2'],
+                                'prodi1' => $_dataAllTryout['prodi1'],
+                                'prodi2' => $_dataAllTryout['prodi2'],
+                                'score' => $this->TryoutModel->getScore($_dataAllTryout, $dataProdi1['kelompok_ujian'], 'true')
+                            ];
+                        } else {
+                            $totalSoshum[$_keyDataAllTryout] = [
+                                'userid' => $_dataAllTryout['id_user'],
+                                'fullname' => $_dataAllTryout['fullname'],
+                                'school' => $_dataAllTryout['school'],
+                                'univ1' => $_dataAllTryout['univ1'],
+                                'univ2' => $_dataAllTryout['univ2'],
+                                'prodi1' => $_dataAllTryout['prodi1'],
+                                'prodi2' => $_dataAllTryout['prodi2'],
+                                'score' => $this->TryoutModel->getScore($_dataAllTryout, $dataProdi1['kelompok_ujian'], 'true')
+                            ];
+                        }
+                        if ($dataProdi2['kelompok_ujian'] == 1) {
+                            $totalSaint[$_keyDataAllTryout] = [
+                                'userid' => $_dataAllTryout['id_user'],
+                                'fullname' => $_dataAllTryout['fullname'],
+                                'school' => $_dataAllTryout['school'],
+                                'univ1' => $_dataAllTryout['univ1'],
+                                'univ2' => $_dataAllTryout['univ2'],
+                                'prodi1' => $_dataAllTryout['prodi1'],
+                                'prodi2' => $_dataAllTryout['prodi2'],
+                                'score' => $this->TryoutModel->getScore($_dataAllTryout, $dataProdi2['kelompok_ujian'], 'true')
+                            ];
+                        } else {
+                            $totalSoshum[$_keyDataAllTryout] = [
+                                'userid' => $_dataAllTryout['id_user'],
+                                'fullname' => $_dataAllTryout['fullname'],
+                                'school' => $_dataAllTryout['school'],
+                                'univ1' => $_dataAllTryout['univ1'],
+                                'univ2' => $_dataAllTryout['univ2'],
+                                'prodi1' => $_dataAllTryout['prodi1'],
+                                'prodi2' => $_dataAllTryout['prodi2'],
+                                'score' => $this->TryoutModel->getScore($_dataAllTryout, $dataProdi2['kelompok_ujian'], 'true')
+                            ];
+                        }
+                    }
                 }
             }
             usort($totalSaint, array($this, "sortScore"));

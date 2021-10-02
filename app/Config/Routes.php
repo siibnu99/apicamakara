@@ -125,6 +125,7 @@ $routes->group('admincamakara', function ($routes) {
 		$routes->get('delete/(:segment)', 'Tryout::delete/$1', ['filter' => 'role:admin,task']);
 		$routes->get('detail/(:segment)', 'Tryout::detail/$1', ['filter' => 'role:admin,task']);
 		$routes->get('submitted/(:segment)', 'Tryout::submitted/$1', ['filter' => 'role:admin,task']);
+		$routes->get('submitted/(:segment)/reset', 'Tryout::submittedreset/$1', ['filter' => 'role:admin,task']);
 		$routes->get('editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::editsoal/$1/$2/$3', ['filter' => 'role:admin,task']);
 		$routes->post('editsoal/(:segment)/(:segment)/(:segment)', 'Tryout::attemptEditSoal/$1/$2/$3', ['filter' => 'role:admin,task']);
 		$routes->get('editbobot/(:segment)/(:segment)', 'Tryout::editbobot/$1/$2', ['filter' => 'role:admin,task']);

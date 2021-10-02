@@ -166,8 +166,8 @@
                                     <input class="form-control" type="number" name="q_penalaran">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_penalaran">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_penalaran">
                                 </div>
                             </div>
                         </div>
@@ -179,8 +179,8 @@
                                     <input class="form-control" type="number" name="q_pemahaman">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_pemahaman">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_pemahaman">
                                 </div>
                             </div>
                         </div>
@@ -192,8 +192,8 @@
                                     <input class="form-control" type="number" name="q_pengetahuan">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_pengetahuan">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_pengetahuan">
                                 </div>
                             </div>
                         </div>
@@ -205,8 +205,8 @@
                                     <input class="form-control" type="number" name="q_pengetahuank">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_pengetahuank">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_pengetahuank">
                                 </div>
                             </div>
                         </div>
@@ -221,8 +221,8 @@
                                     <input class="form-control" type="number" name="q_kimia">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_kimia">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_kimia">
                                 </div>
                             </div>
                         </div>
@@ -234,8 +234,8 @@
                                     <input class="form-control" type="number" name="q_fisika">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_fisika">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_fisika">
                                 </div>
                             </div>
                         </div>
@@ -247,8 +247,8 @@
                                     <input class="form-control" type="number" name="q_biologi">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_biologi">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_biologi">
                                 </div>
                             </div>
                         </div>
@@ -260,8 +260,8 @@
                                     <input class="form-control" type="number" name="q_matematika">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_matematika">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_matematika">
                                 </div>
                             </div>
                         </div>
@@ -276,8 +276,8 @@
                                     <input class="form-control" type="number" name="q_sejarah">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_sejarah">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_sejarah">
                                 </div>
                             </div>
                         </div>
@@ -289,8 +289,8 @@
                                     <input class="form-control" type="number" name="q_geografi">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_geografi">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_geografi">
                                 </div>
                             </div>
                         </div>
@@ -302,8 +302,8 @@
                                     <input class="form-control" type="number" name="q_sosiologi">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_sosiologi">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_sosiologi">
                                 </div>
                             </div>
                         </div>
@@ -315,8 +315,8 @@
                                     <input class="form-control" type="number" name="q_ekonomi">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
-                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan" name="t_ekonomi">
+                                    <label for="">Waktu Pengerjaan (jam:menit:detik)</label>
+                                    <input class="form-control" type="time" step="2" placeholder="Waktu Pengerjaan (jam:menit:detik)" name="t_ekonomi">
                                 </div>
                             </div>
                         </div>

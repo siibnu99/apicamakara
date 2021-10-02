@@ -25,9 +25,9 @@ class TryoutModel extends Model
         $score = 0;
         if ($direct) {
             foreach (getTypeMapel($prodiId) as $valueMapel) {
-                $valueAnswert = $AnswertModel->where(['tryout_id' => $data['tryout_id'], 'user_id' => $data['user_id'], 'kind_tryout' => $valueMapel[2]])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_answert.tryout_id')->findAll();
+                $valueAnswert = $AnswertModel->where(['tryout_id' => $data['tryout_id'], 'user_id' => $data['user_id'], 'kind_tryout' => $valueMapel[1]])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_answert.tryout_id')->first();
                 if (!$valueAnswert) continue;
-                if ($valueAnswert['kind_tryout'] == $valueMapel[2]) {
+                if ($valueAnswert['kind_tryout'] == $valueMapel[1]) {
                     $valueAnswert['answer'] = explode(',', $valueAnswert['answer']);
                     $no = 1;
                     foreach ($valueAnswert['answer'] as $valueAnswer) {
@@ -43,9 +43,9 @@ class TryoutModel extends Model
             $dataProdi = $ProdiModel->find($prodiId);
             if ($data['type_tryout'] == 3) {
                 foreach (getTypeMapel($dataProdi['kelompok_ujian']) as $valueMapel) {
-                    $valueAnswert = $AnswertModel->where(['tryout_id' => $data['tryout_id'], 'user_id' => $data['user_id'], 'kind_tryout' => $valueMapel[2]])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_answert.tryout_id')->findAll();
+                    $valueAnswert = $AnswertModel->where(['tryout_id' => $data['tryout_id'], 'user_id' => $data['user_id'], 'kind_tryout' => $valueMapel[1]])->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_answert.tryout_id')->findAll();
                     if (!$valueAnswert) continue;
-                    if ($valueAnswert['kind_tryout'] == $valueMapel[2]) {
+                    if ($valueAnswert['kind_tryout'] == $valueMapel[1]) {
                         $valueAnswert['answer'] = explode(',', $valueAnswert['answer']);
                         $no = 1;
                         foreach ($valueAnswert['answer'] as $valueAnswer) {
@@ -72,7 +72,6 @@ class TryoutModel extends Model
                 }
             }
         }
-
         return $score;
     }
     public function getScoreByKind($iduser, $idtryout, $kind)

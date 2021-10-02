@@ -20,11 +20,28 @@ class Tryout extends BaseController
     }
     public function submitted($id = null)
     {
+        $result = $this->MytryoutModel
+            ->select('tbl_tryout.name,tbl_user.fullname,tbl_user.firstname,tbl_user.lastname,tbl_mytryout.finish,tbl_mytryout.price,tbl_mytryout.prodi1,tbl_mytryout.prodi2,tbl_mytryout.tryout_id,tbl_mytryout.user_id,tbl_tryout.type_tryout,tbl_mytryout.id_mytryout')
+            ->where('tryout_id', $id)
+            ->join('tbl_tryout', 'tbl_tryout.id_tryout = tbl_mytryout.tryout_id')
+            ->join('tbl_user', 'tbl_user.id_user = tbl_mytryout.user_id')
+            ->findAll();
         $data = [
             'title' => 'tryout',
-            'id' => $id
+            'id' => $id,
+            'data' => $result,
+            'tryoutModel' => $this->TryoutModel,
+            'prodiModel' => $this->ProdiModel,
         ];
         return view('tryout/submitted', $data);
+    }
+    public function submittedreset($id = null)
+    {
+        $save = [
+            'finish' => 0
+        ];
+        $this->MytryoutModel->update($id, $save);
+        return redirect()->to($_SERVER['HTTP_REFERER']);
     }
     public function create()
     {

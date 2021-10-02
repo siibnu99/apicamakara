@@ -17,10 +17,10 @@ class Apitopup extends ResourceController
     public function __construct()
     {
         // Set your Merchant Server Key
-        // \Midtrans\Config::$serverKey = 'SB-Mid-server-J2ndA6XoeLvqC3BmIiWeXSGo';
-        \Midtrans\Config::$serverKey = 'Mid-server-iDdAPVX8XtVjS0-z-Sd2y6t2';
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-4mGDRAXnP8w59UoH5H1-T7SO';
+        // \Midtrans\Config::$serverKey = 'Mid-server-iDdAPVX8XtVjS0-z-Sd2y6t2';
         // Uncomment for production environment
-        \Midtrans\Config::$isProduction = true;
+        // \Midtrans\Config::$isProduction = true;
 
         // Uncomment to enable sanitization
         // Config::$isSanitized = true;
@@ -45,9 +45,11 @@ class Apitopup extends ResourceController
     {
         if ($id) {
             $data = $this->model->find($id);
+            $status = \Midtrans\Transaction::status($id);
             $response = [
                 'status' => 200,
                 'data' => $data,
+                'response' => $status
             ];
             return $this->respond($response, 200);
         }

@@ -170,7 +170,7 @@
                                     <input class="form-control" type="number" name="q_penalaran" value="<?= old('q_penalaran') ? old('q_penalaran') : $tryout['q_penalaran'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_penalaran" value="<?= old('t_penalaran') ? old('t_penalaran') : $tryout['t_penalaran'] ?>">
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                                     <input class="form-control" type="number" name="q_pemahaman" value="<?= old('q_pemahaman') ? old('q_pemahaman') : $tryout['q_pemahaman'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_pemahaman" value="<?= old('t_pemahaman') ? old('t_pemahaman') : $tryout['t_pemahaman'] ?>">
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                                     <input class="form-control" type="number" name="q_pengetahuan" value="<?= old('q_pengetahuan') ? old('q_pengetahuan') : $tryout['q_pengetahuan'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_pengetahuan" value="<?= old('t_pengetahuan') ? old('t_pengetahuan') : $tryout['t_pengetahuan'] ?>">
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
                                     <input class="form-control" type="number" name="q_pengetahuank" value="<?= old('q_pengetahuank') ? old('q_pengetahuank') : $tryout['q_pengetahuank'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_pengetahuank" value="<?= old('t_pengetahuank') ? old('t_pengetahuank') : $tryout['t_pengetahuank'] ?>">
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                                     <input class="form-control" type="number" name="q_kimia" value="<?= old('q_kimia') ? old('q_kimia') : $tryout['q_kimia'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_kimia" value="<?= old('t_kimia') ? old('t_kimia') : $tryout['t_kimia'] ?>">
                                 </div>
                             </div>
@@ -238,7 +238,7 @@
                                     <input class="form-control" type="number" name="q_fisika" value="<?= old('q_fisika') ? old('q_fisika') : $tryout['q_fisika'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_fisika" value="<?= old('t_fisika') ? old('t_fisika') : $tryout['t_fisika'] ?>">
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
                                     <input class="form-control" type="number" name="q_biologi" value="<?= old('q_biologi') ? old('q_biologi') : $tryout['q_biologi'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_biologi" value="<?= old('t_biologi') ? old('t_biologi') : $tryout['t_biologi'] ?>">
                                 </div>
                             </div>
@@ -264,7 +264,7 @@
                                     <input class="form-control" type="number" name="q_matematika" value="<?= old('q_matematika') ? old('q_matematika') : $tryout['q_matematika'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_matematika" value="<?= old('t_matematika') ? old('t_matematika') : $tryout['t_matematika'] ?>">
                                 </div>
                             </div>
@@ -280,7 +280,7 @@
                                     <input class="form-control" type="number" name="q_sejarah" value="<?= old('q_sejarah') ? old('q_sejarah') : $tryout['q_sejarah'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_sejarah" value="<?= old('t_sejarah') ? old('t_sejarah') : $tryout['t_sejarah'] ?>">
                                 </div>
                             </div>
@@ -293,7 +293,7 @@
                                     <input class="form-control" type="number" name="q_geografi" value="<?= old('q_geografi') ? old('q_geografi') : $tryout['q_geografi'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_geografi" value="<?= old('t_geografi') ? old('t_geografi') : $tryout['t_geografi'] ?>">
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
                                     <input class="form-control" type="number" name="q_sosiologi" value="<?= old('q_sosiologi') ? old('q_sosiologi') : $tryout['q_sosiologi'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_sosiologi" value="<?= old('t_sosiologi') ? old('t_sosiologi') : $tryout['t_sosiologi'] ?>">
                                 </div>
                             </div>
@@ -319,7 +319,7 @@
                                     <input class="form-control" type="number" name="q_ekonomi" value="<?= old('q_ekonomi') ? old('q_ekonomi') : $tryout['q_ekonomi'] ?>">
                                 </div>
                                 <div class="col-6">
-                                    <label for="">Waktu Pengerjaan</label>
+                                    <label for="">Waktu Pengerjaan(jam:menit:detik)</label>
                                     <input class="form-control" type="time" step="2" placeholder="(menit)" name="t_ekonomi" value="<?= old('t_ekonomi') ? old('t_ekonomi') : $tryout['t_ekonomi'] ?>">
                                 </div>
                             </div>
