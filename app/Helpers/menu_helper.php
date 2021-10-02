@@ -283,9 +283,9 @@ function timeToSecond($time = null, $server = false)
 {
     $time = explode(':', $time);
     if ($server) {
-        return ((($time[0] ?? 0) * 3600) + (($time[1] ?? 0) * 60) + ($time[2] ?? 0));
+        return (((int)($time[0] ?? 0) * 3600) + ((int)($time[1] ?? 0) * 60) + (int)($time[2] ?? 0));
     } else {
-        return ((($time[0] ?? 0) * 3600) + (($time[1] ?? 0) * 60) + ($time[2] ?? 0)) * 1000;
+        return (((int)($time[0] ?? 0) * 3600) + ((int)($time[1] ?? 0) * 60) + (int)($time[2] ?? 0)) * 1000;
     }
 }
 function secondToTime($time = null)
